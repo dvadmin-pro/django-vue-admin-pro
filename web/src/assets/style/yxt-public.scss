@@ -1,0 +1,39 @@
+/*常用 flex  水平居后*/
+.yxt-flex-end{
+  display: flex;
+  justify-content: flex-end;
+}
+/*常用 flex  水平居前*/
+.yxt-flex-start{
+  display: flex;
+  justify-content: flex-start;
+}
+/*用 flex  两边对齐*/
+.yxt-flex-between{
+  display: flex;
+  justify-content: space-between;
+}
+/*常用 flex 水平居中*/
+.yxt-flex-center{
+  display: flex;
+  justify-content:center;
+}
+/* 常用 flex  垂直居中*/
+.yxt-flex-align-center{
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* 常用 flex 基于底部对齐*/
+.yxt-flex-align-end{
+  display:flex;
+  align-items:flex-end;
+}
+
+/**常用 flex 纵向排列**/
+.yxt-flex-column{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
