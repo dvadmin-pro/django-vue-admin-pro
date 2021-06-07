@@ -39,14 +39,14 @@ INSTALLED_APPS = [
     'django_comment_migrate',
     'rest_framework',
     'django_filters',
-    'corsheaders', #æ³¨å†Œè·¨åŸŸapp
+    'corsheaders', #×¢²á¿çÓòapp
     'dvadmin.system.apps.SystemConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',#è·¨åŸŸä¸­é—´ä»¶
+    'corsheaders.middleware.CorsMiddleware',#¿çÓòÖĞ¼ä¼ş
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -131,18 +131,18 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-# *************è·¨åŸŸçš„é…ç½®********************#
-# å…¨éƒ¨å…è®¸é…ç½®
+# *************¿çÓòµÄÅäÖÃ********************#
+# È«²¿ÔÊĞíÅäÖÃ
 CORS_ORIGIN_ALLOW_ALL = True
-# ç™½åå•é…ç½®
+# °×Ãûµ¥ÅäÖÃ
 CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8080',
     'http://localhost:8080',
 )
-# å…è®¸cookie
-CORS_ALLOW_CREDENTIALS = True  # æŒ‡æ˜åœ¨è·¨åŸŸè®¿é—®ä¸­ï¼Œåç«¯æ˜¯å¦æ”¯æŒå¯¹cookieçš„æ“ä½œ
+# ÔÊĞícookie
+CORS_ALLOW_CREDENTIALS = True  # Ö¸Ã÷ÔÚ¿çÓò·ÃÎÊÖĞ£¬ºó¶ËÊÇ·ñÖ§³Ö¶ÔcookieµÄ²Ù×÷
 
-# å…è®¸çš„è¯·æ±‚æ–¹å¼
+# ÔÊĞíµÄÇëÇó·½Ê½
 CORS_ALLOW_METHODS = (
  'DELETE',
  'GET',
@@ -152,7 +152,7 @@ CORS_ALLOW_METHODS = (
  'PUT',
  'VIEW',
 )
-# å…è®¸çš„è¯·æ±‚å¤´
+# ÔÊĞíµÄÇëÇóÍ·
 CORS_ALLOW_HEADERS = (
  'XMLHttpRequest',
  'X_FILENAME',
@@ -167,30 +167,30 @@ CORS_ALLOW_HEADERS = (
  'Pragma',
 )
 
-# **********REST_FRAMEWORKé…ç½®**************#
+# **********REST_FRAMEWORKÅäÖÃ**************#
 REST_FRAMEWORK = {
-    'DATETIME_FORMAT':"%Y-%m-%d %H:%M:%S", #æ—¥æœŸæ—¶é—´æ ¼å¼é…ç½®
+    'DATETIME_FORMAT':"%Y-%m-%d %H:%M:%S", #ÈÕÆÚÊ±¼ä¸ñÊ½ÅäÖÃ
     'DATE_FORMAT':"%Y-%m-%d",
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter'
     ),
-    'DEFAULT_PAGINATION_CLASS':  'dvadmin.plugins.pagination.CustomPagination', #è‡ªå®šä¹‰åˆ†é¡µ
+    'DEFAULT_PAGINATION_CLASS':  'dvadmin.plugins.pagination.CustomPagination', #×Ô¶¨Òå·ÖÒ³
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'dvadmin.plugins.exception.CustomExceptionHandler',  # è‡ªå®šä¹‰çš„å¼‚å¸¸å¤„ç†
+    'EXCEPTION_HANDLER': 'dvadmin.plugins.exception.CustomExceptionHandler',  # ×Ô¶¨ÒåµÄÒì³£´¦Àí
 }
 
-# **************simplejwté…ç½®****************#
+# **************simplejwtÅäÖÃ****************#
 from datetime import timedelta
 SIMPLE_JWT = {
-    # tokenæœ‰æ•ˆæ—¶é•¿
+    # tokenÓĞĞ§Ê±³¤
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-    # tokenåˆ·æ–°åçš„æœ‰æ•ˆæ—¶é—´
+    # tokenË¢ĞÂºóµÄÓĞĞ§Ê±¼ä
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    #è®¾ç½®å‰ç¼€
+    #ÉèÖÃÇ°×º
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
