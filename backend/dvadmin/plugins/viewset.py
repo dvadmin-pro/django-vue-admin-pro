@@ -6,6 +6,8 @@
 @Created on: 2021/6/1 001 22:57
 @Remark: 自定义视图集
 """
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter,OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 
 from dvadmin.plugins.filters import DataLevelPermissionsFilter
@@ -28,18 +30,27 @@ class CustomModelViewSet(ModelViewSet):
     permission_classes  = [CustomPermission]
     filter_fields = ()
     search_fields = ()
-    filter_backends  = [DataLevelPermissionsFilter]
+    extra_filter_backends = [DataLevelPermissionsFilter]
+
+    def filter_queryset(self, queryset):
+        for backend in set(set(self.filter_backends) | set(self.extra_filter_backends or [])):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
 
     def get_queryset(self):
         if getattr(self, 'values_queryset', None):
             return self.values_queryset
         return super().get_queryset()
 
+    def get_serializer_class(self):
+        action_serializer_name = f"{self.action}_serializer_class"
+        action_serializer_class = getattr(self, action_serializer_name, None)
+        if action_serializer_class:
+            return action_serializer_class
+        return super().get_serializer_class()
+
     def create(self, request, *args, **kwargs):
-        if self.create_serializer_class:
-            serializer = self.create_serializer_class(data=request.data,request=request)
-        else:
-            serializer = self.get_serializer(data=request.data,request=request)
+        serializer = self.get_serializer(data=request.data,request=request)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -65,10 +76,7 @@ class CustomModelViewSet(ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        if self.update_serializer_class:
-            serializer = self.update_serializer_class(instance, data=request.data, partial=partial,request=request)
-        else:
-            serializer = self.get_serializer(instance,data=request.data,request=request)
+        serializer = self.get_serializer(instance,data=request.data,request=request)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 

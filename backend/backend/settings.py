@@ -138,6 +138,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:8080',
     'http://localhost:8080',
+    'http://192.168.1.3:8080',
+    "http://yuanxiaotian.qicp.vip",
 )
 # 允许cookie
 CORS_ALLOW_CREDENTIALS = True  # 指明在跨域访问中，后端是否支持对cookie的操作
@@ -174,7 +176,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
-        'rest_framework.filters.OrderingFilter'
+        'rest_framework.filters.OrderingFilter',
+
     ),
     'DEFAULT_PAGINATION_CLASS':  'dvadmin.plugins.pagination.CustomPagination', #自定义分页
     'DEFAULT_AUTHENTICATION_CLASSES': (
