@@ -6,16 +6,17 @@
 @Created on: 2021/6/2 002 16:06
 @Remark: 自定义异常处理
 """
-from django.db import DatabaseError
+import logging
+import traceback
+
 from django.db.models import ProtectedError
 from rest_framework import exceptions
 from rest_framework.exceptions import APIException as DRFAPIException, AuthenticationFailed
-from rest_framework.views import exception_handler,set_rollback
-
-import json,copy
+from rest_framework.views import set_rollback
 
 from dvadmin.plugins.jsonResponse import ErrorResponse
-from dvadmin.plugins.validator import CustomValidationError
+
+logger = logging.getLogger(__name__)
 
 
 # def CustomExceptionHandler(exc, context):
@@ -93,9 +94,8 @@ def CustomExceptionHandler(ex, context):
     #     set_rollback()
     #     msg = "接口服务器异常,请联系管理员"
     elif isinstance(ex, Exception):
-
+        logger.error(traceback.format_exc())
         msg = str(ex)
-
 
     # errorMsg = msg
     # for key in errorMsg:

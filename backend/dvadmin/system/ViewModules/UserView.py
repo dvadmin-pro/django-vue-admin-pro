@@ -33,7 +33,7 @@ class UserCreateSerializer(CustomModelSerializer):
     """
     username = serializers.CharField(max_length=50,
                                      validators=[CustomUniqueValidator(queryset=Users.objects.all(), message="账号必须唯一")])
-    password = serializers.CharField(required=False,default=make_password("123456"))
+    # password = serializers.CharField(required=False,default=make_password("123456"))
 
     def save(self, **kwargs):
         data = super().save(**kwargs)

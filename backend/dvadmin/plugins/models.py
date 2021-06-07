@@ -10,7 +10,7 @@ import uuid
 
 from django.db import models
 
-from backend import settings
+from application import settings
 
 table_prefix = "system_" #数据库表名前缀
 

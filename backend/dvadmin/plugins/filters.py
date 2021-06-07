@@ -29,6 +29,7 @@ def get_dept(dept_id: int, dept_all_list=None, dept_list=None):
             get_dept(ele.get('id'), dept_all_list, dept_list)
     return list(set(dept_list))
 
+
 class DataLevelPermissionsFilter(BaseFilterBackend):
     """
     数据 级权限过滤器
@@ -47,9 +48,9 @@ class DataLevelPermissionsFilter(BaseFilterBackend):
         判断是否为超级管理员:
         如果不是超级管理员,则进入下一步权限判断
         """
-        if request.user.is_superuser==0:
+        if request.user.is_superuser == 0:
             # 0. 获取用户的部门id，没有部门则返回空
-            user_dept_id = getattr(request.user, 'dept_id')
+            user_dept_id = getattr(request.user, 'dept_id', None)
             if not user_dept_id:
                 return queryset.none()
 

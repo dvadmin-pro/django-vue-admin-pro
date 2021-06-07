@@ -15,7 +15,7 @@ class CustomPermission(BasePermission):
     def has_permission(self, request, view):
         api = request.path #当前请求接口
         method = request.method #当前请求方法
-        methodList = ['GET','POST','PUT','DELETE']
+        methodList = ['GET','POST','PUT','DELETE','OPTIONS']
         method = methodList.index(method)
         roleList = request.user.role.all() #获取当前用户的角色
         for ietm in roleList:

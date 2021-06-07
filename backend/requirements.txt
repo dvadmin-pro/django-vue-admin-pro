@@ -11,3 +11,4 @@ pytz==2021.1
 six==1.16.0
 sqlparse==0.4.1
 typing-extensions==3.10.0.0
+user-agents==2.2.0
