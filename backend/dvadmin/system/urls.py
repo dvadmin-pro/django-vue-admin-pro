@@ -13,6 +13,7 @@ from dvadmin.system.ViewModules.DeptView import DeptViewSet
 from dvadmin.system.ViewModules.MenuButtonView import MenuButtonViewSet
 from dvadmin.system.ViewModules.MenuView import MenuViewSet
 from dvadmin.system.ViewModules.ButtonView import ButtonViewSet
+from dvadmin.system.ViewModules.OperationLogView import OperationLogViewSet
 from dvadmin.system.ViewModules.RoleView import RoleViewSet
 from dvadmin.system.ViewModules.UserView import UserViewSet
 
@@ -23,6 +24,7 @@ system_url.register(r'menuButton',MenuButtonViewSet)
 system_url.register(r'role',RoleViewSet)
 system_url.register(r'dept',DeptViewSet)
 system_url.register(r'user',UserViewSet)
+system_url.register(r'operation_log',OperationLogViewSet)
 
 
 
