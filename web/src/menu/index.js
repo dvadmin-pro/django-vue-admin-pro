@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-06 18:41:37
+ * @最后修改时间: 2021-06-08 10:47:20
  * 联系Qq:1638245306
  * @文件介绍: 
  */
@@ -53,6 +53,13 @@ export const menuAside = supplementPath([
             { path: '/role', title: '角色' },
             { path: '/dept', title: '部门' },
             { path: '/rolePermisson', title: '角色权限' },
+            {
+                title: '日志管理', children: [
+                    { path: '/operationLog', title: '操作日志' },
+                ]
+            },
+
+
 
         ]
     }

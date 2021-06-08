@@ -108,7 +108,7 @@ const frameIn = [{
             },
             component: _import('system/rolePermisson')
         },
-        
+
         //系统 角色管理
         {
             path: 'dept',
@@ -119,15 +119,25 @@ const frameIn = [{
             },
             component: _import('system/dept')
         },
+        // 系统 操作日志
+        {
+            path: 'operationLog',
+            name: 'operationLog',
+            meta: {
+                title: '操作日志',
+                auth: true
+            },
+            component: _import('system/log/operationLog')
+        },
         // 系统 前端日志
         {
-            path: 'log',
-            name: 'log',
+            path: 'frontendLog',
+            name: 'frontendLog',
             meta: {
                 title: '前端日志',
                 auth: true
             },
-            component: _import('system/log')
+            component: _import('system/log/frontendLog')
         },
         // 刷新页面 必须保留
         {
