@@ -7,6 +7,7 @@
 
 @Created on: 2020/4/16 23:35
 """
+from django.core import paginator
 from rest_framework.pagination import PageNumberPagination
 from collections import OrderedDict
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ class CustomPagination(PageNumberPagination):
         code = 2000
         msg = 'success'
         res = {
-            "page":1,
+            "page":self.get_page_number(self.request, paginator) or 1,
             "total":self.page.paginator.count,
             "limit":self.page_size,
             "data":data

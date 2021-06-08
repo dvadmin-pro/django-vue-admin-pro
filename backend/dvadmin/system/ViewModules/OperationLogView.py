@@ -38,5 +38,5 @@ class OperationLogViewSet(CustomModelViewSet):
     """
     操作日志 接口:
     """
-    queryset = OperationLog.objects.all()
+    queryset = OperationLog.objects.order_by('-create_datetime')
     serializer_class = OperationLogSerializer

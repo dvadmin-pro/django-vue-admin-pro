@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'application.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dvadmin-pro-test',
+        'NAME': 'dvadmin_pro',
         'USER': 'root',
-        'PASSWORD': 'Aa428912.',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

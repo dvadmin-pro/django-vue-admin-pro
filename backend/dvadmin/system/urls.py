@@ -24,7 +24,7 @@ system_url.register(r'menuButton',MenuButtonViewSet)
 system_url.register(r'role',RoleViewSet)
 system_url.register(r'dept',DeptViewSet)
 system_url.register(r'user',UserViewSet)
-system_url.register(r'operation_log',OperationLogViewSet)
+system_url.register(r'operationLog',OperationLogViewSet)
 
 
 
