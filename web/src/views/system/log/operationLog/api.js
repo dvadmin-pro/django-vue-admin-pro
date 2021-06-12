@@ -1,10 +1,10 @@
 /*
- * @创建文件时间: 2021-06-01 22:41:21
+ * @创建文件时间: 2021-06-08 10:40:32
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-08 10:51:53
+ * @最后修改时间: 2021-06-09 10:36:20
  * 联系Qq:1638245306
- * @文件介绍: 用户接口
+ * @文件介绍: 操作日志
  */
 import { request } from '@/api/service'
 
@@ -32,7 +32,7 @@ export function UpdateObj(obj) {
 }
 export function DelObj(id) {
   return request({
-    url: '/api/system/user/' + id + '/',
+    url: '/api/system/operationLog/' + id + '/',
     method: 'delete',
     data: { id }
   })

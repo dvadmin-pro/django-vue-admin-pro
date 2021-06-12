@@ -32,5 +32,7 @@ urlpatterns = [
        path('menuTree/', MenuViewSet.as_view({'get':'menu_tree'})),
        path('deptTree/', DeptViewSet.as_view({'get':'dept_tree'})),
        re_path('roleIdToMenu/(?P<pk>.*?)/', RoleViewSet.as_view({'get':'roleId_to_menu'})),
+       path('webRouter/', MenuViewSet.as_view({'get':'web_router'})),
+
 ]
 urlpatterns += system_url.urls

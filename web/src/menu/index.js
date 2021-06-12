@@ -2,12 +2,14 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-08 10:47:20
+ * @最后修改时间: 2021-06-09 12:00:41
  * 联系Qq:1638245306
- * @文件介绍: 
+ * @文件介绍: 菜单获取
  */
 import { uniqueId } from 'lodash'
-
+import { request } from "@/api/service";
+import XEUtils from "xe-utils";
+import { mapState, mapGetters, mapActions, store } from "vuex";
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
@@ -38,29 +40,48 @@ export const menuHeader = supplementPath([])
 //     }
 // ])
 
-export const menuAside = supplementPath([
-    { path: '/index', title: '首页', icon: 'home' },
-    {
-        title: '系统管理',
-        icon: 'folder-o',
-        children: [
-            // { path: '/page1', title: '页面 1' },
-            // { path: '/page2', title: '页面 2' },
-            // { path: '/page3', title: '页面 3' },
-            { path: '/menu', title: '菜单' },
-            { path: '/user', title: '用户' },
-            { path: '/button', title: '按钮' },
-            { path: '/role', title: '角色' },
-            { path: '/dept', title: '部门' },
-            { path: '/rolePermisson', title: '角色权限' },
-            {
-                title: '日志管理', children: [
-                    { path: '/operationLog', title: '操作日志' },
-                ]
-            },
+
+export const menuAside = supplementPath([])
+// export const menuAside = supplementPath([
+//     { path: '/index', title: '首页', icon: 'home' },
+//     {
+//         title: '系统管理',
+//         icon: 'folder-o',
+//         children: [
+//             // { path: '/page1', title: '页面 1' },
+//             // { path: '/page2', title: '页面 2' },
+//             // { path: '/page3', title: '页面 3' },
+//             { path: '/menu', title: '菜单' },
+//             { path: '/user', title: '用户' },
+//             { path: '/button', title: '按钮' },
+//             { path: '/role', title: '角色' },
+//             { path: '/dept', title: '部门' },
+//             { path: '/rolePermisson', title: '角色权限' },
+//             {
+//                 title: '日志管理', children: [
+//                     { path: '/operationLog', title: '操作日志' },
+//                 ]
+//             },
+//         ]
+//     }
+// ])
 
 
-
+export const getMenu = function (self) {
+    return request({
+        url: "/api/system/webRouter",
+        method: "get",
+        params: {},
+    }).then((res) => {
+        //将列表数据转换为树形数据
+        let data = XEUtils.toArrayTree(res.data.data, {
+            parentKey: "parent",
+            strict: true,
+        });
+        let menu = [
+            { path: "/index", title: "首页", icon: "home" },
+            ...data,
         ]
-    }
-])
+        return supplementPath(menu)
+    });
+}

@@ -24,9 +24,9 @@ class CustomPagination(PageNumberPagination):
         code = 2000
         msg = 'success'
         res = {
-            "page":self.get_page_number(self.request, paginator) or 1,
+            "page":int(self.get_page_number(self.request, paginator)) or 1,
             "total":self.page.paginator.count,
-            "limit":self.page_size,
+            "limit":int(self.get_page_size(self.request)) or 10,
             "data":data
         }
         if not data:
