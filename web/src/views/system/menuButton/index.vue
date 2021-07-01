@@ -2,9 +2,9 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-06 12:30:05
+ * @最后修改时间: 2021-06-27 14:00:23
  * 联系Qq:1638245306
- * @文件介绍: 
+ * @文件介绍: 菜单按钮管理(由菜单的自定义权限进入)
 -->
 <template>
   <d2-container :class="{ 'page-compact': crud.pageOptions.compact }">
@@ -21,7 +21,11 @@
           @submit="handleSearch"
         />
         <el-button-group>
-          <el-button size="small" type="primary" @click="addRow"
+          <el-button
+            size="small"
+            v-permission="'Create'"
+            type="primary"
+            @click="addRow"
             ><i class="el-icon-plus" /> 新增</el-button
           >
         </el-button-group>

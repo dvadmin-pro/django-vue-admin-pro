@@ -60,6 +60,8 @@ class DeptViewSet(CustomModelViewSet):
     """
     queryset = Dept.objects.all()
     serializer_class = DeptSerializer
+    extra_filter_backends = []
+    permission_classes = []
 
     def dept_tree(self,request):
         queryset = Dept.objects.filter(parent=None)

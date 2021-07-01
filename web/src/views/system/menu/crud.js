@@ -22,11 +22,13 @@ export const crudOptions = (vm) => {
             width: 370,
             custom: [{
                 show(index, row) {
-                    console.log(vm.$router.history.current.path);
-                    if (row.parent) {
+                    if (row.web_path) {
                         return true
                     }
                     return false
+                },
+                disabled() {
+                    return !vm.hasPermissions('Update')
                 },
                 text: ' 按钮权限',
                 type: 'warning',

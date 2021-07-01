@@ -12,7 +12,7 @@ from dvadmin.plugins.jsonResponse import SuccessResponse
 from dvadmin.plugins.serializers import CustomModelSerializer
 from dvadmin.plugins.validator import CustomValidationError
 from dvadmin.plugins.viewset import CustomModelViewSet
-from dvadmin.system.models import Menu, MenuButton, Role
+from dvadmin.system.models import Menu, MenuButton, Role, Button
 
 
 class MenuSerializer(CustomModelSerializer):
@@ -78,10 +78,28 @@ class WebRouterSerializer(CustomModelSerializer):
     """
     path = serializers.CharField(source="web_path")
     title = serializers.CharField(source="name")
+    menuPermission = serializers.SerializerMethodField(read_only=True)
+
+    def get_menuPermission(self, instance):
+        #判断是否是超级管理员
+        if self.request.user.is_superuser:
+            return Button.objects.values_list('value', flat=True)
+        else:
+            #根据当前角色获取权限按钮id集合
+            permissionIds = self.request.user.role.values_list('permission', flat=True)
+            queryset = MenuButton.objects.filter(id__in=permissionIds).values_list('value', flat=True)
+            if queryset:
+                return queryset
+            else:
+                return None
+
     class Meta:
         model = Menu
         fields = "__all__"
         read_only_fields=["id"]
+
+
+
 
 
 class MenuViewSet(CustomModelViewSet):
@@ -109,5 +127,5 @@ class MenuViewSet(CustomModelViewSet):
         else:
             menuIds = user.role.values_list('menu__id',flat=True)
             queryset = Menu.objects.filter(id__in=menuIds)
-        serializer = WebRouterSerializer(queryset, many=True)
+        serializer = WebRouterSerializer(queryset, many=True,request=request)
         return SuccessResponse(data=serializer.data, msg="获取成功")

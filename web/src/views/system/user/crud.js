@@ -8,6 +8,26 @@ export const crudOptions = (vm) => {
     options: {
       height: '100%'
     },
+    rowHandle: {
+
+      edit: {
+        thin: true,
+        text: "编辑",
+        show() {
+          return vm.hasPermissions('Update')
+        },
+        disabled() {
+          return !vm.hasPermissions('Update')
+        }
+      },
+      remove: {
+        thin: true,
+        text: "删除",
+        disabled() {
+          return !vm.hasPermissions('Delete')
+        }
+      }
+    },
     viewOptions: {
       componentType: 'row'
     },

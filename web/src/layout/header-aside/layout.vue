@@ -182,9 +182,8 @@ export default {
      */
     getMenus() {
       getMenu().then((res) => {
-        this.$store.commit("d2admin/menu/asideSet", res);
-
-        this.$store.commit("d2admin/search/init", res);
+        this.$store.commit("d2admin/menu/asideSet", res); //设置侧边栏菜单
+        this.$store.commit("d2admin/search/init", res); //设置搜索
       });
     },
   },

@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-03 00:50:28
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-06 12:20:58
+ * @最后修改时间: 2021-06-27 13:57:42
  * 联系Qq:1638245306
  * @文件介绍: 菜单的按钮和接口配置
  */
@@ -18,6 +18,23 @@ export const crudOptions = (vm) => {
             rowKey: false,
             width: '100%',
             height: '100%', // 表格高度100%, 使用toolbar必须设置
+        },
+        rowHandle: {
+            width: 180,
+            edit: {
+                thin: true,
+                text: "编辑",
+                disabled() {
+                    return !vm.hasPermissions('Update')
+                }
+            },
+            remove: {
+                thin: true,
+                text: "删除",
+                disabled() {
+                    return !vm.hasPermissions('Delete')
+                }
+            }
         },
         indexRow: { // 或者直接传true,不显示title，不居中
             title: '序号',

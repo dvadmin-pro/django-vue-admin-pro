@@ -7,6 +7,7 @@
 @Remark: 角色管理
 """
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated
 
 from dvadmin.plugins.jsonResponse import SuccessResponse
 from dvadmin.plugins.serializers import CustomModelSerializer
@@ -67,10 +68,12 @@ class RoleViewSet(CustomModelViewSet):
     """
     角色管理接口:
     """
+    permission_classes = [IsAuthenticated]
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
     create_serializer_class = RoleCreateUpdateSerializer
     update_serializer_class = RoleCreateUpdateSerializer
+    extra_filter_backends = []
 
     def roleId_to_menu(self,request,*args, **kwargs):
         """通过角色id获取该角色用于的菜单"""

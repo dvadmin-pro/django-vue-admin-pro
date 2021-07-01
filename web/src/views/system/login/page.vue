@@ -161,8 +161,8 @@ export default {
       ],
       // 表单
       formLogin: {
-        username: "admin",
-        password: "admin",
+        username: "superadmin",
+        password: "123456",
         code: "v9am",
       },
       // 表单校验

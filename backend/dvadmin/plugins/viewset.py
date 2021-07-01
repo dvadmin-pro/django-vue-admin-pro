@@ -31,6 +31,7 @@ class CustomModelViewSet(ModelViewSet):
     filter_fields = ()
     search_fields = ()
     extra_filter_backends = [DataLevelPermissionsFilter]
+    permission_classes = [CustomPermission]
 
     def filter_queryset(self, queryset):
         for backend in set(set(self.filter_backends) | set(self.extra_filter_backends or [])):
