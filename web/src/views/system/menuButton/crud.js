@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-03 00:50:28
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-02 23:55:25
+ * @最后修改时间: 2021-07-04 00:02:34
  * 联系Qq:1638245306
  * @文件介绍: 菜单的按钮和接口配置
  */
@@ -172,20 +172,47 @@ export const crudOptions = (vm) => {
             search: {
                 disabled: true
             },
-            type: 'input',
+            type: 'select',
+            dict: {
+                url: '/swagger.json',
+                label: 'label',
+                value: "value",
+                getData: (url, dict) => {
+                    return request({ url: url }).then(ret => {
+                        let res = Object.keys(ret.paths)
+                        let data = []
+                        for (let item of res) {
+                            let obj = {}
+                            obj['label'] = item;
+                            obj['value'] = item;
+                            data.push(obj)
+                        }
+
+                        return data
+                    })
+                }
+            },
             form: {
                 rules: [ // 表单校验规则
                     { required: true, message: '必填项' }
                 ],
                 component: {
-                    span: 24
+                    span: 24,
+                    props: {
+                        elProps: {
+                            allowCreate: true,
+                            filterable: true,
+                            clearable: true
+                        }
+
+                    }
                 },
                 itemProps: {
                     class: { 'yxtInput': true },
                 },
                 helper: {
                     render(h) {
-                        return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/(?P<pk>.*?)/" type="warning" />
+                        return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/.*?/" type="warning" />
                         )
                     }
                 }

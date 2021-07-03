@@ -17,7 +17,8 @@ def ValidationApi(reqApi,validApi):
     :param validApi: 用于验证的接口
     :return: True或者False
     """
-    matchObj = re.match(validApi, reqApi, re.M | re.I)
+    valid_api = validApi.replace('{id}','.*?')
+    matchObj = re.match(valid_api, reqApi, re.M | re.I)
     if matchObj:
         return True
     else:

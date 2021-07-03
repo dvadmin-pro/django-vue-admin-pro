@@ -49,6 +49,7 @@ function createService() {
                         //     router.push({ path: '/login' })
                         // })
                         errorCreate(`${dataAxios.msg}`)
+                        router.push({ path: '/login' })
                         break
                     case 404:
                         dataNotFound(`${dataAxios.msg}`)
@@ -75,6 +76,7 @@ function createService() {
                     }).catch(e => {
                         router.push({ name: '/login' })
                     })
+                    router.push({ path: '/login' })
                     error.message = '未认证，请登录';
                     break
                 case 403:

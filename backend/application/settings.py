@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders', #×¢²á¿çÓòapp
     'dvadmin.system',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
