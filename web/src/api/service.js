@@ -10,7 +10,10 @@ import router from '@/router'
  */
 function createService() {
     // 创建一个 axios 实例
-    const service = axios.create()
+    const service = axios.create({
+        baseURL: process.env.VUE_APP_API_URL,
+        timeout: 20000
+    })
     // 请求拦截
     service.interceptors.request.use(
         config => config,
@@ -40,12 +43,12 @@ function createService() {
                         // return dataAxios.data
                         return dataAxios
                     case 401:
-                        refreshTken().then(res => {
-                            util.cookies.set('token', res.access)
-                        }).catch(e => {
-                            router.push({ path: '/login' })
-                        })
-                        errorCreate(`未认证,请登录`)
+                        // refreshTken().then(res => {
+                        //     util.cookies.set('token', res.access)
+                        // }).catch(e => {
+                        //     router.push({ path: '/login' })
+                        // })
+                        errorCreate(`${dataAxios.msg}`)
                         break
                     case 404:
                         dataNotFound(`${dataAxios.msg}`)

@@ -33,7 +33,7 @@ class UserCreateSerializer(CustomModelSerializer):
     """
     username = serializers.CharField(max_length=50,
                                      validators=[CustomUniqueValidator(queryset=Users.objects.all(), message="账号必须唯一")])
-    # password = serializers.CharField(required=False,default=make_password("123456"))
+    password = serializers.CharField(required=False,default=make_password("123456"))
 
     def save(self, **kwargs):
         data = super().save(**kwargs)
@@ -42,7 +42,7 @@ class UserCreateSerializer(CustomModelSerializer):
 
     class Meta:
         model = Users
-        exclude = ['password']
+        fields = "__all__"
         read_only_fields=["id"]
         extra_kwargs = {
             'post': {'required': False},
@@ -65,7 +65,7 @@ class UserUpdateSerializer(CustomModelSerializer):
     class Meta:
         model = Users
         read_only_fields=["id"]
-        exclude_fields=['password']
+        fields = "__all__"
         extra_kwargs = {
             'post': {'required': False,'read_only':True},
         }
@@ -78,3 +78,4 @@ class UserViewSet(CustomModelViewSet):
     serializer_class = UserSerializer
     create_serializer_class = UserCreateSerializer
     update_serializer_class = UserUpdateSerializer
+    permission_classes = []

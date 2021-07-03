@@ -30,7 +30,7 @@ export const crudOptions = (vm) => {
                 disabled() {
                     return !vm.hasPermissions('Update')
                 },
-                text: ' 按钮权限',
+                text: ' 按钮配置',
                 type: 'warning',
                 size: 'small',
                 emit: 'createPermission',

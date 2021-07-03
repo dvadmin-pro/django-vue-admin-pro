@@ -28,3 +28,4 @@ class MenuButtonViewSet(CustomModelViewSet):
     queryset = MenuButton.objects.all()
     serializer_class = MenuButtonSerializer
     filter_fields = ['menu']
+    permission_classes = []

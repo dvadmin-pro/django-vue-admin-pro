@@ -98,7 +98,7 @@ const frameIn = [{
             },
             component: _import('system/role')
         },
-        //系统 角色管理
+        //系统 角色权限
         {
             path: 'rolePermisson',
             name: 'rolePermisson',

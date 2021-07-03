@@ -27,3 +27,4 @@ class ButtonViewSet(CustomModelViewSet):
     """
     queryset = Button.objects.all()
     serializer_class = ButtonSerializer
+    permission_classes = []

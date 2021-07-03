@@ -112,6 +112,7 @@ class MenuViewSet(CustomModelViewSet):
     update_serializer_class = MenuCreateSerializer
     filter_fields = ['name','status']
     search_fields = ['name','status']
+    permission_classes = []
 
     def menu_tree(self,request):
         """用于菜单添加修改中获取父级菜单"""

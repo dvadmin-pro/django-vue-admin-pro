@@ -48,3 +48,4 @@ class LoginView(TokenObtainPairView):
     登录接口
     """
     serializer_class = LoginSerializer
+    permission_classes = []
