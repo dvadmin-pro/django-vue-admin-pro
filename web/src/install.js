@@ -23,6 +23,7 @@ Vue.use(d2CrudX, { name: 'd2-crud-x' })
 
 // 引入d2CrudPlus
 Vue.use(d2CrudPlus, {
+    starTip: false,
     getRemoteDictFunc(url, dict) {
         // 此处配置你的字典http请求方法
         // 实际使用请改成request

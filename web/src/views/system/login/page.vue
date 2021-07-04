@@ -26,7 +26,7 @@
           flex="dir:top main:center cross:center"
         >
           <!-- logo -->
-          <img class="page-login--logo" src="./image/logo@2x.png" />
+          <img class="page-login--logo" src="./image/dvadmin.png" />
           <!-- form -->
           <div class="page-login--form">
             <el-card shadow="never">
@@ -77,19 +77,19 @@
                 </el-button>
               </el-form>
             </el-card>
-            <p class="page-login--options" flex="main:justify cross:center">
+            <!-- <p class="page-login--options" flex="main:justify cross:center">
               <span><d2-icon name="question-circle" /> 忘记密码</span>
               <span>注册用户</span>
-            </p>
+            </p> -->
             <!-- quick login -->
-            <el-button
+            <!-- <el-button
               class="page-login--quick"
               size="default"
               type="info"
               @click="dialogVisible = true"
             >
               快速选择用户（测试功能）
-            </el-button>
+            </el-button> -->
           </div>
         </div>
         <div class="page-login--content-footer">

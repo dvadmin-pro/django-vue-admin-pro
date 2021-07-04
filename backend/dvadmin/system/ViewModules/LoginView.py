@@ -11,19 +11,24 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from dvadmin.system.models import Users
-
+from django.utils.translation import gettext_lazy as _
 
 class LoginSerializer(TokenObtainPairSerializer):
     """
     登录的序列化器:
     重写djangorestframework-simplejwt的序列化器
     """
+    default_error_messages = {
+        'no_active_account': _('该账号已被禁用,请联系管理员')
+    }
+
     def validate(self, attrs):
         username = attrs['username']
         password = attrs['password']
         user = Users.objects.filter(username=username).first()
         if user and  user.check_password(password):  # check_password() 对明文进行加密,并验证
             data = super().validate(attrs)
+            print(data)
             refresh = self.get_token(self.user)
 
             data['name'] = self.user.name

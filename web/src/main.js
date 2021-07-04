@@ -11,7 +11,6 @@ import store from '@/store/index'
 import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
-
 // 按钮权限
 import '@/plugin/permission' // 加载permission
 
@@ -20,7 +19,6 @@ import './install'
 
 // 核心插件
 Vue.use(d2Admin)
-
 //配置vxe-table
 import 'xe-utils'
 import VXETable from 'vxe-table'

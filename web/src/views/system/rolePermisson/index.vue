@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-06 18:27:36
+ * @最后修改时间: 2021-07-04 00:31:32
  * 联系Qq:1638245306
  * @文件介绍:角色管理
 -->
@@ -102,7 +102,6 @@ export default {
     //角色树被点击
     nodeClick(data, node, self) {
       this.roleObj = data;
-      console.log(107, data);
       return api.GetMenuData(data).then((res) => {
         res.forEach((x) => {
           x.menuPermission.forEach((a) => {

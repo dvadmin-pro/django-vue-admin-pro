@@ -1,3 +1,11 @@
+/*
+ * @创建文件时间: 2021-06-01 22:41:21
+ * @Auther: 猿小天
+ * @最后修改人: 猿小天
+ * @最后修改时间: 2021-07-04 00:54:41
+ * 联系Qq:1638245306
+ * @文件介绍: 版本介绍
+ */
 import util from '@/libs/util.js'
 
 export default {
@@ -7,11 +15,11 @@ export default {
      * @description 显示版本信息
      * @param {Object} state state
      */
-    versionShow () {
+    versionShow() {
       util.log.capsule('D2Admin', `v${process.env.VUE_APP_VERSION}`)
-      console.log('D2 Admin  https://github.com/d2-projects/d2-admin')
-      console.log('D2 Crud Plus   https://github.com/greper/d2-crud-plus')
-      console.log('Document  http://greper.gitee.io/d2-crud-plus/')
+      console.log('dvAdmin(Gitee)  https://gitee.com/liqianglog/django-vue-admin-pro')
+      console.log('演示地址   http://dvadmin.django.icu/')
+      console.log('文档地址  暂无')
       console.log('请不要吝啬您的 star，谢谢 ~')
     }
   }

@@ -179,7 +179,8 @@ export const crudOptions = (vm) => {
                 component: {
                     span: 12,
                 }
-            }
+            },
+            component: { props: { color: 'auto' } }
         },
         {
             title: '排序',

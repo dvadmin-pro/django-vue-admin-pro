@@ -62,8 +62,9 @@ class DeptViewSet(CustomModelViewSet):
     serializer_class = DeptSerializer
     extra_filter_backends = []
     permission_classes = []
+    filter_fields = ['status']
 
     def dept_tree(self,request):
-        queryset = Dept.objects.filter(parent=None)
+        queryset = Dept.objects.exclude(status=0).filter(parent=None)
         serializer = DeptTreeSerializer(queryset,many=True)
         return SuccessResponse(data=serializer.data,msg="获取成功")
