@@ -40,6 +40,7 @@ class Post(CoreModel):
         db_table = table_prefix + "post"
         verbose_name = '岗位表'
         verbose_name_plural = verbose_name
+        ordering = ('-sort',)
 
 
 class Role(CoreModel):
@@ -74,6 +75,7 @@ class Role(CoreModel):
         db_table = table_prefix + 'role'
         verbose_name = '角色表'
         verbose_name_plural = verbose_name
+        ordering = ('-sort',)
 
 
 class Dept(CoreModel):
@@ -95,6 +97,7 @@ class Dept(CoreModel):
         db_table = table_prefix + "dept"
         verbose_name = '部门表'
         verbose_name_plural = verbose_name
+        ordering = ('-sort',)
 
 
 class Button(CoreModel):
@@ -129,6 +132,7 @@ class Menu(CoreModel):
         db_table = table_prefix + "menu"
         verbose_name = '菜单表'
         verbose_name_plural = verbose_name
+        ordering = ('-sort',)
 
 
 class MenuButton(CoreModel):
@@ -168,6 +172,7 @@ class Dictionary(CoreModel):
         db_table = table_prefix + 'dictionary'
         verbose_name = "字典表"
         verbose_name_plural = verbose_name
+        ordering = ('-sort',)
 
 
 class SysDictionarylist(CoreModel):

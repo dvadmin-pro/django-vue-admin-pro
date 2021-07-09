@@ -237,6 +237,9 @@ export default {
       });
     },
   },
+  created() {
+    this.$store.dispatch("d2admin/db/databaseClear");
+  },
 };
 </script>
 

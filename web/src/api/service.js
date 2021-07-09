@@ -43,13 +43,13 @@ function createService() {
                         // return dataAxios.data
                         return dataAxios
                     case 401:
-                        // refreshTken().then(res => {
-                        //     util.cookies.set('token', res.access)
-                        // }).catch(e => {
-                        //     router.push({ path: '/login' })
-                        // })
-                        router.push({ path: '/login' })
-                        errorCreate(`${dataAxios.msg}`)
+                        refreshTken().then(res => {
+                            util.cookies.set('token', res.access)
+                        }).catch(e => {
+                            router.push({ path: '/login' })
+                            errorCreate(`未认证，请登录`)
+                        })
+                        // router.push({ path: '/login' })
 
                         break
                     case 404:
@@ -72,13 +72,14 @@ function createService() {
                     error.message = '请求错误';
                     break
                 case 401:
-                    // refreshTken().then(res => {
-                    //     util.cookies.set('token', res.access)
-                    // }).catch(e => {
-                    //     router.push({ name: '/login' })
-                    // })
-                    router.push({ path: '/login' })
-                    error.message = '未认证，请登录';
+                    refreshTken().then(res => {
+                        util.cookies.set('token', res.access)
+                    }).catch(e => {
+                        router.push({ name: '/login' })
+                        error.message = '未认证，请登录';
+                    })
+                    // router.push({ path: '/login' })
+                    // error.message = '未认证，请登录';
                     break
                 case 403:
                     error.message = '拒绝访问';
