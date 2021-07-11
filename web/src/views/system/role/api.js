@@ -8,67 +8,66 @@
  */
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-export function GetList(query) {
-    return request({
-        url: '/api/system/role/',
-        method: 'get',
-        params: query
-    })
+export function GetList (query) {
+  return request({
+    url: '/api/system/role/',
+    method: 'get',
+    params: query
+  })
 }
 
-export function GetObj(obj) {
-    return request({
-        url: '/api/system/role/'+obj.id+'/',
-        method: 'get'
-    })
+export function GetObj (obj) {
+  return request({
+    url: '/api/system/role/' + obj.id + '/',
+    method: 'get'
+  })
 }
 
-export function createObj(obj) {
-    return request({
-        url: '/api/system/role/',
-        method: 'post',
-        data: obj
-    })
+export function createObj (obj) {
+  return request({
+    url: '/api/system/role/',
+    method: 'post',
+    data: obj
+  })
 }
 
-export function UpdateObj(obj) {
-    return request({
-        url: '/api/system/role/'+obj.id+'/',
-        method: 'put',
-        data: obj
-    })
+export function UpdateObj (obj) {
+  return request({
+    url: '/api/system/role/' + obj.id + '/',
+    method: 'put',
+    data: obj
+  })
 }
-export function DelObj(id) {
-    return request({
-        url: '/api/system/role/' + id + '/',
-        method: 'delete',
-        data: { id }
-    })
-}
-
-//获取菜单数据,用于角色授权
-export function GetMenuData() {
-    return request({
-        url: '/api/system/menu/',
-        method: 'get',
-        params: {}
-    }).then(res=>{
-        //将列表数据转换为树形数据
-        let data = XEUtils.toArrayTree(res.data.data,{parentKey:'parent'})
-        return data
-    })
+export function DelObj (id) {
+  return request({
+    url: '/api/system/role/' + id + '/',
+    method: 'delete',
+    data: { id }
+  })
 }
 
+// 获取菜单数据,用于角色授权
+export function GetMenuData () {
+  return request({
+    url: '/api/system/menu/',
+    method: 'get',
+    params: {}
+  }).then(res => {
+    // 将列表数据转换为树形数据
+    const data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent' })
+    return data
+  })
+}
 
-//获取部门数据,用于角色授权
-export function GetDeptData() {
-    return request({
-        url: '/api/system/dept/',
-        method: 'get',
-        params: {}
-    }).then(res=>{
-        //将列表数据转换为树形数据
-        let data = XEUtils.toArrayTree(res.data.data,{parentKey:'parent'})
-        return data
-    })
+// 获取部门数据,用于角色授权
+export function GetDeptData () {
+  return request({
+    url: '/api/system/dept/',
+    method: 'get',
+    params: {}
+  }).then(res => {
+    // 将列表数据转换为树形数据
+    const data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent' })
+    return data
+  })
 }

@@ -9,30 +9,28 @@
 from django.urls import path, re_path
 from rest_framework import routers
 
-from dvadmin.system.ViewModules.DeptView import DeptViewSet
-from dvadmin.system.ViewModules.MenuButtonView import MenuButtonViewSet
-from dvadmin.system.ViewModules.MenuView import MenuViewSet
-from dvadmin.system.ViewModules.ButtonView import ButtonViewSet
-from dvadmin.system.ViewModules.OperationLogView import OperationLogViewSet
-from dvadmin.system.ViewModules.RoleView import RoleViewSet
-from dvadmin.system.ViewModules.UserView import UserViewSet
+from dvadmin.system.views.button import ButtonViewSet
+from dvadmin.system.views.dept import DeptViewSet
+from dvadmin.system.views.menu import MenuViewSet
+from dvadmin.system.views.menu_button import MenuButtonViewSet
+from dvadmin.system.views.operation_log import OperationLogViewSet
+from dvadmin.system.views.role import RoleViewSet
+from dvadmin.system.views.user import UserViewSet
 
 system_url = routers.SimpleRouter()
 system_url.register(r'menu', MenuViewSet)
-system_url.register(r'button',ButtonViewSet)
-system_url.register(r'menuButton',MenuButtonViewSet)
-system_url.register(r'role',RoleViewSet)
-system_url.register(r'dept',DeptViewSet)
-system_url.register(r'user',UserViewSet)
-system_url.register(r'operationLog',OperationLogViewSet)
-
-
+system_url.register(r'button', ButtonViewSet)
+system_url.register(r'menuButton', MenuButtonViewSet)
+system_url.register(r'role', RoleViewSet)
+system_url.register(r'dept', DeptViewSet)
+system_url.register(r'user', UserViewSet)
+system_url.register(r'operationLog', OperationLogViewSet)
 
 urlpatterns = [
-       path('menuTree/', MenuViewSet.as_view({'get':'menu_tree'})),
-       path('deptTree/', DeptViewSet.as_view({'get':'dept_tree'})),
-       re_path('roleIdToMenu/(?P<pk>.*?)/', RoleViewSet.as_view({'get':'roleId_to_menu'})),
-       path('webRouter/', MenuViewSet.as_view({'get':'web_router'})),
+    path('menuTree/', MenuViewSet.as_view({'get': 'menu_tree'})),
+    path('deptTree/', DeptViewSet.as_view({'get': 'dept_tree'})),
+    re_path('roleIdToMenu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
+    path('webRouter/', MenuViewSet.as_view({'get': 'web_router'})),
 
 ]
 urlpatterns += system_url.urls

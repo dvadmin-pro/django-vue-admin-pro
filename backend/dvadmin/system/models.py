@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from dvadmin.plugins.models import CoreModel, table_prefix
+from dvadmin.utils.models import CoreModel, table_prefix
 
 
 class Users(AbstractUser, CoreModel):

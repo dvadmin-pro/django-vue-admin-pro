@@ -38,35 +38,35 @@
 </template>
 
 <script>
-import * as api from "./api";
-import { crudOptions } from "./crud";
-import { d2CrudPlus } from "d2-crud-plus";
+import * as api from './api'
+import { crudOptions } from './crud'
+import { d2CrudPlus } from 'd2-crud-plus'
 export default {
-  name: "menuButton",
+  name: 'menuButton',
   mixins: [d2CrudPlus.crud],
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    getCrudOptions() {
-      return crudOptions(this);
+    getCrudOptions () {
+      return crudOptions(this)
     },
-    pageRequest(query) {
-      let menuId = this.$route.params.id;
-      return api.GetList({ menu: menuId });
+    pageRequest (query) {
+      const menuId = this.$route.params.id
+      return api.GetList({ menu: menuId })
     },
-    addRequest(row) {
-      let menuId = this.$route.params.id;
-      return api.createObj(row, menuId);
+    addRequest (row) {
+      const menuId = this.$route.params.id
+      return api.createObj(row, menuId)
     },
-    updateRequest(row) {
-      return api.UpdateObj(row);
+    updateRequest (row) {
+      return api.UpdateObj(row)
     },
-    delRequest(row) {
-      return api.DelObj(row.id);
-    },
-  },
-};
+    delRequest (row) {
+      return api.DelObj(row.id)
+    }
+  }
+}
 </script>
 
 <style lang="scss">

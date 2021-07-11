@@ -59,89 +59,90 @@
 </template>
 
 <script>
-import * as api from "./api";
-import XEUtils from "xe-utils";
+import * as api from './api'
+import XEUtils from 'xe-utils'
 export default {
-  name: "rolePermission",
-  data() {
+  name: 'rolePermission',
+  data () {
     return {
-      filterText: "",
+      filterText: '',
       data: [],
       roleObj: {},
       menuTreeData: [],
-      permissionData: [],
-    };
+      permissionData: []
+    }
   },
   watch: {
-    filterText(val) {
-      this.$refs.tree.filter(val);
-    },
+    filterText (val) {
+      this.$refs.tree.filter(val)
+    }
   },
   methods: {
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+    filterNode (value, data) {
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
     },
-    getCrudOptions() {
-      return crudOptions(this);
+    getCrudOptions () {
+      // eslint-disable-next-line no-undef
+      return crudOptions(this)
     },
-    pageRequest(query) {
+    pageRequest (query) {
       return api.GetList(query).then((res) => {
-        this.data = res;
-      });
+        this.data = res
+      })
     },
-    addRequest(row) {
-      return api.createObj(row);
+    addRequest (row) {
+      return api.createObj(row)
     },
-    updateRequest(row) {
-      return api.UpdateObj(row);
+    updateRequest (row) {
+      return api.UpdateObj(row)
     },
-    delRequest(row) {
-      return api.DelObj(row.id);
+    delRequest (row) {
+      return api.DelObj(row.id)
     },
-    //角色树被点击
-    nodeClick(data, node, self) {
-      this.roleObj = data;
+    // 角色树被点击
+    nodeClick (data, node, self) {
+      this.roleObj = data
       return api.GetMenuData(data).then((res) => {
         res.forEach((x) => {
           x.menuPermission.forEach((a) => {
-            //根据当前角色的permission,对menuPermisson进行勾选处理
+            // 根据当前角色的permission,对menuPermisson进行勾选处理
             if (data.permission.indexOf(a.id) > -1) {
-              this.$set(a, "checked", true);
+              this.$set(a, 'checked', true)
             } else {
-              this.$set(a, "checked", false);
+              this.$set(a, 'checked', false)
             }
-          });
-        });
-        //将菜单列表转换为树形列表
-        this.menuTreeData = XEUtils.toArrayTree(res, { parentKey: "parent" });
-      });
+          })
+        })
+        // 将菜单列表转换为树形列表
+        this.menuTreeData = XEUtils.toArrayTree(res, { parentKey: 'parent' })
+      })
     },
-    //提交修改
-    submitPermisson() {
-      let menuData = XEUtils.toTreeArray(this.menuTreeData);
-      let permissionData = [];
+    // 提交修改
+    submitPermisson () {
+      const menuData = XEUtils.toTreeArray(this.menuTreeData)
+      let permissionData = []
       menuData.forEach((x) => {
-        let checkedPermission = x.menuPermission.filter((f) => {
-          return f.checked;
-        });
+        const checkedPermission = x.menuPermission.filter((f) => {
+          return f.checked
+        })
         if (checkedPermission.length > 0) {
-          let permission = checkedPermission.map((m) => {
-            return m.id;
-          });
-          permissionData = permission;
+          const permission = checkedPermission.map((m) => {
+            return m.id
+          })
+          permissionData = permission
         }
-      });
-      this.roleObj.permission = permissionData;
+      })
+      this.roleObj.permission = permissionData
       return this.updateRequest(this.roleObj).then((res) => {
-        this.$message.success("更新成功");
-      });
-    },
+        this.$message.success('更新成功')
+      })
+    }
   },
-  created() {
-    this.pageRequest();
-  },
-};
+  created () {
+    this.pageRequest()
+  }
+}
 </script>
 
 <style lang="scss">

@@ -155,13 +155,13 @@
 </template>
 
 <script>
-import * as api from "./api";
-import { crudOptions } from "./crud";
-import { d2CrudPlus } from "d2-crud-plus";
+import * as api from './api'
+import { crudOptions } from './crud'
+import { d2CrudPlus } from 'd2-crud-plus'
 export default {
-  name: "role",
+  name: 'role',
   mixins: [d2CrudPlus.crud],
-  data() {
+  data () {
     return {
       dialogMenuVisible: false,
       menuExpand: false,
@@ -175,168 +175,169 @@ export default {
       dataScopeOptions: [
         {
           value: 0,
-          label: "仅本人数据权限",
+          label: '仅本人数据权限'
         },
         {
           value: 1,
-          label: "本部门数据权限",
+          label: '本部门数据权限'
         },
         {
           value: 2,
-          label: "本部门及以下数据权限",
+          label: '本部门及以下数据权限'
         },
         {
           value: 3,
-          label: "全部数据权限",
+          label: '全部数据权限'
         },
         {
           value: 4,
-          label: "自定数据权限",
-        },
-      ],
-    };
+          label: '自定数据权限'
+        }
+      ]
+    }
   },
   methods: {
-    getCrudOptions() {
-      return crudOptions(this);
+    getCrudOptions () {
+      return crudOptions(this)
     },
-    pageRequest(query) {
-      return api.GetList(query);
+    pageRequest (query) {
+      return api.GetList(query)
     },
-    addRequest(row) {
-      return api.createObj(row);
+    addRequest (row) {
+      return api.createObj(row)
     },
-    updateRequest(row) {
-      return api.UpdateObj(row);
+    updateRequest (row) {
+      return api.UpdateObj(row)
     },
-    delRequest(row) {
-      return api.DelObj(row.id);
+    delRequest (row) {
+      return api.DelObj(row.id)
     },
-    //菜单授权
-    createMenuPermission(scope) {
-      this.dialogMenuVisible = true;
-      this.form = scope.row;
+    // 菜单授权
+    createMenuPermission (scope) {
+      this.dialogMenuVisible = true
+      this.form = scope.row
       api.GetObj(scope.row).then((res) => {
-        this.$refs.menu.setCheckedKeys(res.data.data.menu);
-      });
+        this.$refs.menu.setCheckedKeys(res.data.data.menu)
+      })
     },
     // 树权限（展开/折叠）
-    handleCheckedTreeExpand(value, type) {
-      if (type == "menu") {
-        let treeList = this.menuOptions;
+    handleCheckedTreeExpand (value, type) {
+      if (type === 'menu') {
+        const treeList = this.menuOptions
         for (let i = 0; i < treeList.length; i++) {
-          this.$refs.menu.store.nodesMap[treeList[i].id].expanded = value;
+          this.$refs.menu.store.nodesMap[treeList[i].id].expanded = value
         }
-      } else if (type == "dept") {
-        let treeList = this.deptOptions;
+      } else if (type === 'dept') {
+        const treeList = this.deptOptions
         for (let i = 0; i < treeList.length; i++) {
-          this.$refs.dept.store.nodesMap[treeList[i].id].expanded = value;
+          this.$refs.dept.store.nodesMap[treeList[i].id].expanded = value
         }
       }
     },
     // 树权限（全选/全不选）
-    handleCheckedTreeNodeAll(value, type) {
-      if (type == "menu") {
-        this.$refs.menu.setCheckedNodes(value ? this.menuOptions : []);
-      } else if (type == "dept") {
-        this.$refs.dept.setCheckedNodes(value ? this.deptOptions : []);
+    handleCheckedTreeNodeAll (value, type) {
+      if (type === 'menu') {
+        this.$refs.menu.setCheckedNodes(value ? this.menuOptions : [])
+      } else if (type === 'dept') {
+        this.$refs.dept.setCheckedNodes(value ? this.deptOptions : [])
       }
     },
     // 树权限（父子联动）
-    handleCheckedTreeConnect(value, type) {
-      if (type == "menu") {
-        this.form.menuCheckStrictly = value ? true : false;
-      } else if (type == "dept") {
-        this.form.deptCheckStrictly = value ? true : false;
+    handleCheckedTreeConnect (value, type) {
+      if (type === 'menu') {
+        this.form.menuCheckStrictly = !!value
+      } else if (type === 'dept') {
+        this.form.deptCheckStrictly = !!value
       }
     },
     // 取消按钮
-    cancel() {
-      this.dialogMenuVisible = false;
-      this.openDataScope = false;
-      this.reset();
+    cancel () {
+      this.dialogMenuVisible = false
+      this.openDataScope = false
+      this.reset()
     },
-    reset() {
-      if (this.$refs.menu != undefined) {
-        this.$refs.menu.setCheckedKeys([]);
+    reset () {
+      if (this.$refs.menu !== undefined) {
+        this.$refs.menu.setCheckedKeys([])
       }
+      // eslint-disable-next-line no-unused-expressions,no-sequences
       (this.menuExpand = false),
-        (this.menuNodeAll = false),
-        (this.deptExpand = true),
-        (this.deptNodeAll = false),
-        (this.form = {
-          id: null,
-          menu: [],
-          dept: [],
-          menuCheckStrictly: true,
-          deptCheckStrictly: true,
-        });
+      (this.menuNodeAll = false),
+      (this.deptExpand = true),
+      (this.deptNodeAll = false),
+      (this.form = {
+        id: null,
+        menu: [],
+        dept: [],
+        menuCheckStrictly: true,
+        deptCheckStrictly: true
+      })
     },
-    //获取所有的菜单数据
-    getMenuData() {
+    // 获取所有的菜单数据
+    getMenuData () {
       api.GetMenuData().then((res) => {
-        this.menuOptions = res;
-      });
+        this.menuOptions = res
+      })
     },
     // 所有菜单节点数据
-    getMenuAllCheckedKeys() {
+    getMenuAllCheckedKeys () {
       // 目前被选中的菜单节点
-      let checkedKeys = this.$refs.menu.getCheckedKeys();
+      const checkedKeys = this.$refs.menu.getCheckedKeys()
       // 半选中的菜单节点
-      let halfCheckedKeys = this.$refs.menu.getHalfCheckedKeys();
-      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
-      return checkedKeys;
+      const halfCheckedKeys = this.$refs.menu.getHalfCheckedKeys()
+      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
+      return checkedKeys
     },
-    //提交修改后的菜单授权
-    submitMenu() {
-      this.form.menu = this.getMenuAllCheckedKeys();
+    // 提交修改后的菜单授权
+    submitMenu () {
+      this.form.menu = this.getMenuAllCheckedKeys()
       return api.UpdateObj(this.form).then((res) => {
-        this.dialogMenuVisible = false;
-        this.$message.success(res.msg);
-      });
+        this.dialogMenuVisible = false
+        this.$message.success(res.msg)
+      })
     },
-    //获取部门数据
-    getDeptData() {
+    // 获取部门数据
+    getDeptData () {
       api.GetDeptData().then((res) => {
-        this.deptOptions = res;
-      });
+        this.deptOptions = res
+      })
     },
-    //数据权限授权
-    createDataPermission(scope) {
-      this.openDataScope = true;
-      this.form = scope.row;
+    // 数据权限授权
+    createDataPermission (scope) {
+      this.openDataScope = true
+      this.form = scope.row
       api.GetObj(scope.row).then((res) => {
-        this.$refs.dept.setCheckedKeys(res.data.data.dept);
-      });
+        this.$refs.dept.setCheckedKeys(res.data.data.dept)
+      })
     },
     /** 选择角色权限范围触发 */
-    dataScopeSelectChange(value) {
+    dataScopeSelectChange (value) {
       if (value !== 4) {
-        this.$refs.dept.setCheckedKeys([]);
+        this.$refs.dept.setCheckedKeys([])
       }
     },
     // 所有部门节点数据
-    getDeptAllCheckedKeys() {
+    getDeptAllCheckedKeys () {
       // 目前被选中的部门节点
-      let checkedKeys = this.$refs.dept.getCheckedKeys();
+      const checkedKeys = this.$refs.dept.getCheckedKeys()
       // 半选中的部门节点
-      let halfCheckedKeys = this.$refs.dept.getHalfCheckedKeys();
-      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
-      return checkedKeys;
+      const halfCheckedKeys = this.$refs.dept.getHalfCheckedKeys()
+      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
+      return checkedKeys
     },
-    submitDataScope() {
-      this.form.dept = this.getDeptAllCheckedKeys();
+    submitDataScope () {
+      this.form.dept = this.getDeptAllCheckedKeys()
       return api.UpdateObj(this.form).then((res) => {
-        this.openDataScope = false;
-        this.$message.success(res.msg);
-      });
-    },
+        this.openDataScope = false
+        this.$message.success(res.msg)
+      })
+    }
   },
-  created() {
-    this.getMenuData();
-    this.getDeptData();
-  },
-};
+  created () {
+    this.getMenuData()
+    this.getDeptData()
+  }
+}
 </script>
 
 <style lang="scss">

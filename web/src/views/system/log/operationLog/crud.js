@@ -1,5 +1,3 @@
-import { request } from '@/api/service'
-import XEUtils from 'xe-utils'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -14,7 +12,7 @@ export const crudOptions = (vm) => {
     },
     formOptions: {
       disabled: true,
-      defaultSpan: 24, // 默认的表单 span
+      defaultSpan: 24 // 默认的表单 span
     },
     columns: [
       {
@@ -97,7 +95,7 @@ export const crudOptions = (vm) => {
         disabled: true,
         form: {
           component: {
-            span: 12,
+            span: 12
           }
         }
       },
@@ -132,7 +130,7 @@ export const crudOptions = (vm) => {
         key: 'response_code',
         sortable: true,
         search: {
-          disabled: true,
+          disabled: true
         },
         type: 'input',
         form: {
@@ -146,7 +144,7 @@ export const crudOptions = (vm) => {
         sortable: true,
         disabled: true,
         search: {
-          disabled: true,
+          disabled: true
         },
         type: 'input',
         form: {
@@ -159,7 +157,7 @@ export const crudOptions = (vm) => {
         key: 'json_result',
         sortable: true,
         search: {
-          disabled: true,
+          disabled: true
         },
         type: 'input',
         form: {

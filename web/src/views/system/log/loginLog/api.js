@@ -8,14 +8,14 @@
  */
 import { request } from '@/api/service'
 
-export function GetList(query) {
+export function GetList (query) {
   return request({
     url: '/api/system/user',
     method: 'get',
     params: query
   })
 }
-export function AddObj(obj) {
+export function AddObj (obj) {
   return request({
     url: '/api/system/user/',
     method: 'post',
@@ -23,21 +23,21 @@ export function AddObj(obj) {
   })
 }
 
-export function UpdateObj(obj) {
+export function UpdateObj (obj) {
   return request({
     url: '/api/system/user/' + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
-export function DelObj(id) {
+export function DelObj (id) {
   return request({
     url: '/api/system/user/' + id + '/',
     method: 'delete',
     data: { id }
   })
 }
-export function GetCascadeData() {
+export function GetCascadeData () {
   return request({
     url: '/select/cascadeData',
     method: 'get'

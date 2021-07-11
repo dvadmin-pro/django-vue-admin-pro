@@ -10,8 +10,8 @@ import store from '@/store'
 import XEUtils from 'xe-utils'
 import router from '@/router'
 export default {
-  hasPermissions(value) {
-    const path = router.history.current.path //当前路由
+  hasPermissions (value) {
+    const path = router.history.current.path // 当前路由
     let need = []
     if (typeof value === 'string') {
       need.push(value)
@@ -21,19 +21,19 @@ export default {
     if (need.length === 0) {
       throw new Error('need permissions! Like v-permission="usersphere:user:view" ')
     }
-    //获取所有的菜单路由(包含权限)
+    // 获取所有的菜单路由(包含权限)
     const menuTree = store.state.d2admin.menu.aside
     const userPermissionList = XEUtils.toTreeArray(menuTree)
 
-    let permissionList = []
-    for (let item of userPermissionList) {
+    const permissionList = []
+    for (const item of userPermissionList) {
       if (item.menuPermission) {
-        for (let per of item.menuPermission) {
-          permissionList.push(item.path + ":" + per)
+        for (const per of item.menuPermission) {
+          permissionList.push(item.path + ':' + per)
         }
       }
     }
 
-    return permissionList.includes(path + ":" + value)
+    return permissionList.includes(path + ':' + value)
   }
 }
