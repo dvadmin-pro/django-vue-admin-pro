@@ -13,17 +13,17 @@ export const crudOptions = (vm) => {
       edit: {
         thin: true,
         text: '编辑',
-        show () {
+        show() {
           return vm.hasPermissions('Update')
         },
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -157,25 +157,45 @@ export const crudOptions = (vm) => {
           ],
           component: {
             span: 12,
-            props: { multiple: false, clearable: true }
+            props: {
+              dict: {
+                cache: false, // 表单的dict可以禁用缓存
+                url: '/api/system/dept?status=1',
+                isTree: true,
+                value: 'id', // 数据字典中value字段的属性名
+                label: 'name', // 数据字典中label字段的属性名
+                getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+                  return request({ url: url }).then(ret => {
+                    const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
+                    return data
+                  })
+                }
+              },
+              multiple: false,
+              clearable: true
+            }
           },
           itemProps: {
             class: { yxtInput: true }
           }
         },
-        dict: {
-          url: '/api/system/dept?status=1',
-          isTree: true,
-          value: 'id', // 数据字典中value字段的属性名
-          label: 'name', // 数据字典中label字段的属性名
-          getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
-            return request({ url: url }).then(ret => {
-              const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
-              return data
-            })
+
+        component: {
+          props: { color: 'auto' },
+          dict: {
+            cache: false, // 表单的dict可以禁用缓存
+            url: '/api/system/dept/',
+            isTree: true,
+            value: 'id', // 数据字典中value字段的属性名
+            label: 'name', // 数据字典中label字段的属性名
+            getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+              return request({ url: url }).then(ret => {
+                const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
+                return data
+              })
+            }
           }
-        },
-        component: { props: { color: 'auto' } } // 自动染色
+        } // 自动染色
       },
       {
         title: '角色',
@@ -186,16 +206,7 @@ export const crudOptions = (vm) => {
 
         }, // 查询的时候触发一个空方法
         type: 'checkbox',
-        dict: {
-          url: '/api/system/role?status=1',
-          value: 'id', // 数据字典中value字段的属性名
-          label: 'name', // 数据字典中label字段的属性名
-          getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
-            return request({ url: url }).then(ret => {
-              return ret.data.data
-            })
-          }
-        },
+
         form: {
           rules: [ // 表单校验规则
             { required: true, message: '必填项' }
@@ -204,7 +215,15 @@ export const crudOptions = (vm) => {
             span: 12,
             props: {
               dict: {
-                cache: false // 表单的dict可以禁用缓存
+                cache: false, // 表单的dict可以禁用缓存
+                url: '/api/system/role?status=1',
+                value: 'id', // 数据字典中value字段的属性名
+                label: 'name', // 数据字典中label字段的属性名
+                getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+                  return request({ url: url }).then(ret => {
+                    return ret.data.data
+                  })
+                }
               }
             }
           },
@@ -212,7 +231,19 @@ export const crudOptions = (vm) => {
             class: { yxtInput: true }
           }
         },
-        component: { props: { color: 'auto' } } // 自动染色
+        component: {
+          props: { color: 'auto' },
+          dict: {
+            url: '/api/system/role/',
+            value: 'id', // 数据字典中value字段的属性名
+            label: 'name', // 数据字典中label字段的属性名
+            getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+              return request({ url: url }).then(ret => {
+                return ret.data.data
+              })
+            }
+          }
+        } // 自动染色
       }
     ]
   }
