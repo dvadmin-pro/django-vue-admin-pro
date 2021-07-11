@@ -105,8 +105,8 @@
           <p class="page-login--content-footer-copyright">
             Copyright
             <d2-icon name="copyright" />
-            2018 D2 Projects 开源组织出品
-            <a href="https://github.com/FairyEver"> @FairyEver </a>
+            Copyright © 2018-2021 pro.django-vue-admin.com All Rights Reserved. |
+            <a href="https://beian.miit.gov.cn" target="_blank"> 晋ICP备18005113号-3 </a>
           </p>
           <p class="page-login--content-footer-options">
             <a href="#">帮助</a>
