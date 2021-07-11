@@ -8,40 +8,40 @@
  */
 import { request } from '@/api/service'
 
-export function GetList(query) {
-    return request({
-        url: '/api/system/menuButton/',
-        method: 'get',
-        params: query
-    })
+export function GetList (query) {
+  return request({
+    url: '/api/system/menuButton/',
+    method: 'get',
+    params: query
+  })
 }
 
-export function createObj(obj, id) {
-    let data = { ...obj, menu: id }
-    return request({
-        url: '/api/system/menuButton/',
-        method: 'post',
-        data: data
-    })
+export function createObj (obj, id) {
+  const data = { ...obj, menu: id }
+  return request({
+    url: '/api/system/menuButton/',
+    method: 'post',
+    data: data
+  })
 }
 
-export function UpdateObj(obj) {
-    return request({
-        url: '/api/system/menuButton/' + obj.id + '/',
-        method: 'put',
-        data: obj
-    })
+export function UpdateObj (obj) {
+  return request({
+    url: '/api/system/menuButton/' + obj.id + '/',
+    method: 'put',
+    data: obj
+  })
 }
-export function DelObj(id) {
-    return request({
-        url: '/api/system/menuButton/' + id + '/',
-        method: 'delete',
-        data: { id }
-    })
+export function DelObj (id) {
+  return request({
+    url: '/api/system/menuButton/' + id + '/',
+    method: 'delete',
+    data: { id }
+  })
 }
-export function GetCascadeData() {
-    return request({
-        url: '/select/cascadeData',
-        method: 'get'
-    })
+export function GetCascadeData () {
+  return request({
+    url: '/select/cascadeData',
+    method: 'get'
+  })
 }

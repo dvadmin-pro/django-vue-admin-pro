@@ -7,22 +7,21 @@
  * @文件介绍: 菜单获取
  */
 import { uniqueId } from 'lodash'
-import { request } from "@/api/service";
-import XEUtils from "xe-utils";
-import { mapState, mapGetters, mapActions, store } from "vuex";
+import { request } from '@/api/service'
+import XEUtils from 'xe-utils'
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath(menu) {
-    return menu.map(e => ({
-        ...e,
-        path: e.path || uniqueId('d2-menu-empty-'),
-        ...e.children ? {
-            children: supplementPath(e.children)
-        } : {}
-    }))
+function supplementPath (menu) {
+  return menu.map(e => ({
+    ...e,
+    path: e.path || uniqueId('d2-menu-empty-'),
+    ...e.children ? {
+      children: supplementPath(e.children)
+    } : {}
+  }))
 }
 
 export const menuHeader = supplementPath([])
@@ -39,7 +38,6 @@ export const menuHeader = supplementPath([])
 //         ]
 //     }
 // ])
-
 
 export const menuAside = supplementPath([])
 // export const menuAside = supplementPath([
@@ -66,22 +64,21 @@ export const menuAside = supplementPath([])
 //     }
 // ])
 
-
 export const getMenu = function (self) {
-    return request({
-        url: "/api/system/webRouter",
-        method: "get",
-        params: {},
-    }).then((res) => {
-        //将列表数据转换为树形数据
-        let data = XEUtils.toArrayTree(res.data.data, {
-            parentKey: "parent",
-            strict: true,
-        });
-        let menu = [
-            { path: "/index", title: "首页", icon: "home" },
-            ...data,
-        ]
-        return supplementPath(menu)
-    });
+  return request({
+    url: '/api/system/webRouter',
+    method: 'get',
+    params: {}
+  }).then((res) => {
+    // 将列表数据转换为树形数据
+    const data = XEUtils.toArrayTree(res.data.data, {
+      parentKey: 'parent',
+      strict: true
+    })
+    const menu = [
+      { path: '/index', title: '首页', icon: 'home' },
+      ...data
+    ]
+    return supplementPath(menu)
+  })
 }

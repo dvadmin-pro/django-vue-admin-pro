@@ -8,33 +8,32 @@
  */
 import { request } from '@/api/service'
 
-export function GetList(query) {
-    return request({
-        url: '/api/system/button/',
-        method: 'get',
-        data: query
-    })
+export function GetList (query) {
+  return request({
+    url: '/api/system/button/',
+    method: 'get',
+    data: query
+  })
 }
-export function createObj(obj) {
-    return request({
-        url: '/api/system/button/',
-        method: 'post',
-        data: obj
-    })
-}
-
-export function UpdateObj(obj) {
-    return request({
-        url: '/api/system/button/' + obj.id + '/',
-        method: 'put',
-        data: obj
-    })
-}
-export function DelObj(id) {
-    return request({
-        url: '/api/system/button/' + id + '/',
-        method: 'delete',
-        data: { id }
-    })
+export function createObj (obj) {
+  return request({
+    url: '/api/system/button/',
+    method: 'post',
+    data: obj
+  })
 }
 
+export function UpdateObj (obj) {
+  return request({
+    url: '/api/system/button/' + obj.id + '/',
+    method: 'put',
+    data: obj
+  })
+}
+export function DelObj (id) {
+  return request({
+    url: '/api/system/button/' + id + '/',
+    method: 'delete',
+    data: { id }
+  })
+}

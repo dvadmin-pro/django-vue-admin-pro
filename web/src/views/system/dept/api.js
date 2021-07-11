@@ -8,42 +8,42 @@
  */
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-export function GetList(query) {
-    return request({
-        url: '/api/system/dept/',
-        method: 'get',
-        params: query
-    }).then(res=>{
-        //将列表数据转换为树形数据
-        res.data.data = XEUtils.toArrayTree(res.data.data,{parentKey:'parent'})
-        return res
-    })
+export function GetList (query) {
+  return request({
+    url: '/api/system/dept/',
+    method: 'get',
+    params: query
+  }).then(res => {
+    // 将列表数据转换为树形数据
+    res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent' })
+    return res
+  })
 }
-export function createObj(obj) {
-    return request({
-        url: '/api/system/dept/',
-        method: 'post',
-        data: obj
-    })
+export function createObj (obj) {
+  return request({
+    url: '/api/system/dept/',
+    method: 'post',
+    data: obj
+  })
 }
 
-export function UpdateObj(obj) {
-    return request({
-        url: '/api/system/dept/'+obj.id+'/',
-        method: 'put',
-        data: obj
-    })
+export function UpdateObj (obj) {
+  return request({
+    url: '/api/system/dept/' + obj.id + '/',
+    method: 'put',
+    data: obj
+  })
 }
-export function DelObj(id) {
-    return request({
-        url: '/api/system/dept/' + id + '/',
-        method: 'delete',
-        data: { id }
-    })
+export function DelObj (id) {
+  return request({
+    url: '/api/system/dept/' + id + '/',
+    method: 'delete',
+    data: { id }
+  })
 }
-export function GetCascadeData() {
-    return request({
-        url: '/select/cascadeData',
-        method: 'get'
-    })
+export function GetCascadeData () {
+  return request({
+    url: '/select/cascadeData',
+    method: 'get'
+  })
 }

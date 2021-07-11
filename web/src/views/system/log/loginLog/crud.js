@@ -12,7 +12,7 @@ export const crudOptions = (vm) => {
       componentType: 'row'
     },
     formOptions: {
-      defaultSpan: 24, // 默认的表单 span
+      defaultSpan: 24 // 默认的表单 span
     },
     columns: [
       {
@@ -50,10 +50,10 @@ export const crudOptions = (vm) => {
             { required: true, message: '必填项' }
           ],
           component: {
-            span: 12,
+            span: 12
           },
           itemProps: {
-            class: { 'yxtInput': true },
+            class: { yxtInput: true }
           }
         }
       },
@@ -71,10 +71,10 @@ export const crudOptions = (vm) => {
             { required: true, message: '必填项' }
           ],
           component: {
-            span: 12,
+            span: 12
           },
           itemProps: {
-            class: { 'yxtInput': true },
+            class: { yxtInput: true }
           }
         }
       },
@@ -85,12 +85,12 @@ export const crudOptions = (vm) => {
         width: 180,
         type: 'radio',
         dict: {
-          data: [{ label: "男", value: 1 }, { label: "女", value: 0 }]
+          data: [{ label: '男', value: 1 }, { label: '女', value: 0 }]
         },
         form: {
           value: 0,
           component: {
-            span: 12,
+            span: 12
           }
         },
         component: { props: { color: 'auto' } } // 自动染色
@@ -101,7 +101,7 @@ export const crudOptions = (vm) => {
         sortable: true,
         form: {
           component: {
-            span: 12,
+            span: 12
           }
         }
       },
@@ -115,12 +115,12 @@ export const crudOptions = (vm) => {
         width: 90,
         type: 'radio',
         dict: {
-          data: [{ label: "启用", value: true }, { label: "禁用", value: false }]
+          data: [{ label: '启用', value: true }, { label: '禁用', value: false }]
         },
         form: {
           value: true,
           component: {
-            span: 12,
+            span: 12
           }
         },
         component: { props: { color: 'auto' } } // 自动染色
@@ -140,7 +140,7 @@ export const crudOptions = (vm) => {
             props: { multiple: false, clearable: true }
           },
           itemProps: {
-            class: { 'yxtInput': true },
+            class: { yxtInput: true }
           }
         },
         dict: {
@@ -150,7 +150,7 @@ export const crudOptions = (vm) => {
           label: 'name', // 数据字典中label字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              let data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
+              const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
               return data
             })
           }
@@ -162,7 +162,7 @@ export const crudOptions = (vm) => {
         key: 'role',
         sortable: true,
         search: {
-          disabled: true,
+          disabled: true
 
         }, // 查询的时候触发一个空方法
         type: 'checkbox',
@@ -189,7 +189,7 @@ export const crudOptions = (vm) => {
             }
           },
           itemProps: {
-            class: { 'yxtInput': true },
+            class: { yxtInput: true }
           }
         },
         component: { props: { color: 'auto' } } // 自动染色

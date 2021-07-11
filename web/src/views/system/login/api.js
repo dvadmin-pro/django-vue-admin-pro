@@ -9,13 +9,10 @@
 
 import { request } from '@/api/service'
 
-
-export function SYS_USER_LOGIN(data) {
-    return request({
-        url: '/api/token/',
-        method: 'post',
-        data
-    })
+export function SYS_USER_LOGIN (data) {
+  return request({
+    url: '/api/token/',
+    method: 'post',
+    data
+  })
 }
-
-
