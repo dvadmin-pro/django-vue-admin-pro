@@ -7,11 +7,12 @@
 @Remark:登录视图
 """
 
+from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from dvadmin.system.models import Users
-from django.utils.translation import gettext_lazy as _
+
 
 class LoginSerializer(TokenObtainPairSerializer):
     """
@@ -26,7 +27,7 @@ class LoginSerializer(TokenObtainPairSerializer):
         username = attrs['username']
         password = attrs['password']
         user = Users.objects.filter(username=username).first()
-        if user and  user.check_password(password):  # check_password() 对明文进行加密,并验证
+        if user and user.check_password(password):  # check_password() 对明文进行加密,并验证
             data = super().validate(attrs)
             print(data)
             refresh = self.get_token(self.user)
@@ -47,6 +48,7 @@ class LoginSerializer(TokenObtainPairSerializer):
                 "data": None
             }
         return result
+
 
 class LoginView(TokenObtainPairView):
     """

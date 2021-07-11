@@ -7,9 +7,7 @@
 @Remark: 自定义的JsonResonpse文件
 """
 
-import six
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 
 
 class SuccessResponse(Response):
@@ -23,10 +21,10 @@ class SuccessResponse(Response):
         std_data = {
             "code": 2000,
             "data": {
-                "page":1,
-                "limit":1,
-                "total":1,
-                "data":data
+                "page": 1,
+                "limit": 1,
+                "total": 1,
+                "data": data
             },
             "msg": msg
         }

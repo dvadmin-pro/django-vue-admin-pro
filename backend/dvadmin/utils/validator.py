@@ -7,7 +7,6 @@
 @Remark: 自定义验证器
 """
 
-
 from django.db import DataError
 from rest_framework.exceptions import APIException
 from rest_framework.validators import UniqueValidator
@@ -17,6 +16,7 @@ class CustomValidationError(APIException):
     """
     继承并重写验证器返回的结果,避免暴露字段
     """
+
     def __init__(self, detail):
         self.detail = detail
 
@@ -27,16 +27,19 @@ def qs_exists(queryset):
     except (TypeError, ValueError, DataError):
         return False
 
+
 def qs_filter(queryset, **kwargs):
     try:
         return queryset.filter(**kwargs)
     except (TypeError, ValueError, DataError):
         return queryset.none()
 
+
 class CustomUniqueValidator(UniqueValidator):
     """
     继承,重写必填字段的验证器结果,防止字段暴露
     """
+
     def filter_queryset(self, value, queryset, field_name):
         """
         Filter the queryset to all instances matching the given attribute.

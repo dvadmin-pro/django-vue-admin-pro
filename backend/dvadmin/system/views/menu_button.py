@@ -6,19 +6,20 @@
 @Created on: 2021/6/3 003 0:30
 @Remark: 菜单按钮管理
 """
-from dvadmin.plugins.serializers import CustomModelSerializer
-from dvadmin.plugins.viewset import CustomModelViewSet
 from dvadmin.system.models import MenuButton
+from dvadmin.utils.serializers import CustomModelSerializer
+from dvadmin.utils.viewset import CustomModelViewSet
 
 
 class MenuButtonSerializer(CustomModelSerializer):
     """
     菜单按钮-序列化器
     """
+
     class Meta:
         model = MenuButton
         fields = "__all__"
-        read_only_fields=["id"]
+        read_only_fields = ["id"]
 
 
 class MenuButtonViewSet(CustomModelViewSet):

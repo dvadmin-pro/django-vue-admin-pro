@@ -7,9 +7,9 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.utils.deprecation import MiddlewareMixin
 
-from dvadmin.plugins.request_util import get_request_user, get_request_ip, get_request_data, get_request_path, get_os, \
-    get_browser, get_verbose_name
 from dvadmin.system.models import OperationLog
+from dvadmin.utils.request_util import get_request_user, get_request_ip, get_request_data, get_request_path, get_os, \
+    get_browser, get_verbose_name
 
 
 class ApiLoggingMiddleware(MiddlewareMixin):
@@ -58,7 +58,7 @@ class ApiLoggingMiddleware(MiddlewareMixin):
             'status': True if response.data.get('code') in [2000, ] else False,
             'json_result': {"code": response.data.get('code'), "msg": response.data.get('msg')},
         }
-        OperationLog.objects.update_or_create(defaults=info,id=self.operation_log_id)
+        OperationLog.objects.update_or_create(defaults=info, id=self.operation_log_id)
         # if not request.session.get('operation_log_id', None):
         #     log = OperationLog(**info)
         #     log.save()

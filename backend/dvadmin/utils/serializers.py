@@ -7,9 +7,9 @@
 @Remark: 自定义序列化器
 """
 from rest_framework import serializers
-from rest_framework.serializers import ModelSerializer
 from rest_framework.fields import empty
 from rest_framework.request import Request
+from rest_framework.serializers import ModelSerializer
 
 from dvadmin.system.models import Users
 
@@ -22,11 +22,13 @@ class CustomModelSerializer(ModelSerializer):
     # 修改人的审计字段名称, 默认modifier, 继承使用时可自定义覆盖
     modifier_field_id = 'modifier'
     modifier_name = serializers.SerializerMethodField(read_only=True)
+
     def get_modifier_name(self, instance):
-        queryset = Users.objects.filter(id=instance.modifier).values_list('name',flat=True).first()
+        queryset = Users.objects.filter(id=instance.modifier).values_list('name', flat=True).first()
         if queryset:
             return queryset
         return None
+
     # 创建人的审计字段名称, 默认creator, 继承使用时可自定义覆盖
     creator_field_id = 'creator'
     creator_name = serializers.SlugRelatedField(slug_field="name", source="creator", read_only=True)
@@ -36,12 +38,9 @@ class CustomModelSerializer(ModelSerializer):
     create_datetime = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False, read_only=True)
     update_datetime = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False)
 
-
-
     def __init__(self, instance=None, data=empty, request=None, **kwargs):
         super().__init__(instance, data, **kwargs)
         self.request: Request = request or self.context.get('request', None)
-
 
     def save(self, **kwargs):
         return super().save(**kwargs)

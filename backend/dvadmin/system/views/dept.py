@@ -8,27 +8,28 @@
 """
 from rest_framework import serializers
 
-from dvadmin.plugins.jsonResponse import SuccessResponse
-from dvadmin.plugins.serializers import CustomModelSerializer
-from dvadmin.plugins.viewset import CustomModelViewSet
-from dvadmin.system.ViewModules.MenuView import MenuSerializer
 from dvadmin.system.models import Dept
+from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.serializers import CustomModelSerializer
+from dvadmin.utils.viewset import CustomModelViewSet
 
 
 class DeptSerializer(CustomModelSerializer):
     """
     部门-序列化器
     """
+
     class Meta:
         model = Dept
         fields = "__all__"
-        read_only_fields=["id"]
+        read_only_fields = ["id"]
 
 
 class DeptCreateUpdateSerializer(CustomModelSerializer):
     """
     部门管理 创建/更新时的列化器
     """
+
     class Meta:
         model = Dept
         fields = '__all__'
@@ -51,7 +52,7 @@ class DeptTreeSerializer(CustomModelSerializer):
     class Meta:
         model = Dept
         fields = "__all__"
-        read_only_fields=["id"]
+        read_only_fields = ["id"]
 
 
 class DeptViewSet(CustomModelViewSet):
@@ -64,7 +65,7 @@ class DeptViewSet(CustomModelViewSet):
     permission_classes = []
     filter_fields = ['status']
 
-    def dept_tree(self,request):
+    def dept_tree(self, request):
         queryset = Dept.objects.exclude(status=0).filter(parent=None)
-        serializer = DeptTreeSerializer(queryset,many=True)
-        return SuccessResponse(data=serializer.data,msg="获取成功")
+        serializer = DeptTreeSerializer(queryset, many=True)
+        return SuccessResponse(data=serializer.data, msg="获取成功")

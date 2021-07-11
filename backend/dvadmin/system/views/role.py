@@ -9,24 +9,25 @@
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
-from dvadmin.plugins.jsonResponse import SuccessResponse
-from dvadmin.plugins.serializers import CustomModelSerializer
-from dvadmin.plugins.validator import CustomValidationError, CustomUniqueValidator
-from dvadmin.plugins.viewset import CustomModelViewSet
-from dvadmin.system.ViewModules.DeptView import DeptSerializer
-from dvadmin.system.ViewModules.MenuButtonView import MenuButtonSerializer
-from dvadmin.system.ViewModules.MenuView import MenuSerializer
 from dvadmin.system.models import Role, Menu
+from dvadmin.system.views.dept import DeptSerializer
+from dvadmin.system.views.menu import MenuSerializer
+from dvadmin.system.views.menu_button import MenuButtonSerializer
+from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.serializers import CustomModelSerializer
+from dvadmin.utils.validator import CustomUniqueValidator
+from dvadmin.utils.viewset import CustomModelViewSet
 
 
 class RoleSerializer(CustomModelSerializer):
     """
     角色-序列化器
     """
+
     class Meta:
         model = Role
         fields = "__all__"
-        read_only_fields=["id"]
+        read_only_fields = ["id"]
 
 
 class RoleCreateUpdateSerializer(CustomModelSerializer):
@@ -37,7 +38,7 @@ class RoleCreateUpdateSerializer(CustomModelSerializer):
     dept = DeptSerializer(many=True, read_only=True)
     permission = MenuButtonSerializer(many=True, read_only=True)
     key = serializers.CharField(max_length=50,
-                                    validators=[CustomUniqueValidator(queryset=Role.objects.all(), message="权限字符必须唯一")])
+                                validators=[CustomUniqueValidator(queryset=Role.objects.all(), message="权限字符必须唯一")])
     name = serializers.CharField(max_length=50, validators=[CustomUniqueValidator(queryset=Role.objects.all())])
 
     def validate(self, attrs: dict):
@@ -45,9 +46,9 @@ class RoleCreateUpdateSerializer(CustomModelSerializer):
 
     def save(self, **kwargs):
         data = super().save(**kwargs)
-        data.dept.set(self.initial_data.get('dept',[]))
-        data.menu.set(self.initial_data.get('menu',[]))
-        data.permission.set(self.initial_data.get('permission',[]))
+        data.dept.set(self.initial_data.get('dept', []))
+        data.menu.set(self.initial_data.get('menu', []))
+        data.permission.set(self.initial_data.get('permission', []))
         return data
 
     class Meta:
@@ -59,10 +60,12 @@ class MenuPermissonSerializer(CustomModelSerializer):
     """
     菜单的按钮权限
     """
-    menuPermission = MenuButtonSerializer(many=True,read_only=True)
+    menuPermission = MenuButtonSerializer(many=True, read_only=True)
+
     class Meta:
         model = Menu
         fields = '__all__'
+
 
 class RoleViewSet(CustomModelViewSet):
     """
@@ -76,9 +79,9 @@ class RoleViewSet(CustomModelViewSet):
     extra_filter_backends = []
     filter_fields = ['status']
 
-    def roleId_to_menu(self,request,*args, **kwargs):
+    def roleId_to_menu(self, request, *args, **kwargs):
         """通过角色id获取该角色用于的菜单"""
         instance = self.get_object()
         queryset = instance.menu.all()
-        serializer = MenuPermissonSerializer(queryset,many=True)
+        serializer = MenuPermissonSerializer(queryset, many=True)
         return SuccessResponse(data=serializer.data)

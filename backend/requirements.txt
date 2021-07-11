@@ -12,3 +12,4 @@ six==1.16.0
 sqlparse==0.4.1
 typing-extensions==3.10.0.0
 user-agents==2.2.0
+drf-yasg==1.20.0

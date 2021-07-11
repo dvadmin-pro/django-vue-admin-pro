@@ -6,13 +6,11 @@
 @Created on: 2021/6/1 001 22:57
 @Remark: 自定义视图集
 """
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter,OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 
-from dvadmin.plugins.filters import DataLevelPermissionsFilter
-from dvadmin.plugins.jsonResponse import SuccessResponse
-from dvadmin.plugins.permission import CustomPermission
+from dvadmin.utils.filters import DataLevelPermissionsFilter
+from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.permission import CustomPermission
 
 
 class CustomModelViewSet(ModelViewSet):
@@ -51,7 +49,7 @@ class CustomModelViewSet(ModelViewSet):
         return super().get_serializer_class()
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data,request=request)
+        serializer = self.get_serializer(data=request.data, request=request)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -61,12 +59,12 @@ class CustomModelViewSet(ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = self.get_serializer(page, many=True,request=request)
+            serializer = self.get_serializer(page, many=True, request=request)
             return self.get_paginated_response(serializer.data)
             # result = self.get_paginated_response(serializer.data)
             # print(51,result.data)
             # return JsonResponse(code=2000,msg="获取成功", data=result.data)
-        serializer = self.get_serializer(queryset, many=True,request=request)
+        serializer = self.get_serializer(queryset, many=True, request=request)
         return SuccessResponse(data=serializer.data, msg="获取成功")
 
     def retrieve(self, request, *args, **kwargs):
@@ -77,7 +75,7 @@ class CustomModelViewSet(ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance,data=request.data,request=request)
+        serializer = self.get_serializer(instance, data=request.data, request=request)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
