@@ -92,3 +92,4 @@ __pycache__
 !migrations/__init__.py
 *.pyc
 db.sqlite3
+!conf/env.example.py
