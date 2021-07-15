@@ -1,0 +1,15 @@
+asgiref==3.3.4
+Django==3.2.3
+django-comment-migrate==0.0.9
+django-cors-headers==3.7.0
+django-filter==2.4.0
+djangorestframework==3.12.4
+djangorestframework-simplejwt==4.7.1
+mysqlclient==2.0.3
+PyJWT==2.1.0
+pytz==2021.1
+six==1.16.0
+sqlparse==0.4.1
+typing-extensions==3.10.0.0
+user-agents==2.2.0
+drf-yasg==1.20.0
