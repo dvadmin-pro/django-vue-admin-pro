@@ -264,3 +264,5 @@ API_LOG_ENABLE = True
 API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE']  # ['POST', 'DELETE']
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 导入租户数据
+from plugins import *
