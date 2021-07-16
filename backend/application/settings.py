@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_comment_migrate',
+   # 'django_comment_migrate', #生成数据库注释的,初始化迁移时会报错,建议初始化迁移时注释,迁移完成后,再开放.
     'rest_framework',
     'django_filters',
     'corsheaders',  # 注册跨域app
