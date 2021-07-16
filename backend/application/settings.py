@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_comment_migrate',
+   # 'django_comment_migrate', #生成数据库注释的,初始化迁移时会报错,建议初始化迁移时注释,迁移完成后,再开放.
     'rest_framework',
     'django_filters',
     'corsheaders',  # 注册跨域app
@@ -263,3 +263,5 @@ API_LOG_ENABLE = True
 API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE']  # ['POST', 'DELETE']
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 导入租户数据
+from plugins import *
