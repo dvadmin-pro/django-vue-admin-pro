@@ -8,31 +8,59 @@
 -->
 <template>
   <d2-container :class="{ 'page-compact': false }">
-    <SplitPane :min-percent='20' :default-percent='20' split="vertical">
-      <template slot="paneL">
-        <div style="margin: 10px;">角色列表 仿照 http://www.volcore.xyz/permission </div>
-      </template>
-      <template slot="paneR">
-        <SplitPane split="horizontal">
-          <template slot="paneL">
-            <div style="margin: 10px;">数据权限</div>
-          </template>
-          <template slot="paneR">
-            <div style="margin: 10px;">菜单权限</div>
-          </template>
-        </SplitPane>
-      </template>
-    </SplitPane>
+    <el-row :gutter="20">
+      <el-col :span="4">
+        <div>
+          <el-input placeholder="输入关键字进行过滤" v-model="filterText">
+          </el-input>
+
+          <el-tree
+            class="filter-tree"
+            :data="data"
+            :props="{ label: 'name' }"
+            default-expand-all
+            :filter-node-method="filterNode"
+            @node-click="nodeClick"
+            ref="tree"
+          >
+          </el-tree>
+        </div>
+      </el-col>
+      <el-col :span="20">
+        <div>
+          <div>
+            <el-button type="primary" @click="submitPermisson">保存</el-button>
+          </div>
+          <el-tree
+            ref="menuTree"
+            :data="menuTreeData"
+            node-key="id"
+            default-expand-all
+            :expand-on-click-node="false"
+          >
+            <span class="custom-tree-node" slot-scope="{ node, data }">
+              <div class="yxt-flex-between">
+                <div style="margin-right: 50px">{{ data.name }}</div>
+                <div>
+                  <el-checkbox
+                    v-for="(item, index) in data.menuPermission"
+                    :key="index"
+                    v-model="item.checked"
+                    >{{ item.name }}</el-checkbox
+                  >
+                </div>
+              </div>
+            </span>
+          </el-tree>
+        </div>
+      </el-col>
+    </el-row>
   </d2-container>
 </template>
 
 <script>
 import * as api from './api'
 import XEUtils from 'xe-utils'
-import Vue from 'vue'
-import SplitPane from 'vue-splitpane'
-
-Vue.component('SplitPane', SplitPane)
 export default {
   name: 'rolePermission',
   data () {
@@ -118,9 +146,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .yxtInput {
-    .el-form-item__label {
-      color: #49a1ff;
-    }
+.yxtInput {
+  .el-form-item__label {
+    color: #49a1ff;
   }
+}
 </style>

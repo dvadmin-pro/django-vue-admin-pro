@@ -10,7 +10,7 @@ import { request } from '@/api/service'
 
 export function GetList (query) {
   return request({
-    url: '/api/system/operationLog',
+    url: '/api/system/operation_log',
     method: 'get',
     params: query
   })
@@ -32,7 +32,7 @@ export function UpdateObj (obj) {
 }
 export function DelObj (id) {
   return request({
-    url: '/api/system/operationLog/' + id + '/',
+    url: '/api/system/operation_log/' + id + '/',
     method: 'delete',
     data: { id }
   })

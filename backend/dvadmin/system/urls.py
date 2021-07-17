@@ -20,17 +20,17 @@ from dvadmin.system.views.user import UserViewSet
 system_url = routers.SimpleRouter()
 system_url.register(r'menu', MenuViewSet)
 system_url.register(r'button', ButtonViewSet)
-system_url.register(r'menuButton', MenuButtonViewSet)
+system_url.register(r'menu_button', MenuButtonViewSet)
 system_url.register(r'role', RoleViewSet)
 system_url.register(r'dept', DeptViewSet)
 system_url.register(r'user', UserViewSet)
-system_url.register(r'operationLog', OperationLogViewSet)
+system_url.register(r'operation_log', OperationLogViewSet)
 
 urlpatterns = [
-    path('menuTree/', MenuViewSet.as_view({'get': 'menu_tree'})),
-    path('deptTree/', DeptViewSet.as_view({'get': 'dept_tree'})),
-    re_path('roleIdToMenu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
-    path('webRouter/', MenuViewSet.as_view({'get': 'web_router'})),
+    re_path('menu_tree/', MenuViewSet.as_view({'get': 'menu_tree'})),
+    re_path('dept_tree/', DeptViewSet.as_view({'get': 'dept_tree'})),
+    re_path('role_id_to_menu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
+    re_path('web_router/', MenuViewSet.as_view({'get': 'web_router'})),
 
 ]
 urlpatterns += system_url.urls

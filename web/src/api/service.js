@@ -153,7 +153,7 @@ export const mock = new Adapter(serviceForMock)
 const refreshTken = function () {
   const refresh = util.cookies.get('refresh')
   return request({
-    url: 'api/token/refresh/',
+    url: 'token/refresh/',
     method: 'post',
     data: {
       refresh: refresh

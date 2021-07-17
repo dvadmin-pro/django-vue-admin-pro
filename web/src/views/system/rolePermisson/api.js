@@ -50,7 +50,7 @@ export function DelObj (id) {
 // 通过角色id,获取菜单数据
 export function GetMenuData (obj) {
   return request({
-    url: '/api/system/roleIdToMenu/' + obj.id + '/',
+    url: '/api/system/role_id_to_menu/' + obj.id + '/',
     method: 'get',
     params: {}
   }).then(res => {

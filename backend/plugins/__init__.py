@@ -9,6 +9,12 @@ from application.settings import BASE_DIR
 for ele in os.listdir(os.path.join(BASE_DIR, "plugins")):
     if not ele.startswith("__") and os.path.isdir(os.path.join(BASE_DIR, "plugins", ele)):
         NAME = ""
-        exec("from plugins.dvadmin_tenant import NAME")
-        from plugins.dvadmin_tenant.settings import *
-        print(f"【{NAME}】导入成功")
+        ENABLE = False
+        try:
+            exec("from plugins.dvadmin_tenant import NAME,ENABLE")
+            if ENABLE:
+                from plugins.dvadmin_tenant.settings import *
+
+                print(f"【{NAME}】导入成功")
+        except Exception:
+            pass

@@ -13,17 +13,17 @@ export const crudOptions = (vm) => {
       edit: {
         thin: true,
         text: '编辑',
-        show() {
+        show () {
           return vm.hasPermissions('Update')
         },
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -128,7 +128,6 @@ export const crudOptions = (vm) => {
       {
         title: '状态',
         key: 'is_active',
-        sortable: true,
         search: {
           disabled: false
         },

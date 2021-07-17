@@ -66,7 +66,7 @@ export const menuAside = supplementPath([])
 
 export const getMenu = function (self) {
   return request({
-    url: '/api/system/webRouter',
+    url: '/api/system/web_router',
     method: 'get',
     params: {}
   }).then((res) => {

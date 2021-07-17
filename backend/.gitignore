@@ -91,6 +91,6 @@ ENV/
 __pycache__
 !migrations/__init__.py
 *.pyc
+conf/
 !conf/env.example.py
 db.sqlite3
-!conf/env.example.py
