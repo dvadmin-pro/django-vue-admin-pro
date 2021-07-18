@@ -43,14 +43,12 @@ function createService () {
             // return dataAxios.data
             return dataAxios
           case 401:
-            refreshTken().then(res => {
-              util.cookies.set('token', res.access)
-            }).catch(e => {
-              router.push({ path: '/login' })
-              errorCreate('未认证，请登录')
-            })
-            // router.push({ path: '/login' })
-
+            if (typeof dataAxios.msg === 'string') {
+              errorCreate(`${dataAxios.msg}`)
+            } else {
+              errorCreate('登录信息过期，请重新登录')
+            }
+            router.push({ path: '/login' })
             break
           case 404:
             dataNotFound(`${dataAxios.msg}`)

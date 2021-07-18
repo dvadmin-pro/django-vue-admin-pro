@@ -26,7 +26,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of auth_group
@@ -47,7 +47,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of auth_group_permissions
@@ -67,7 +67,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -145,7 +145,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -178,7 +178,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -212,7 +212,7 @@ CREATE TABLE `django_session` (
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`),
   KEY `django_session_expire_date_a5c62663` (`expire_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_session
@@ -236,7 +236,7 @@ CREATE TABLE `system_button` (
   `creator_id` varchar(255) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`),
   KEY `system_button_creator_id_2b6b251e` (`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_button
@@ -271,7 +271,7 @@ CREATE TABLE `system_dept` (
   PRIMARY KEY (`id`),
   KEY `system_dept_creator_id_bbfb6d95` (`creator_id`),
   KEY `system_dept_parent_id_04e6e6fd` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_dept
@@ -304,7 +304,7 @@ CREATE TABLE `system_dictionary` (
   UNIQUE KEY `code` (`code`),
   KEY `system_dictionary_creator_id_f8c7f9f4` (`creator_id`),
   KEY `system_dictionary_parent_id_bbcfeb45` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_dictionary
@@ -333,7 +333,7 @@ CREATE TABLE `system_dictionary_detail` (
   PRIMARY KEY (`id`),
   KEY `system_dictionary_detail_creator_id_faa15e80` (`creator_id`),
   KEY `system_dictionary_detail_dict_id_b34cd202` (`dict_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_dictionary_detail
@@ -362,7 +362,7 @@ CREATE TABLE `system_login_log` (
   `creator_id` varchar(255) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`),
   KEY `system_login_log_creator_id_1c6a4055` (`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_login_log
@@ -392,7 +392,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `system_menu_creator_id_d58495af` (`creator_id`),
   KEY `system_menu_parent_id_c715739f` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_menu
@@ -429,7 +429,7 @@ CREATE TABLE `system_menu_button` (
   PRIMARY KEY (`id`),
   KEY `system_menu_button_creator_id_c3d89b15` (`creator_id`),
   KEY `system_menu_button_menu_id_eb56b604` (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_menu_button
@@ -492,7 +492,7 @@ CREATE TABLE `system_operation_log` (
   `creator_id` varchar(255) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`),
   KEY `system_operation_log_creator_id_5407dfa5` (`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_operation_log
@@ -518,7 +518,7 @@ CREATE TABLE `system_post` (
   `creator_id` varchar(255) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`),
   KEY `system_post_creator_id_e3f13f28` (`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_post
@@ -547,7 +547,7 @@ CREATE TABLE `system_role` (
   `creator_id` varchar(255) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`),
   KEY `system_role_creator_id_ea515370` (`creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_role
@@ -569,7 +569,7 @@ CREATE TABLE `system_role_dept` (
   UNIQUE KEY `system_role_dept_role_id_dept_id_e50efeba_uniq` (`role_id`,`dept_id`),
   KEY `system_role_dept_role_id_b44a7cef` (`role_id`),
   KEY `system_role_dept_dept_id_f2f8d11a` (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_role_dept
@@ -591,7 +591,7 @@ CREATE TABLE `system_role_menu` (
   UNIQUE KEY `system_role_menu_role_id_menu_id_bceffeea_uniq` (`role_id`,`menu_id`),
   KEY `system_role_menu_role_id_381c2e52` (`role_id`),
   KEY `system_role_menu_menu_id_400f4f82` (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_role_menu
@@ -617,7 +617,7 @@ CREATE TABLE `system_role_permission` (
   UNIQUE KEY `system_role_permission_role_id_menubutton_id_5fb41eb5_uniq` (`role_id`,`menubutton_id`),
   KEY `system_role_permission_role_id_ca5e9412` (`role_id`),
   KEY `system_role_permission_menubutton_id_aef88309` (`menubutton_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_role_permission
@@ -657,7 +657,7 @@ CREATE TABLE `system_users` (
   UNIQUE KEY `username` (`username`),
   KEY `system_users_creator_id_610a4b11` (`creator_id`),
   KEY `system_users_dept_id_9060c641` (`dept_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_users
@@ -682,7 +682,7 @@ CREATE TABLE `system_users_groups` (
   KEY `system_users_groups_group_id_13685d93_fk_auth_group_id` (`group_id`),
   CONSTRAINT `system_users_groups_group_id_13685d93_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `system_users_groups_users_id_3c266c8f_fk_system_users_id` FOREIGN KEY (`users_id`) REFERENCES `system_users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_users_groups
@@ -702,7 +702,7 @@ CREATE TABLE `system_users_post` (
   UNIQUE KEY `system_users_post_users_id_post_id_1932458d_uniq` (`users_id`,`post_id`),
   KEY `system_users_post_users_id_5046a91b` (`users_id`),
   KEY `system_users_post_post_id_6560916c` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_users_post
@@ -722,7 +722,7 @@ CREATE TABLE `system_users_role` (
   UNIQUE KEY `system_users_role_users_id_role_id_efdd1ca1_uniq` (`users_id`,`role_id`),
   KEY `system_users_role_users_id_898e5d39` (`users_id`),
   KEY `system_users_role_role_id_056fc093` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_users_role
@@ -746,7 +746,7 @@ CREATE TABLE `system_users_user_permissions` (
   KEY `system_users_user_pe_permission_id_691fa57c_fk_auth_perm` (`permission_id`),
   CONSTRAINT `system_users_user_pe_permission_id_691fa57c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `system_users_user_pe_users_id_1cfa57c2_fk_system_us` FOREIGN KEY (`users_id`) REFERENCES `system_users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of system_users_user_permissions
