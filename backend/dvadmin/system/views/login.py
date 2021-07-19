@@ -43,7 +43,7 @@ class LoginSerializer(TokenObtainPairSerializer):
             }
         else:
             result = {
-                "code": 401,
+                "code": 4000,
                 "msg": "账号/密码不正确",
                 "data": None
             }

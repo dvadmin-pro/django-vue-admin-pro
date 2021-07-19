@@ -81,7 +81,8 @@ class RoleViewSet(CustomModelViewSet):
 
     def roleId_to_menu(self, request, *args, **kwargs):
         """通过角色id获取该角色用于的菜单"""
-        instance = self.get_object()
-        queryset = instance.menu.all()
+        # instance = self.get_object()
+        # queryset = instance.menu.all()
+        queryset = Menu.objects.all()
         serializer = MenuPermissonSerializer(queryset, many=True)
         return SuccessResponse(data=serializer.data)

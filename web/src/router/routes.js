@@ -100,13 +100,13 @@ const frameIn = [{
     },
     // 系统 角色权限
     {
-      path: 'rolePermisson',
-      name: 'rolePermisson',
+      path: 'rolePermission',
+      name: 'rolePermission',
       meta: {
-        title: '角色权限',
+        title: '权限管理',
         auth: true
       },
-      component: _import('system/rolePermisson')
+      component: _import('system/rolePermission')
     },
 
     // 系统 角色管理

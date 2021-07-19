@@ -54,7 +54,7 @@ export const menuAside = supplementPath([])
 //             { path: '/button', title: '按钮' },
 //             { path: '/role', title: '角色' },
 //             { path: '/dept', title: '部门' },
-//             { path: '/rolePermisson', title: '角色权限' },
+//             { path: '/rolePermission', title: '角色权限' },
 //             {
 //                 title: '日志管理', children: [
 //                     { path: '/operationLog', title: '操作日志' },
@@ -66,7 +66,7 @@ export const menuAside = supplementPath([])
 
 export const getMenu = function (self) {
   return request({
-    url: '/api/system/webRouter',
+    url: '/api/system/web_router',
     method: 'get',
     params: {}
   }).then((res) => {

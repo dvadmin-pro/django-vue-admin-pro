@@ -1,6 +1,6 @@
 asgiref==3.3.4
 Django==3.2.3
-django-comment-migrate==0.0.9
+django-comment-migrate==0.1.1
 django-cors-headers==3.7.0
 django-filter==2.4.0
 djangorestframework==3.12.4

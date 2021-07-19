@@ -14,7 +14,7 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       dropdown: {
-        atLeast: 4 // 至少2个以上才收入下拉框中
+        atLeast: 5 // 至少2个以上才收入下拉框中
       },
       width: 370,
       edit: {
@@ -35,20 +35,13 @@ export const crudOptions = (vm) => {
         show (index, row) {
           return true
         },
-        text: ' 菜单权限',
-        type: 'warning',
-        size: 'small',
-        emit: 'createMenuPermission',
-        icon: 'el-icon-s-flag'
-      },
-      {
-        show (index, row) {
-          return true
+        disabled () {
+          return !vm.hasPermissions('Update')
         },
-        text: ' 数据权限',
+        text: '权限管理',
         type: 'warning',
         size: 'small',
-        emit: 'createDataPermission',
+        emit: 'createPermission',
         icon: 'el-icon-s-flag'
       }]
 
