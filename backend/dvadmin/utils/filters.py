@@ -24,7 +24,7 @@ def get_dept(dept_id: int, dept_all_list=None, dept_list=None):
     if dept_list is None:
         dept_list = [dept_id]
     for ele in dept_all_list:
-        if ele.get('parentId') == int(dept_id):
+        if ele.get('parentId') == dept_id:
             dept_list.append(ele.get('id'))
             get_dept(ele.get('id'), dept_all_list, dept_list)
     return list(set(dept_list))

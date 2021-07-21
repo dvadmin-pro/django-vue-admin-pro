@@ -2,7 +2,7 @@ import axios from 'axios'
 import Adapter from 'axios-mock-adapter'
 import { get } from 'lodash'
 import util from '@/libs/util'
-import { errorLog, errorCreate, dataNotFound } from './tools'
+import { dataNotFound, errorCreate, errorLog } from './tools'
 import router from '@/router'
 
 /**
@@ -46,11 +46,13 @@ function createService () {
             refreshTken().then(res => {
               util.cookies.set('token', res.access)
             }).catch(e => {
+              if (typeof dataAxios.msg === 'string') {
+                errorCreate(`${dataAxios.msg}`)
+              } else {
+                errorCreate('登录信息过期，请重新登录')
+              }
               router.push({ path: '/login' })
-              errorCreate('未认证，请登录')
             })
-            // router.push({ path: '/login' })
-
             break
           case 404:
             dataNotFound(`${dataAxios.msg}`)

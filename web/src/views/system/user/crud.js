@@ -34,6 +34,11 @@ export const crudOptions = (vm) => {
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
     },
+    indexRow: { // 或者直接传true,不显示title，不居中
+      title: '序号',
+      align: 'center',
+      width: 100
+    },
     columns: [
       {
         title: '关键词',
