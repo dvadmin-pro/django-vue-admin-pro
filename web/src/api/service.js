@@ -143,6 +143,7 @@ function createService () {
  * @param {Object} service axios 实例
  */
 function createRequestFunction (service) {
+  // 校验是否为租户模式。租户模式把域名替换成 域名 加端口
   return function (config) {
     const token = util.cookies.get('token')
     const configDefault = {
@@ -151,7 +152,7 @@ function createRequestFunction (service) {
         'Content-Type': get(config, 'headers.Content-Type', 'application/json')
       },
       timeout: 5000,
-      baseURL: process.env.VUE_APP_API,
+      baseURL: util.baseURL(),
       data: {}
     }
     return service(Object.assign(configDefault, config))
