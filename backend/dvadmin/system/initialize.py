@@ -11,8 +11,16 @@ from dvadmin.system.models import Dept, Button, Menu, MenuButton, Role, Users
 
 
 class Initialize:
+    def __init__(self, delete=False):
+        """
+        delete 是否删除已初始化数据
+        """
+        self.delete = delete
+
     def save(self, obj, data: list, name):
         print(f"正在初始化【{name}】")
+        if self.delete:
+            obj.objects.all().delete()
         for ele in data:
             id = ele.pop('id')
             obj.objects.get_or_create(id=id, defaults=ele)
@@ -71,9 +79,9 @@ class Initialize:
             {"id": "5a05450c-cec2-4819-8d54-e0d6f6aac3a6", "name": "用户管理", "sort": 5, "web_path": "/user",
              "icon": "user", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/user",
              "component_name": "user"},
-            {"id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac", "name": "权限管理", "sort": 4, "web_path": "/rolePermisson",
+            {"id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac", "name": "权限管理", "sort": 4, "web_path": "/rolePermission",
              "icon": "user-plus", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc",
-             "component": "system/rolePermisson", "component_name": "rolePermisson"},
+             "component": "system/rolePermission", "component_name": "rolePermission"},
             {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 1, "web_path": "", "icon": "clock-o",
              "parent_id": None, "component": None, "component_name": None},
         ]
@@ -165,13 +173,21 @@ class Initialize:
         初始化用户表
         """
         data = [
-            {"id": "2457d43b-bb74-4ac6-94ae-454acf1f0160", "password": "管理员", "is_superuser": 0, "is_staff": 0,
+            {"id": "2457d43b-bb74-4ac6-94ae-454acf1f0160",
+             "password": "pbkdf2_sha256$260000$Q60dvTUcDJAiVzvZMPSYyV$9ZFqbjqTDa5U4GGubAh1xX+YDKsqm5AU8GCficncr5I=",
+             "is_superuser": 0, "is_staff": 0,
              "is_active": 1, "username": "test", "name": "测试"},
-            {"id": "456b688c-8ad5-46de-bc2e-d41d8047bd42", "password": "普通用户", "is_superuser": 1, "is_staff": 1,
+            {"id": "456b688c-8ad5-46de-bc2e-d41d8047bd42",
+             "password": "pbkdf2_sha256$260000$oE0tnjC7PRIV6aCEah0J1F$scZo6l2/kekoClW8jZ6bM4PmSXevb4qzqHLro8PvzLc=",
+             "is_superuser": 1, "is_staff": 1,
              "is_active": 1, "username": "superadmin", "name": "超级管理员"},
-            {"id": "bcb411ce-13ff-4a2a-8eda-fcdd243a7f76", "password": "普通用户", "is_superuser": 0, "is_staff": 0,
+            {"id": "bcb411ce-13ff-4a2a-8eda-fcdd243a7f76",
+             "password": "pbkdf2_sha256$260000$oE0tnjC7PRIV6aCEah0J1F$scZo6l2/kekoClW8jZ6bM4PmSXevb4qzqHLro8PvzLc=",
+             "is_superuser": 0, "is_staff": 0,
              "is_active": 0, "username": "demo", "name": "demo"},
-            {"id": "d1431450-5068-4461-b57e-7862c005a547", "password": "普通用户", "is_superuser": 0, "is_staff": 0,
+            {"id": "d1431450-5068-4461-b57e-7862c005a547",
+             "password": "pbkdf2_sha256$260000$DO6dpT8e4Ls0yD51grncC8$KZfswxNJ8MILTWwy+bicRyU7Q3PKC4orn4SJbhIkN4Q=",
+             "is_superuser": 0, "is_staff": 0,
              "is_active": 1, "username": "admin", "name": "管理员"},
         ]
         self.save(Users, data, "用户表")
@@ -186,7 +202,7 @@ class Initialize:
 
 
 def run():
-    Initialize().run()
+    Initialize(delete=True).run()
     pass
 
 
