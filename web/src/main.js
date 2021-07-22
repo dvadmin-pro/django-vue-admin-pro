@@ -9,8 +9,9 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-import { menuHeader, menuAside } from '@/menu'
-import { frameInRoutes } from '@/router/routes'
+import { menuHeader, menuAside, getMenu } from '@/menu'
+import { frameInRoutes, getRouters } from '@/router/routes'
+
 // 按钮权限
 import '@/plugin/permission' // 加载permission
 
@@ -24,6 +25,15 @@ import 'vxe-table/lib/style.css'
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(VXETable)
+
+// 猿小天:2021-7-21修改:设置动态路由
+getMenu().then(ret => {
+  store.commit("d2admin/menu/asideSet", ret.menu) // 设置侧边栏菜单
+  store.commit("d2admin/search/init", ret.menu) // 设置搜索
+  router.addRoutes(ret.router)
+  // 处理路由 得到每一级的路由设置
+  store.commit('d2admin/page/init', ret.router)
+})
 
 new Vue({
   router,
