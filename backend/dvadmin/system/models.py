@@ -124,6 +124,8 @@ class Menu(CoreModel):
     )
     is_link = models.IntegerField(choices=ISLINK_CHOICES, default=0, verbose_name="是否外链", help_text="是否外链")
     web_path = models.CharField(max_length=128, verbose_name="路由地址", null=True, blank=True, help_text="路由地址")
+    component = models.CharField(max_length=128, verbose_name="组件地址", null=True, blank=True, help_text="组件地址")
+    component_name = models.CharField(max_length=50, verbose_name="组件名称", null=True, blank=True, help_text="组件名称")
     STATUS_CHOICES = (
         (0, "禁用"),
         (1, "启用"),
