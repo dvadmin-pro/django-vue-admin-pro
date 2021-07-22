@@ -107,7 +107,7 @@ class Button(CoreModel):
 
     class Meta:
         db_table = table_prefix + "button"
-        verbose_name = '权限表'
+        verbose_name = '权限标识表'
         verbose_name_plural = verbose_name
         ordering = ('-name',)
 
