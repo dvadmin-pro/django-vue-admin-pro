@@ -18,7 +18,7 @@ export default {
      * @description 切换激活状态
      * @param {Object} state state
      */
-    toggle (state) {
+    toggle(state) {
       state.active = !state.active
     },
     /**
@@ -26,7 +26,7 @@ export default {
      * @param {Object} state state
      * @param {Boolean} active active
      */
-    set (state, active) {
+    set(state, active) {
       state.active = active
     },
     /**
@@ -34,7 +34,7 @@ export default {
      * @param {Object} state state
      * @param {Array} menu menu
      */
-    init (state, menu) {
+    init(state, menu) {
       const pool = []
       const push = function (menu, titlePrefix = []) {
         menu.forEach(m => {

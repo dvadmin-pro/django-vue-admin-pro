@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-03 00:34:42
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-30 00:47:54
+ * @最后修改时间: 2021-07-24 00:48:00
  * 联系Qq:1638245306
  * @文件介绍: 权限配置
  */
@@ -21,16 +21,12 @@ export const crudOptions = (vm) => {
       edit: {
         thin: true,
         text: '编辑',
-        disabled () {
-          return !vm.hasPermissions('Update')
-        }
+
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
-          return !vm.hasPermissions('Delete')
-        }
+
       }
     },
     indexRow: { // 或者直接传true,不显示title，不居中

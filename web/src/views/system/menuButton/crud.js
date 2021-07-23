@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-03 00:50:28
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-04 00:02:34
+ * @最后修改时间: 2021-07-24 00:50:32
  * 联系Qq:1638245306
  * @文件介绍: 菜单的按钮和接口配置
  */
@@ -67,6 +67,18 @@ export const crudOptions = (vm) => {
       }
     },
     {
+      title: '添加按钮',
+      key: 'createBtn',
+      type: 'select',
+      show: false,
+      search: {
+        disabled: true
+      },
+      form: {
+        slot: true
+      }
+    },
+    {
       title: '名称',
       key: 'name',
       sortable: true,
@@ -75,6 +87,7 @@ export const crudOptions = (vm) => {
       },
       type: 'select',
       dict: {
+        cache: false,
         url: '/api/system/button/',
         label: 'name',
         value: 'name',
@@ -85,26 +98,20 @@ export const crudOptions = (vm) => {
         }
       },
       form: {
-        /**
-                 *  valueChange 功能大大增强
-                 * @param key
-                 * @param value 当前选择的值
-                 * @param form 当前表单
-                 * @param getColumn 获取字段配置的方法，getColumn(keyName) 返回keyName的字段配置，可以动态修改组件配置
-                 * @param mode 当前模式:【add、edit、search】
-                 * @param component 当前组件的ref
-                 * @param immediate 是否是对话框打开后立即触发的
-                 * @param getComponent 获取组件Ref的方法， getComponent(keyName), 返回组件ref，可以动态调用该组件的方法
-                 */
-        valueChange (key, value, form, { getColumn, mode, component, immediate, getComponent }) {
-          form.value = component.dict.dataMap[value].value
-        },
+        name: 'select',
         rules: [ // 表单校验规则
           { required: true, message: '必填项' }
         ],
         component: {
-          span: 12
-
+          span: 12,
+          children: [
+            (h) => {
+              return <div>112233</div>
+            },
+            (h) => {
+              return <el-button slot="prefix" icon="el-icon-search" onClick={() => { vm.$message('input后缀按钮') }} />
+            }
+          ]
         },
         itemProps: {
           class: { yxtInput: true }
@@ -209,7 +216,7 @@ export const crudOptions = (vm) => {
           class: { yxtInput: true }
         },
         helper: {
-          render (h) {
+          render(h) {
             return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/.*?/" type="warning" />
             )
           }
