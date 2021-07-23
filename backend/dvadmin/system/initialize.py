@@ -82,7 +82,7 @@ class Initialize:
             {"id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac", "name": "权限管理", "sort": 4, "web_path": "/rolePermission",
              "icon": "user-plus", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc",
              "component": "system/rolePermission", "component_name": "rolePermission"},
-            {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 1, "web_path": "", "icon": "clock-o",
+            {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 2, "web_path": "", "icon": "clock-o",
              "parent_id": None, "component": None, "component_name": None},
         ]
         self.save(Menu, data, "菜单表")
