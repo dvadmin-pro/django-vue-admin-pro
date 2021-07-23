@@ -201,10 +201,10 @@ class Initialize:
         self.init_users()
 
 
-def run():
-    Initialize(delete=True).run()
+def main(is_delete=False):
+    Initialize(is_delete).run()
     pass
 
 
 if __name__ == '__main__':
-    run()
+    main()

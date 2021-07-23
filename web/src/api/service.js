@@ -68,9 +68,12 @@ function createService () {
               if (typeof dataAxios.msg === 'string') {
                 errorCreate(`${dataAxios.msg}`)
               } else {
+                // 删除cookie
+                util.cookies.remove('token')
+                util.cookies.remove('uuid')
+                router.push({ path: '/login' })
                 errorCreate('登录信息过期，请重新登录')
               }
-              router.push({ path: '/login' })
             })
             break
           case 404:
