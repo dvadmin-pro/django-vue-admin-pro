@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:19
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-23 23:29:46
+ * @最后修改时间: 2021-07-24 23:24:01
  * 联系Qq:1638245306
  * @文件介绍: 
  */
@@ -34,14 +34,7 @@ import 'vxe-table/lib/style.css'
 Vue.use(d2Admin)
 Vue.use(VXETable)
 
-// 猿小天:2021-7-21修改:设置动态路由
-getMenu().then(ret => {
-  let { menu, router } = ret
-  store.commit("d2admin/menu/asideSet", menu) // 设置侧边栏菜单
-  store.commit("d2admin/search/init", menu) // 设置搜索
-  // 处理路由 得到每一级的路由设置
-  store.commit('d2admin/page/init', router)
-})
+
 
 new Vue({
   router,
@@ -49,6 +42,7 @@ new Vue({
   i18n,
   render: h => h(App),
   created() {
+
     // 处理路由 得到每一级的路由设置
     // this.$store.commit('d2admin/page/init', frameInRoutes)
     // 设置顶栏菜单
