@@ -13,29 +13,31 @@ export const crudOptions = (vm) => {
 
     },
     rowHandle: {
-      dropdown: {
-        atLeast: 5 // 至少2个以上才收入下拉框中
+      view: {
+        disabled() {
+          return !vm.hasPermissions('Retrieve')
+        }
       },
       width: 370,
       edit: {
         thin: true,
         text: '编辑',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       },
       custom: [{
-        show (index, row) {
+        show(index, row) {
           return true
         },
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         },
         text: '权限管理',
@@ -53,7 +55,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span

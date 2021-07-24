@@ -187,6 +187,7 @@ export default {
         store.commit("d2admin/search/init", menu); // 设置搜索
         // 处理路由 得到每一级的路由设置
         store.commit("d2admin/page/init", router);
+        this.$router.addRoutes(router);
       });
     },
   },
