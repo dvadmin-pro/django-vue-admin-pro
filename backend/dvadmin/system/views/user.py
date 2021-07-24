@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
 from dvadmin.system.models import Users
+from dvadmin.utils.permission import CustomPermission
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomUniqueValidator
 from dvadmin.utils.viewset import CustomModelViewSet
