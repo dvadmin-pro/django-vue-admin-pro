@@ -197,6 +197,30 @@ export const crudOptions = (vm) => {
         }
       },
       {
+        title: '组件名称',
+        key: 'component_name',
+        form: {
+          component: {
+            span: 12,
+            props: {
+              clearable: true
+            }
+          }
+        }
+      },
+      {
+        title: '组件地址',
+        key: 'component',
+        form: {
+          component: {
+            span: 12,
+            props: {
+              clearable: true
+            }
+          }
+        }
+      },
+      {
         title: '权限',
         key: 'menuPermission',
         width: 260,

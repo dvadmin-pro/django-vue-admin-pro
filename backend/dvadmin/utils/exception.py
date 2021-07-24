@@ -32,7 +32,7 @@ def CustomExceptionHandler(ex, context):
     code = 4000
 
     if isinstance(ex, AuthenticationFailed):
-        code = 401
+        code = 4000
         msg = ex.detail
     elif isinstance(ex, DRFAPIException):
         set_rollback()

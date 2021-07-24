@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-27 12:38:17
+ * @最后修改时间: 2021-07-24 00:48:08
  * 联系Qq:1638245306
  * @文件介绍:
 -->
@@ -22,11 +22,7 @@
           @submit="handleSearch"
         />
         <el-button-group>
-          <el-button
-            size="small"
-            v-permission="'Create'"
-            type="primary"
-            @click="addRow"
+          <el-button size="small" type="primary" @click="addRow"
             ><i class="el-icon-plus" /> 新增</el-button
           >
         </el-button-group>
@@ -43,42 +39,42 @@
 </template>
 
 <script>
-import * as api from './api'
-import { crudOptions } from './crud'
-import { d2CrudPlus } from 'd2-crud-plus'
+import * as api from "./api";
+import { crudOptions } from "./crud";
+import { d2CrudPlus } from "d2-crud-plus";
 export default {
-  name: 'formSelect',
+  name: "formSelect",
   mixins: [d2CrudPlus.crud],
-  data () {
-    return {}
+  data() {
+    return {};
   },
   methods: {
-    getCrudOptions () {
-      return crudOptions(this)
+    getCrudOptions() {
+      return crudOptions(this);
     },
-    pageRequest (query) {
-      return api.GetList(query)
+    pageRequest(query) {
+      return api.GetList(query);
     },
-    addRequest (row) {
-      console.log('api', api)
-      return api.createObj(row)
+    addRequest(row) {
+      console.log("api", api);
+      return api.createObj(row);
     },
-    updateRequest (row) {
-      console.log('----', row)
-      return api.UpdateObj(row)
+    updateRequest(row) {
+      console.log("----", row);
+      return api.UpdateObj(row);
     },
-    delRequest (row) {
-      return api.DelObj(row.id)
+    delRequest(row) {
+      return api.DelObj(row.id);
     },
     // 授权
-    createPermission (scope) {
-      console.log('custom btn:', scope)
+    createPermission(scope) {
+      console.log("custom btn:", scope);
       this.$message(
-        '自定义操作按钮：' + scope.row.data + ',index:' + scope.index
-      )
-    }
-  }
-}
+        "自定义操作按钮：" + scope.row.data + ",index:" + scope.index
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss">
