@@ -2,19 +2,23 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-09 12:00:41
+ * @最后修改时间: 2021-07-24 00:19:39
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
 import { uniqueId } from 'lodash'
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
+import store from '@/store/index'
+import router from '@/router'
+import { frameInRoutes } from '@/router/routes'
+const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath (menu) {
+function supplementPath(menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
@@ -64,21 +68,47 @@ export const menuAside = supplementPath([])
 //     }
 // ])
 
+
+//请求路由,封装为动态路由和菜单设置
 export const getMenu = function (self) {
   return request({
     url: '/api/system/web_router',
     method: 'get',
     params: {}
   }).then((res) => {
+    // 设置动态路由
+    let menuData = res.data.data
+    sessionStorage.setItem("menuData", JSON.stringify(menuData))
+    for (let item of menuData) {
+      if (item.path !== "" && item.parent !== null && item.component) {
+        let obj = {
+          path: item.path,
+          name: item.component_name,
+          component: _import(item.component),
+          meta: {
+            title: item.name,
+            auth: true
+          }
+        }
+        frameInRoutes[0].children.push(obj)
+        item.path = "/" + item.path
+      } else {
+        delete item.path
+      }
+    }
+
     // 将列表数据转换为树形数据
-    const data = XEUtils.toArrayTree(res.data.data, {
+    const data = XEUtils.toArrayTree(menuData, {
       parentKey: 'parent',
       strict: true
     })
-    const menu = [
+
+    let menu = [
       { path: '/index', title: '首页', icon: 'home' },
       ...data
     ]
-    return supplementPath(menu)
+    let menu_data = supplementPath(menu)
+
+    return { router: frameInRoutes, menu: menu_data }
   })
 }
