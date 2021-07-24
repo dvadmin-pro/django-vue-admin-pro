@@ -5,6 +5,7 @@ import { d2CrudPlus } from 'd2-crud-plus'
 import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2pFullEditor, D2pUploader, D2pDemoExtend } from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
 // http请求
 import { request } from '@/api/service'
+import util from '@/libs/util'
 
 /**
  // vxe0
@@ -142,7 +143,7 @@ Vue.use(D2pUploader, {
     domain: 'http://d2p.file.veryreader.com'
   },
   form: {
-    action: process.env.VUE_APP_API + 'upload/form/upload',
+    action: util.baseURL() + 'upload/form/upload',
     name: 'file'
   }
 })
