@@ -61,7 +61,12 @@ export const crudOptions = (vm) => {
         show: false,
         disabled: true,
         search: {
-          disabled: false
+          disabled: false,
+          component: {
+            props: {
+              clearable: true
+            }
+          }
         },
         form: {
           disabled: true,
@@ -145,13 +150,16 @@ export const crudOptions = (vm) => {
             span: 12,
             props: {
               clearable: true
-            }
+            },
+
           },
           itemProps: {
             class: { yxtInput: true }
-          }
+          },
+
         }
-      }, {
+      },
+      {
         title: '图标',
         key: 'icon',
         width: 80,
@@ -162,7 +170,8 @@ export const crudOptions = (vm) => {
 
           }
         }
-      }, {
+      },
+      {
         title: '排序',
         key: 'sort',
         width: 80,
@@ -239,7 +248,7 @@ export const crudOptions = (vm) => {
               multiple: true,
               clearable: true
             }
-          }
+          },
         },
         dict: {
           url: '/api/system/button/',

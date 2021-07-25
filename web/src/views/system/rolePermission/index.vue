@@ -23,11 +23,12 @@
                 size="mini"
                 @click="submitPermisson"
                 v-permission="'Update'"
-                >保存</el-button
+              >保存
+              </el-button
               >
             </div>
           </div>
-          <br />
+          <br/>
           <el-tree
             class="filter-tree"
             :data="data"
@@ -51,6 +52,9 @@
                   <div class="yxt-flex-align-center">
                     <div class="yxt-divider"></div>
                     <span>数据授权</span>
+                    <el-tooltip class="item" effect="dark" :content="dataAuthorizationTips" placement="right">
+                      <icon class="el-icon-question"></icon>
+                    </el-tooltip>
                   </div>
                 </div>
                 <el-row>
@@ -93,6 +97,9 @@
                   <div class="yxt-flex-align-center">
                     <div class="yxt-divider"></div>
                     <span>菜单授权</span>
+                    <el-tooltip class="item" effect="dark" :content="menuAuthorizationTips" placement="right">
+                      <icon class="el-icon-question"></icon>
+                    </el-tooltip>
                   </div>
                 </div>
                 <el-tree
@@ -115,7 +122,7 @@
                           v-for="(item, index) in data.menuPermission"
                           :key="index"
                           v-model="item.checked"
-                          >{{ item.name }}</el-checkbox
+                        >{{ item.name }}</el-checkbox
                         >
                       </div>
                     </div>
@@ -173,6 +180,8 @@ export default {
           label: "自定数据权限",
         },
       ],
+      dataAuthorizationTips: "授权用户可操作的数据范围",
+      menuAuthorizationTips: "授权用户在菜单中可操作的范围",
     };
   },
   watch: {
@@ -248,7 +257,7 @@ export default {
         });
 
         // 将菜单列表转换为树形列表
-        this.menuTreeData = XEUtils.toArrayTree(res, { parentKey: "parent" });
+        this.menuTreeData = XEUtils.toArrayTree(res, {parentKey: "parent"});
       });
     },
     // 所有勾选菜单节点数据
@@ -310,6 +319,7 @@ export default {
     color: #49a1ff;
   }
 }
+
 // .splitter-pane.horizontal.splitter-paneL{
 //   overflow: scroll;
 // }
