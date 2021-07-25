@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -24,6 +24,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@/assets/style/public-class.scss';
-@import '~@/assets/style/yxt-public.scss';
+@import "~@/assets/style/public-class.scss";
+@import "~@/assets/style/yxt-public.scss";
 </style>

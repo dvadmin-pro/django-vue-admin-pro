@@ -9,13 +9,14 @@ export const crudOptions = (vm) => {
       height: '100%'
     },
     rowHandle: {
-
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       edit: {
         thin: true,
         text: '编辑',
-        show () {
-          return vm.hasPermissions('Update')
-        },
         disabled () {
           return !vm.hasPermissions('Update')
         }
@@ -29,7 +30,7 @@ export const crudOptions = (vm) => {
       }
     },
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -49,6 +50,9 @@ export const crudOptions = (vm) => {
           disabled: false
         },
         form: {
+          disabled: true
+        },
+        view: {
           disabled: true
         }
       },

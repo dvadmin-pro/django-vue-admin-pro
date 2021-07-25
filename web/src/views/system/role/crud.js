@@ -13,8 +13,10 @@ export const crudOptions = (vm) => {
 
     },
     rowHandle: {
-      dropdown: {
-        atLeast: 5 // 至少2个以上才收入下拉框中
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
       },
       width: 370,
       edit: {
@@ -53,7 +55,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span

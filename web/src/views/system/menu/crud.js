@@ -17,7 +17,11 @@ export const crudOptions = (vm) => {
       }
     },
     rowHandle: {
-      // columnHeader: '操作',
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       width: 370,
       custom: [{
         show (index, row) {
@@ -44,7 +48,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -153,7 +157,7 @@ export const crudOptions = (vm) => {
         type: 'icon-selector',
         form: {
           component: {
-            span: 8
+            span: 12
 
           }
         }
@@ -228,7 +232,7 @@ export const crudOptions = (vm) => {
         form: {
           disabled: true,
           component: {
-            span: 8,
+            span: 12,
             elProps: { // el-select的配置项，https://element.eleme.cn/#/zh-CN/component/select
               filterable: true,
               multiple: true,
