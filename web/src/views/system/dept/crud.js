@@ -1,4 +1,5 @@
 import { request } from '@/api/service'
+import {BUTTON_STATUS_NUMBER} from "@/config/button";
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -194,7 +195,7 @@ export const crudOptions = (vm) => {
       width: 90,
       type: 'radio',
       dict: {
-        data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+        data: BUTTON_STATUS_NUMBER
       },
       form: {
         value: 1,
@@ -202,7 +203,6 @@ export const crudOptions = (vm) => {
           span: 12
         }
       },
-      component: { props: { color: 'auto' } }
     },
     {
       title: '排序',
