@@ -5,7 +5,7 @@ import { d2CrudPlus } from 'd2-crud-plus'
 import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2pFullEditor, D2pUploader, D2pDemoExtend } from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
 // http请求
 import { request } from '@/api/service'
-
+import ECharts from 'vue-echarts'
 /**
  // vxe0
 import 'xe-utils'
@@ -150,3 +150,5 @@ Vue.use(D2pUploader, {
 // 修改官方字段类型
 const selectType = d2CrudPlus.util.columnResolve.getType('select')
 selectType.component.props.color = 'auto' // 修改官方的字段类型，设置为支持自动染色
+
+Vue.component('v-chart', ECharts)
