@@ -1,5 +1,6 @@
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
+import {BUTTON_STATUS_BOOL} from "@/config/button";
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -143,7 +144,7 @@ export const crudOptions = (vm) => {
         width: 90,
         type: 'radio',
         dict: {
-          data: [{ label: '启用', value: true }, { label: '禁用', value: false }]
+          data: BUTTON_STATUS_BOOL
         },
         form: {
           value: true,
@@ -151,7 +152,6 @@ export const crudOptions = (vm) => {
             span: 12
           }
         },
-        component: { props: { color: 'auto' } } // 自动染色
       },
       {
         title: '部门',

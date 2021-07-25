@@ -1,4 +1,5 @@
 import { request } from '@/api/service'
+import {BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING} from "@/config/button";
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -179,7 +180,7 @@ export const crudOptions = (vm) => {
         width: 100,
         type: 'radio',
         dict: {
-          data: [{ label: '是', value: 1 }, { label: '否', value: 0 }]
+          data: BUTTON_WHETHER_NUMBER
         },
         form: {
           value: 0,
@@ -246,7 +247,9 @@ export const crudOptions = (vm) => {
           value: 'name',
           getData: (url, dict) => {
             return request({ url: url }).then(ret => {
-              return ret.data.data
+              return ret.data.data.map(item =>{
+                return Object.assign(item, {color: BUTTON_VALUE_TO_COLOR_MAPPING[item.value] || "auto"})
+              })
             })
           }
         }
@@ -261,7 +264,7 @@ export const crudOptions = (vm) => {
         width: 90,
         type: 'radio',
         dict: {
-          data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+          data: BUTTON_STATUS_NUMBER
         },
         form: {
           value: 1,

@@ -1,3 +1,5 @@
+import {BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER} from "@/config/button";
+
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -145,7 +147,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '是', value: 1 }, { label: '否', value: 0 }]
+        data: BUTTON_WHETHER_NUMBER
       },
       form: {
         value: 0,
@@ -165,7 +167,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+        data: BUTTON_STATUS_NUMBER
       },
       form: {
         value: 1,
