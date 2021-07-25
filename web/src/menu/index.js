@@ -6,13 +6,15 @@
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
-import { uniqueId } from 'lodash'
-import { request } from '@/api/service'
+import {uniqueId} from 'lodash'
+import {request} from '@/api/service'
 import XEUtils from 'xe-utils'
 import store from '@/store/index'
 import router from '@/router'
-import { frameInRoutes } from '@/router/routes'
+import {frameInRoutes} from '@/router/routes'
+
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
+
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
@@ -91,7 +93,9 @@ export const getMenu = function (self) {
           }
         }
         frameInRoutes[0].children.push(obj)
-        item.path = "/" + item.path
+        if (item.path && !item.path.startsWith("/")) {
+          item.path = "/" + item.path
+        }
       } else {
         delete item.path
       }
@@ -103,11 +107,11 @@ export const getMenu = function (self) {
       strict: true
     })
     let menu = [
-      { path: '/index', title: '首页', icon: 'home' },
+      {path: '/index', title: '首页', icon: 'home'},
       ...data
     ]
     let menu_data = supplementPath(menu)
 
-    return { router: frameInRoutes, menu: menu_data }
+    return {router: frameInRoutes, menu: menu_data}
   })
 }
