@@ -48,6 +48,16 @@ const frameIn = [{
       },
       component: _import('demo/page3')
     },
+    // dashboard 工作台
+    {
+      path: 'workbench',
+      name: 'workbench',
+      meta: {
+        title: '工作台',
+        auth: true
+      },
+      component: _import('dashboard/workbench')
+    },
     // // 系统 菜单
     // {
     //   path: 'menu',
