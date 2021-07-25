@@ -403,5 +403,6 @@ export default {
     margin: 4px 0;
     background: 0 0;
     border-top: 1px solid #e8eaec;
+
   }
 </style>
