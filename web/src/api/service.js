@@ -80,6 +80,10 @@ function createService () {
             dataNotFound(`${dataAxios.msg}`)
             break
           case 4000:
+            // 删除cookie
+            util.cookies.remove('token')
+            util.cookies.remove('uuid')
+            router.push({ path: '/login' })
             errorCreate(`${dataAxios.msg}`)
             break
           default:
