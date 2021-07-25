@@ -1,7 +1,7 @@
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
-
+import store from '@/store/index'
 import { SYS_USER_LOGIN } from '@/views/system/login/api'
 
 export default {
@@ -14,7 +14,7 @@ export default {
          * @param {Object} payload password {String} 密码
          * @param {Object} payload route {Object} 登录成功后定向的路由对象 任何 vue-router 支持的格式
          */
-    async login ({ dispatch }, {
+    async login({ dispatch }, {
       username = '',
       password = ''
     } = {}) {
@@ -38,16 +38,22 @@ export default {
          * @param {Object} context
          * @param {Object} payload confirm {Boolean} 是否需要确认
          */
-    logout ({ commit, dispatch }, { confirm = false } = {}) {
+    logout({ commit, dispatch }, { confirm = false } = {}) {
       /**
              * @description 注销
              */
-      async function logout () {
+      async function logout() {
         // 删除cookie
         util.cookies.remove('token')
         util.cookies.remove('uuid')
         // 清空 vuex 用户信息
         await dispatch('d2admin/user/set', {}, { root: true })
+        store.commit("d2admin/menu/asideSet", []) // 设置侧边栏菜单
+        store.commit("d2admin/search/init", []) // 设置搜索
+        sessionStorage.removeItem("menuData")
+
+        store.dispatch('d2admin/db/databaseClear')
+        console.log(store);
         // 跳转路由
         router.push({ name: 'login' })
       }
@@ -71,7 +77,7 @@ export default {
          * @description 用户登录后从持久化数据加载一系列的设置
          * @param {Object} context
          */
-    async load ({ dispatch }) {
+    async load({ dispatch }) {
       // 加载用户名
       await dispatch('d2admin/user/load', null, { root: true })
       // 加载主题

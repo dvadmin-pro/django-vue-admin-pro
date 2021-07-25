@@ -114,6 +114,7 @@ import d2HeaderColor from "./components/header-color";
 import { mapState, mapGetters, mapActions } from "vuex";
 import mixinSearch from "./mixins/search";
 import { getMenu } from "@/menu/index";
+import store from "@/store/index";
 export default {
   name: "d2-layout-header-aside",
   mixins: [mixinSearch],
@@ -177,6 +178,21 @@ export default {
     handleToggleAside() {
       this.asideCollapseToggle();
     },
+    //加载菜单
+    loadMenu() {
+      // 猿小天:2021-7-21修改:设置动态路由
+      getMenu().then((ret) => {
+        let { menu, router } = ret;
+        store.commit("d2admin/menu/asideSet", menu); // 设置侧边栏菜单
+        store.commit("d2admin/search/init", menu); // 设置搜索
+        // 处理路由 得到每一级的路由设置
+        store.commit("d2admin/page/init", router);
+        this.$router.addRoutes(router);
+      });
+    },
+  },
+  created() {
+    this.loadMenu();
   },
 };
 </script>

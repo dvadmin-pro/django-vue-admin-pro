@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-24 00:19:39
+ * @最后修改时间: 2021-07-24 23:35:06
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -102,7 +102,6 @@ export const getMenu = function (self) {
       parentKey: 'parent',
       strict: true
     })
-
     let menu = [
       { path: '/index', title: '首页', icon: 'home' },
       ...data
