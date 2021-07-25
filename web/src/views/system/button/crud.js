@@ -20,12 +20,12 @@ export const crudOptions = (vm) => {
     rowHandle: {
       edit: {
         thin: true,
-        text: '编辑',
+        text: '编辑'
 
       },
       remove: {
         thin: true,
-        text: '删除',
+        text: '删除'
 
       }
     },

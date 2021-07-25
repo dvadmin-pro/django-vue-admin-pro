@@ -18,19 +18,19 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       width: 370,
       custom: [{
-        show(index, row) {
+        show (index, row) {
           if (row.web_path) {
             return true
           }
           return false
         },
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         },
         text: ' 按钮配置',

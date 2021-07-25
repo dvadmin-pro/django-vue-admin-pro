@@ -216,7 +216,7 @@ export const crudOptions = (vm) => {
           class: { yxtInput: true }
         },
         helper: {
-          render(h) {
+          render (h) {
             return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/.*?/" type="warning" />
             )
           }
