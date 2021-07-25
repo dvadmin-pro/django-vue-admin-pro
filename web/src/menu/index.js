@@ -9,8 +9,6 @@
 import { uniqueId } from 'lodash'
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-import store from '@/store/index'
-import router from '@/router'
 import { frameInRoutes } from '@/router/routes'
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 /**
@@ -18,7 +16,7 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath(menu) {
+function supplementPath (menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
@@ -68,8 +66,7 @@ export const menuAside = supplementPath([])
 //     }
 // ])
 
-
-//请求路由,封装为动态路由和菜单设置
+// 请求路由,封装为动态路由和菜单设置
 export const getMenu = function (self) {
   return request({
     url: '/api/system/web_router',
@@ -77,11 +74,11 @@ export const getMenu = function (self) {
     params: {}
   }).then((res) => {
     // 设置动态路由
-    let menuData = res.data.data
-    sessionStorage.setItem("menuData", JSON.stringify(menuData))
-    for (let item of menuData) {
-      if (item.path !== "" && item.parent !== null && item.component) {
-        let obj = {
+    const menuData = res.data.data
+    sessionStorage.setItem('menuData', JSON.stringify(menuData))
+    for (const item of menuData) {
+      if (item.path !== '' && item.parent !== null && item.component) {
+        const obj = {
           path: item.path,
           name: item.component_name,
           component: _import(item.component),
@@ -91,7 +88,9 @@ export const getMenu = function (self) {
           }
         }
         frameInRoutes[0].children.push(obj)
-        item.path = "/" + item.path
+        if (item.path.substring(0, 1) !== '/') {
+          item.path = '/' + item.path
+        }
       } else {
         delete item.path
       }
@@ -102,12 +101,11 @@ export const getMenu = function (self) {
       parentKey: 'parent',
       strict: true
     })
-    let menu = [
+    const menu = [
       { path: '/index', title: '首页', icon: 'home' },
       ...data
     ]
-    let menu_data = supplementPath(menu)
 
-    return { router: frameInRoutes, menu: menu_data }
+    return { router: frameInRoutes, menu: supplementPath(menu) }
   })
 }

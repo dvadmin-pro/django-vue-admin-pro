@@ -6,12 +6,11 @@
  * 联系Qq:1638245306
  * @文件介绍: 权限控制
  */
-import store from '@/store'
 import XEUtils from 'xe-utils'
 import router from '@/router'
 export default {
-  hasPermissions(value) {
-    const path = router.history.current.path.replace("/", '') // 当前路由
+  hasPermissions (value) {
+    const path = router.history.current.path.replace('/', '') // 当前路由
     let need = []
     if (typeof value === 'string') {
       need.push(value)
@@ -22,7 +21,7 @@ export default {
       throw new Error('need permissions! Like v-permission="usersphere:user:view" ')
     }
     // 获取所有的菜单路由(包含权限)
-    let menuTree = sessionStorage.getItem("menuData")
+    let menuTree = sessionStorage.getItem('menuData')
     menuTree = JSON.parse(menuTree)
     const userPermissionList = XEUtils.toTreeArray(menuTree)
     const permissionList = []
