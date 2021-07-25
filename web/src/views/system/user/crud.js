@@ -9,30 +9,36 @@ export const crudOptions = (vm) => {
       height: '100%'
     },
     rowHandle: {
-
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       edit: {
         thin: true,
         text: '编辑',
-        show() {
-          return vm.hasPermissions('Update')
-        },
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
     },
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
+    },
+    indexRow: { // 或者直接传true,不显示title，不居中
+      title: '序号',
+      align: 'center',
+      width: 100
     },
     columns: [
       {
@@ -44,6 +50,9 @@ export const crudOptions = (vm) => {
           disabled: false
         },
         form: {
+          disabled: true
+        },
+        view: {
           disabled: true
         }
       },
@@ -128,7 +137,6 @@ export const crudOptions = (vm) => {
       {
         title: '状态',
         key: 'is_active',
-        sortable: true,
         search: {
           disabled: false
         },

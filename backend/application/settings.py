@@ -66,8 +66,7 @@ ROOT_URLCONF = 'application.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -254,6 +253,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     # 设置前缀
     'AUTH_HEADER_TYPES': ('JWT',),
+    'ROTATE_REFRESH_TOKENS': True
 }
 
 # ================================================= #
@@ -261,6 +261,8 @@ SIMPLE_JWT = {
 # ================================================= #
 API_LOG_ENABLE = True
 # API_LOG_METHODS = 'ALL' # ['POST', 'DELETE']
-API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE']  # ['POST', 'DELETE']
+API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 导入租户数据
+from plugins import *

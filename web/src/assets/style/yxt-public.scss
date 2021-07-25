@@ -37,3 +37,11 @@
   -webkit-flex-direction: column;
   flex-direction: column;
 }
+/**垂直竖线,常用于标题**/
+.yxt-divider{
+ background: #409EFF;
+    width: 8px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 10px;
+}

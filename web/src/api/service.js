@@ -2,12 +2,15 @@ import axios from 'axios'
 import Adapter from 'axios-mock-adapter'
 import { get } from 'lodash'
 import util from '@/libs/util'
-import { errorLog, errorCreate, dataNotFound } from './tools'
+import { dataNotFound, errorCreate, errorLog } from './tools'
 import router from '@/router'
 
 /**
  * @description 创建请求实例
  */
+axios.defaults.retry = 1
+axios.defaults.retryDelay = 1000
+
 function createService () {
   // 创建一个 axios 实例
   const service = axios.create({
@@ -45,12 +48,33 @@ function createService () {
           case 401:
             refreshTken().then(res => {
               util.cookies.set('token', res.access)
+              // token失效后，重置token 然后再次请求1次
+              var config = response.config
+              if (!config) return Promise.reject(response)
+              config.__retryCount = config.__retryCount || 0
+              if (config.__retryCount >= axios.defaults.retry) {
+                return Promise.reject(response)
+              }
+              config.__retryCount += 1
+              var backoff = new Promise(function (resolve) {
+                setTimeout(function () {
+                  resolve()
+                }, config.retryDelay || 1000)
+              })
+              return backoff.then(function () {
+                return createRequestFunction(createService())(config)
+              })
             }).catch(e => {
-              router.push({ path: '/login' })
-              errorCreate('未认证，请登录')
+              if (typeof dataAxios.msg === 'string') {
+                errorCreate(`${dataAxios.msg}`)
+              } else {
+                // 删除cookie
+                util.cookies.remove('token')
+                util.cookies.remove('uuid')
+                router.push({ path: '/login' })
+                errorCreate('登录信息过期，请重新登录')
+              }
             })
-            // router.push({ path: '/login' })
-
             break
           case 404:
             dataNotFound(`${dataAxios.msg}`)
@@ -78,8 +102,7 @@ function createService () {
             router.push({ name: '/login' })
             error.message = '未认证，请登录'
           })
-          // router.push({ path: '/login' })
-          // error.message = '未认证，请登录';
+
           break
         case 403:
           error.message = '拒绝访问'
@@ -123,6 +146,7 @@ function createService () {
  * @param {Object} service axios 实例
  */
 function createRequestFunction (service) {
+  // 校验是否为租户模式。租户模式把域名替换成 域名 加端口
   return function (config) {
     const token = util.cookies.get('token')
     const configDefault = {
@@ -131,7 +155,7 @@ function createRequestFunction (service) {
         'Content-Type': get(config, 'headers.Content-Type', 'application/json')
       },
       timeout: 5000,
-      baseURL: process.env.VUE_APP_API,
+      baseURL: util.baseURL(),
       data: {}
     }
     return service(Object.assign(configDefault, config))
@@ -153,7 +177,7 @@ export const mock = new Adapter(serviceForMock)
 const refreshTken = function () {
   const refresh = util.cookies.get('refresh')
   return request({
-    url: 'api/token/refresh/',
+    url: 'token/refresh/',
     method: 'post',
     data: {
       refresh: refresh

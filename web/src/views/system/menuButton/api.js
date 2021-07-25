@@ -10,7 +10,7 @@ import { request } from '@/api/service'
 
 export function GetList (query) {
   return request({
-    url: '/api/system/menuButton/',
+    url: '/api/system/menu_button/',
     method: 'get',
     params: query
   })
@@ -19,7 +19,7 @@ export function GetList (query) {
 export function createObj (obj, id) {
   const data = { ...obj, menu: id }
   return request({
-    url: '/api/system/menuButton/',
+    url: '/api/system/menu_button/',
     method: 'post',
     data: data
   })
@@ -27,14 +27,14 @@ export function createObj (obj, id) {
 
 export function UpdateObj (obj) {
   return request({
-    url: '/api/system/menuButton/' + obj.id + '/',
+    url: '/api/system/menu_button/' + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
 export function DelObj (id) {
   return request({
-    url: '/api/system/menuButton/' + id + '/',
+    url: '/api/system/menu_button/' + id + '/',
     method: 'delete',
     data: { id }
   })

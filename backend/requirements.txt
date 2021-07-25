@@ -1,6 +1,6 @@
 asgiref==3.3.4
 Django==3.2.3
-django-comment-migrate==0.1.1
+django-comment-migrate==0.1.2
 django-cors-headers==3.7.0
 django-filter==2.4.0
 djangorestframework==3.12.4
@@ -13,3 +13,4 @@ sqlparse==0.4.1
 typing-extensions==3.10.0.0
 user-agents==2.2.0
 drf-yasg==1.20.0
+daphne==3.0.2

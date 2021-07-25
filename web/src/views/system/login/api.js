@@ -11,7 +11,7 @@ import { request } from '@/api/service'
 
 export function SYS_USER_LOGIN (data) {
   return request({
-    url: '/api/token/',
+    url: '/token/',
     method: 'post',
     data
   })

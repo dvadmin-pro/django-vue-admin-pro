@@ -21,7 +21,7 @@ class MenuSerializer(CustomModelSerializer):
     menuPermission = serializers.SerializerMethodField(read_only=True)
 
     def get_menuPermission(self, instance):
-        queryset = MenuButton.objects.filter(menu=instance.id).values_list('name', flat=True)
+        queryset = MenuButton.objects.filter(menu=instance.id).order_by('-name').values_list('name', flat=True)
         if queryset:
             return queryset
         else:
@@ -121,9 +121,8 @@ class MenuViewSet(CustomModelViewSet):
     def web_router(self, request):
         """用于前端获取当前角色的路由"""
         user = request.user
-        if user.is_superuser:
-            queryset = Menu.objects.all()
-        else:
+        queryset = self.queryset.filter(status=1)
+        if not user.is_superuser:
             menuIds = user.role.values_list('menu__id', flat=True)
             queryset = Menu.objects.filter(id__in=menuIds)
         serializer = WebRouterSerializer(queryset, many=True, request=request)

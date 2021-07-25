@@ -6,6 +6,8 @@ import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2p
 // http请求
 import { request } from '@/api/service'
 import ECharts from 'vue-echarts'
+import util from '@/libs/util'
+
 /**
  // vxe0
 import 'xe-utils'
@@ -142,7 +144,7 @@ Vue.use(D2pUploader, {
     domain: 'http://d2p.file.veryreader.com'
   },
   form: {
-    action: process.env.VUE_APP_API + 'upload/form/upload',
+    action: util.baseURL() + 'upload/form/upload',
     name: 'file'
   }
 })

@@ -68,9 +68,11 @@ class ApiLoggingMiddleware(MiddlewareMixin):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if hasattr(view_func, 'cls') and hasattr(view_func.cls, 'queryset'):
-            log = OperationLog(request_modular=get_verbose_name(view_func.cls.queryset))
-            log.save()
-            self.operation_log_id = log.id
+            if self.enable:
+                if self.methods == 'ALL' or request.method in self.methods:
+                    log = OperationLog(request_modular=get_verbose_name(view_func.cls.queryset))
+                    log.save()
+                    self.operation_log_id = log.id
 
         return
 
