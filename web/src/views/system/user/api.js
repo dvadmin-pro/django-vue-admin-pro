@@ -10,7 +10,7 @@ import { request } from '@/api/service'
 
 export function GetList (query) {
   return request({
-    url: '/api/system/user',
+    url: '/api/system/user/',
     method: 'get',
     params: query
   })

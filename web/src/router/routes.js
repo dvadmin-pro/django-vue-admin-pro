@@ -79,25 +79,25 @@ const frameIn = [{
     //   component: _import('system/user')
     // },
     // // 系统 按钮配置
-    // {
-    //   path: 'button',
-    //   name: 'button',
-    //   meta: {
-    //     title: '按钮',
-    //     auth: true
-    //   },
-    //   component: _import('system/button')
-    // },
+    {
+      path: 'button',
+      name: 'button',
+      meta: {
+        title: '按钮',
+        auth: true
+      },
+      component: _import('system/button')
+    },
     // // 系统 菜单权限
-    // {
-    //   path: 'menuButton/:id',
-    //   name: 'menuButton',
-    //   meta: {
-    //     title: '菜单按钮',
-    //     auth: true
-    //   },
-    //   component: _import('system/menuButton')
-    // },
+    {
+      path: 'menuButton/:id',
+      name: 'menuButton',
+      meta: {
+        title: '菜单按钮',
+        auth: true
+      },
+      component: _import('system/menuButton')
+    },
     // // 系统 角色管理
     // {
     //   path: 'role',
