@@ -69,7 +69,7 @@ export const menuAside = supplementPath([])
 // 请求路由,封装为动态路由和菜单设置
 export const getMenu = function (self) {
   return request({
-    url: '/api/system/web_router',
+    url: '/api/system/web_router/',
     method: 'get',
     params: {}
   }).then((res) => {
