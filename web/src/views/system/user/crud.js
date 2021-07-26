@@ -1,6 +1,6 @@
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-import {BUTTON_STATUS_BOOL} from "@/config/button";
+import { BUTTON_STATUS_BOOL } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -151,7 +151,7 @@ export const crudOptions = (vm) => {
           component: {
             span: 12
           }
-        },
+        }
       },
       {
         title: '部门',

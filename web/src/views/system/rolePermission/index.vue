@@ -180,8 +180,8 @@ export default {
           label: '自定数据权限'
         }
       ],
-      dataAuthorizationTips: "授权用户可操作的数据范围",
-      menuAuthorizationTips: "授权用户在菜单中可操作的范围",
+      dataAuthorizationTips: '授权用户可操作的数据范围',
+      menuAuthorizationTips: '授权用户在菜单中可操作的范围'
     }
   },
   watch: {
@@ -257,7 +257,7 @@ export default {
         })
 
         // 将菜单列表转换为树形列表
-        this.menuTreeData = XEUtils.toArrayTree(res, {parentKey: 'parent'})
+        this.menuTreeData = XEUtils.toArrayTree(res, { parentKey: 'parent' })
       })
     },
     // 所有勾选菜单节点数据

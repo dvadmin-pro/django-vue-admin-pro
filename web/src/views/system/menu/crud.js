@@ -1,5 +1,5 @@
 import { request } from '@/api/service'
-import {BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING} from "@/config/button";
+import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -150,12 +150,12 @@ export const crudOptions = (vm) => {
             span: 12,
             props: {
               clearable: true
-            },
+            }
 
           },
           itemProps: {
             class: { yxtInput: true }
-          },
+          }
 
         }
       },
@@ -248,7 +248,7 @@ export const crudOptions = (vm) => {
               multiple: true,
               clearable: true
             }
-          },
+          }
         },
         dict: {
           url: '/api/system/button/',
@@ -256,8 +256,8 @@ export const crudOptions = (vm) => {
           value: 'name',
           getData: (url, dict) => {
             return request({ url: url }).then(ret => {
-              return ret.data.data.map(item =>{
-                return Object.assign(item, {color: BUTTON_VALUE_TO_COLOR_MAPPING[item.value] || "auto"})
+              return ret.data.data.map(item => {
+                return Object.assign(item, { color: BUTTON_VALUE_TO_COLOR_MAPPING[item.value] || 'auto' })
               })
             })
           }

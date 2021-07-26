@@ -1,5 +1,5 @@
 import { request } from '@/api/service'
-import {BUTTON_STATUS_NUMBER} from "@/config/button";
+import { BUTTON_STATUS_NUMBER } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -202,7 +202,7 @@ export const crudOptions = (vm) => {
         component: {
           span: 12
         }
-      },
+      }
     },
     {
       title: '排序',

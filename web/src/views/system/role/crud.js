@@ -1,4 +1,4 @@
-import {BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER} from "@/config/button";
+import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER } from '@/config/button'
 
 export const crudOptions = (vm) => {
   return {
