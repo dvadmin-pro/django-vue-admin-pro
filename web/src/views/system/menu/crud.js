@@ -1,4 +1,5 @@
 import { request } from '@/api/service'
+import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -17,7 +18,11 @@ export const crudOptions = (vm) => {
       }
     },
     rowHandle: {
-      // columnHeader: '操作',
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       width: 370,
       custom: [{
         show (index, row) {
@@ -44,7 +49,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -56,7 +61,12 @@ export const crudOptions = (vm) => {
         show: false,
         disabled: true,
         search: {
-          disabled: false
+          disabled: false,
+          component: {
+            props: {
+              clearable: true
+            }
+          }
         },
         form: {
           disabled: true,
@@ -141,23 +151,27 @@ export const crudOptions = (vm) => {
             props: {
               clearable: true
             }
+
           },
           itemProps: {
             class: { yxtInput: true }
           }
+
         }
-      }, {
+      },
+      {
         title: '图标',
         key: 'icon',
         width: 80,
         type: 'icon-selector',
         form: {
           component: {
-            span: 8
+            span: 12
 
           }
         }
-      }, {
+      },
+      {
         title: '排序',
         key: 'sort',
         width: 80,
@@ -175,7 +189,7 @@ export const crudOptions = (vm) => {
         width: 100,
         type: 'radio',
         dict: {
-          data: [{ label: '是', value: 1 }, { label: '否', value: 0 }]
+          data: BUTTON_WHETHER_NUMBER
         },
         form: {
           value: 0,
@@ -228,7 +242,7 @@ export const crudOptions = (vm) => {
         form: {
           disabled: true,
           component: {
-            span: 8,
+            span: 12,
             elProps: { // el-select的配置项，https://element.eleme.cn/#/zh-CN/component/select
               filterable: true,
               multiple: true,
@@ -242,7 +256,9 @@ export const crudOptions = (vm) => {
           value: 'name',
           getData: (url, dict) => {
             return request({ url: url }).then(ret => {
-              return ret.data.data
+              return ret.data.data.map(item => {
+                return Object.assign(item, { color: BUTTON_VALUE_TO_COLOR_MAPPING[item.value] || 'auto' })
+              })
             })
           }
         }
@@ -257,7 +273,7 @@ export const crudOptions = (vm) => {
         width: 90,
         type: 'radio',
         dict: {
-          data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+          data: BUTTON_STATUS_NUMBER
         },
         form: {
           value: 1,

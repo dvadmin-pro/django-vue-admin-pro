@@ -1,7 +1,7 @@
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
-
+import store from '@/store/index'
 import { SYS_USER_LOGIN } from '@/views/system/login/api'
 
 export default {
@@ -48,6 +48,12 @@ export default {
         util.cookies.remove('uuid')
         // 清空 vuex 用户信息
         await dispatch('d2admin/user/set', {}, { root: true })
+        store.commit('d2admin/menu/asideSet', []) // 设置侧边栏菜单
+        store.commit('d2admin/search/init', []) // 设置搜索
+        sessionStorage.removeItem('menuData')
+
+        store.dispatch('d2admin/db/databaseClear')
+        console.log(store)
         // 跳转路由
         router.push({ name: 'login' })
       }

@@ -1,5 +1,6 @@
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
+import { BUTTON_STATUS_BOOL } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -9,13 +10,14 @@ export const crudOptions = (vm) => {
       height: '100%'
     },
     rowHandle: {
-
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       edit: {
         thin: true,
         text: '编辑',
-        show () {
-          return vm.hasPermissions('Update')
-        },
         disabled () {
           return !vm.hasPermissions('Update')
         }
@@ -29,7 +31,7 @@ export const crudOptions = (vm) => {
       }
     },
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -49,6 +51,9 @@ export const crudOptions = (vm) => {
           disabled: false
         },
         form: {
+          disabled: true
+        },
+        view: {
           disabled: true
         }
       },
@@ -139,15 +144,14 @@ export const crudOptions = (vm) => {
         width: 90,
         type: 'radio',
         dict: {
-          data: [{ label: '启用', value: true }, { label: '禁用', value: false }]
+          data: BUTTON_STATUS_BOOL
         },
         form: {
           value: true,
           component: {
             span: 12
           }
-        },
-        component: { props: { color: 'auto' } } // 自动染色
+        }
       },
       {
         title: '部门',

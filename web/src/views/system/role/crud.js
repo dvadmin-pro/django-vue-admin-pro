@@ -1,3 +1,5 @@
+import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER } from '@/config/button'
+
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -13,8 +15,10 @@ export const crudOptions = (vm) => {
 
     },
     rowHandle: {
-      dropdown: {
-        atLeast: 5 // 至少2个以上才收入下拉框中
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
       },
       width: 370,
       edit: {
@@ -53,7 +57,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -143,7 +147,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '是', value: 1 }, { label: '否', value: 0 }]
+        data: BUTTON_WHETHER_NUMBER
       },
       form: {
         value: 0,
@@ -163,7 +167,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+        data: BUTTON_STATUS_NUMBER
       },
       form: {
         value: 1,
