@@ -18,7 +18,7 @@ const frameIn = [{
       meta: {
         auth: true
       },
-      component: _import('system/index')
+      component: _import('dashboard/workbench/index')
     },
     // 演示页面
     {

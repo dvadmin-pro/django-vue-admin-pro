@@ -16,11 +16,14 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>友情链接</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+
+            <el-button style="float: right; padding: 3px 0" type="text">
+              <el-link href="https://bbs.django-vue-admin.com/links" target="_blank" type="primary">更多</el-link>
+            </el-button>
           </div>
           <el-row>
               <el-col :span="8" v-for="({name,icon,team,createTime,slogan},index) in projects" :key="index" style="padding: 0">
-              <el-card shadow="hover" style="padding: 5px">
+              <el-card shadow="hover">
                 <div class="project-detail">
                   <div>
                     <d2-icon-svg :name="icon" style="width: 25px;height: 25px;"/>
@@ -49,7 +52,7 @@
               <el-avatar :src="avatar" size="small" :key="index" class="activity-avatar"></el-avatar>
               <div style="display: inline-block" class="activity-detail">
                 <p v-text="message"></p>
-                <p v-text="createTime" style="color: #333333;font-size: 12px"></p>
+                <p v-text="createTime" style="color: #333333;font-size: 10px"></p>
               </div>
               <el-divider v-if="index+1 < activities.length"></el-divider>
             </el-col>
@@ -69,7 +72,7 @@
             <el-row>
               <el-col :span="8" v-for="({name,icon,route,color},index) of navigators" :key="index" style="padding: 0">
                 <el-card shadow="hover">
-                  <div  style="display: flex;align-items: center;flex-direction: column;padding: 24px;cursor: pointer" @click="()=>{gotoRoute(route)}">
+                  <div  style="display: flex;align-items: center;flex-direction: column;cursor: pointer" @click="()=>{gotoRoute(route)}">
                     <d2-icon-svg :name="icon" style="width: 25px;height: 25px;" :style="{fill:color}"/>
                     <div style="text-align: center;font-size: 12px;margin-top: 20px" v-text="name"></div>
                   </div>
@@ -235,7 +238,7 @@ export default {
           name: '菜单管理',
           icon: 'menu',
           route: {
-            name: 'menuButton'
+            name: 'menu'
           },
           color: 'rgb(63, 178, 127);'
         },
@@ -339,7 +342,7 @@ export default {
 
     .title{
       display: inline-block;
-      padding: 0 0 40px 15px;
+      padding: 0 0 0 15px;
       position: relative;
       top: -5px;
 
@@ -403,5 +406,8 @@ export default {
     margin: 4px 0;
     background: 0 0;
     border-top: 1px solid #e8eaec;
+  }
+  .el-card, .el-message {
+    border-radius: 0;
   }
 </style>
