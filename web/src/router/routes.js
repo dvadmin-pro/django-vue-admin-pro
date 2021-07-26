@@ -18,7 +18,7 @@ const frameIn = [{
       meta: {
         auth: true
       },
-      component: _import('system/index')
+      component: _import('dashboard/workbench/index')
     },
     // 演示页面
     {
@@ -48,87 +48,97 @@ const frameIn = [{
       },
       component: _import('demo/page3')
     },
-    // 系统 菜单
+    // dashboard 工作台
     {
-      path: 'menu',
-      name: 'menu',
+      path: 'workbench',
+      name: 'workbench',
       meta: {
-        title: '菜单',
+        title: '工作台',
         auth: true
       },
-      component: _import('system/menu')
+      component: _import('dashboard/workbench')
     },
-    // 系统 用户
-    {
-      path: 'user',
-      name: 'user',
-      meta: {
-        title: '用户',
-        auth: true
-      },
-      component: _import('system/user')
-    },
-    // 系统 按钮配置
-    {
-      path: 'button',
-      name: 'button',
-      meta: {
-        title: '按钮',
-        auth: true
-      },
-      component: _import('system/button')
-    },
-    // 系统 菜单权限
-    {
-      path: 'menuButton/:id',
-      name: 'menuButton',
-      meta: {
-        title: '菜单按钮',
-        auth: true
-      },
-      component: _import('system/menuButton')
-    },
-    // 系统 角色管理
-    {
-      path: 'role',
-      name: 'role',
-      meta: {
-        title: '角色',
-        auth: true
-      },
-      component: _import('system/role')
-    },
-    // 系统 角色权限
-    {
-      path: 'rolePermission',
-      name: 'rolePermission',
-      meta: {
-        title: '权限管理',
-        auth: true
-      },
-      component: _import('system/rolePermission')
-    },
+    // // 系统 菜单
+    // {
+    //   path: 'menu',
+    //   name: 'menu',
+    //   meta: {
+    //     title: '菜单',
+    //     auth: true
+    //   },
+    //   component: _import('system/menu')
+    // },
+    // // 系统 用户
+    // {
+    //   path: 'user',
+    //   name: 'user',
+    //   meta: {
+    //     title: '用户',
+    //     auth: true
+    //   },
+    //   component: _import('system/user')
+    // },
+    // // 系统 按钮配置
+    // {
+    //   path: 'button',
+    //   name: 'button',
+    //   meta: {
+    //     title: '按钮',
+    //     auth: true
+    //   },
+    //   component: _import('system/button')
+    // },
+    // // 系统 菜单权限
+    // {
+    //   path: 'menuButton/:id',
+    //   name: 'menuButton',
+    //   meta: {
+    //     title: '菜单按钮',
+    //     auth: true
+    //   },
+    //   component: _import('system/menuButton')
+    // },
+    // // 系统 角色管理
+    // {
+    //   path: 'role',
+    //   name: 'role',
+    //   meta: {
+    //     title: '角色',
+    //     auth: true
+    //   },
+    //   component: _import('system/role')
+    // },
+    // // 系统 角色权限
+    // {
+    //   path: 'rolePermission',
+    //   name: 'rolePermission',
+    //   meta: {
+    //     title: '权限管理',
+    //     auth: true
+    //   },
+    //   component: _import('system/rolePermission')
+    // },
 
-    // 系统 角色管理
-    {
-      path: 'dept',
-      name: 'dept',
-      meta: {
-        title: '部门',
-        auth: true
-      },
-      component: _import('system/dept')
-    },
-    // 系统 操作日志
-    {
-      path: 'operationLog',
-      name: 'operationLog',
-      meta: {
-        title: '操作日志',
-        auth: true
-      },
-      component: _import('system/log/operationLog')
-    },
+    // // 系统 角色管理
+    // {
+    //   path: 'dept',
+    //   name: 'dept',
+    //   meta: {
+    //     title: '部门',
+    //     auth: true
+    //   },
+    //   component: _import('system/dept')
+    // },
+    // // 系统 操作日志
+    // {
+    //   path: 'operationLog',
+    //   name: 'operationLog',
+    //   meta: {
+    //     title: '操作日志',
+    //     auth: true
+    //   },
+    //   component: _import('system/log/operationLog')
+    // },
     // 系统 前端日志
     {
       path: 'frontendLog',

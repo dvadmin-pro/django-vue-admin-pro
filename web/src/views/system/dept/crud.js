@@ -1,4 +1,5 @@
 import { request } from '@/api/service'
+import { BUTTON_STATUS_NUMBER } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -17,7 +18,11 @@ export const crudOptions = (vm) => {
       }
     },
     rowHandle: {
-
+      view: {
+        disabled () {
+          return !vm.hasPermissions('Retrieve')
+        }
+      },
       edit: {
         thin: true,
         text: '编辑',
@@ -40,7 +45,7 @@ export const crudOptions = (vm) => {
     },
 
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       defaultSpan: 24 // 默认的表单 span
@@ -190,15 +195,14 @@ export const crudOptions = (vm) => {
       width: 90,
       type: 'radio',
       dict: {
-        data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+        data: BUTTON_STATUS_NUMBER
       },
       form: {
         value: 1,
         component: {
           span: 12
         }
-      },
-      component: { props: { color: 'auto' } }
+      }
     },
     {
       title: '排序',

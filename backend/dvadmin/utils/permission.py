@@ -18,10 +18,13 @@ def ValidationApi(reqApi, validApi):
     :param validApi: 用于验证的接口
     :return: True或者False
     """
-    valid_api = validApi.replace('{id}', '.*?')
-    matchObj = re.match(valid_api, reqApi, re.M | re.I)
-    if matchObj:
-        return True
+    if validApi is not None:
+        valid_api = validApi.replace('{id}', '.*?')
+        matchObj = re.match(valid_api, reqApi, re.M | re.I)
+        if matchObj:
+            return True
+        else:
+            return False
     else:
         return False
 
@@ -31,6 +34,7 @@ class CustomPermission(BasePermission):
 
     def has_permission(self, request, view):
         # 判断是否是超级管理员
+        print(request.user.is_superuser)
         if request.user.is_superuser:
             return True
         else:
