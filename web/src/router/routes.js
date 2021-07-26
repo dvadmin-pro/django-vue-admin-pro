@@ -20,6 +20,15 @@ const frameIn = [{
       },
       component: _import('system/index')
     },
+    {
+      path: 'userInfo',
+      name: 'userInfo',
+      meta: {
+        title: "个人信息",
+        auth: true
+      },
+      component: () => import('@/layout/header-aside/components/header-user/userinfo')
+    },
     // 演示页面
     {
       path: 'page1',

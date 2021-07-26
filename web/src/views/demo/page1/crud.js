@@ -1,3 +1,11 @@
+/*
+ * @创建文件时间: 2021-06-01 22:41:21
+ * @Auther: 猿小天
+ * @最后修改人: 猿小天
+ * @最后修改时间: 2021-07-25 22:20:49
+ * 联系Qq:1638245306
+ * @文件介绍: 
+ */
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -14,7 +22,7 @@ export const crudOptions = (vm) => {
     },
     columns: [
       {
-        title: 'ID',
+        title: '编码',
         key: 'id',
         width: 90,
         form: {
