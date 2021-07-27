@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 01:04:24
+ * @最后修改时间: 2021-07-27 22:22:34
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -69,7 +69,7 @@ export const menuAside = supplementPath([])
 // ])
 
 
-//请求路由,封装为动态路由和菜单设置
+//请求菜单数据,用于解析路由和侧边栏菜单
 export const getMenu = function (self) {
   return request({
     url: '/api/system/web_router',
@@ -79,52 +79,51 @@ export const getMenu = function (self) {
     // 设置动态路由
     let menuData = res.data.data
     sessionStorage.setItem("menuData", JSON.stringify(menuData))
-    for (let item of menuData) {
-      if (item.path !== "" && item.parent !== null && item.component) {
-        let obj = {
-          path: item.path,
-          name: item.component_name,
-          component: _import(item.component),
-          meta: {
-            title: item.name,
-            auth: true
-          }
-        }
-        frameInRoutes[0].children.push(obj)
-        item.path = "/" + item.path
-      } else {
-        delete item.path
-      }
-    }
-
-    // 将列表数据转换为树形数据
-    const data = XEUtils.toArrayTree(menuData, {
-      parentKey: 'parent',
-      strict: true
-    })
-    let menu = [
-      { path: '/index', title: '首页', icon: 'home' },
-      ...data
-    ]
-    let menu_data = supplementPath(menu)
-    sessionStorage.setItem("frameInRoutes", JSON.stringify(frameInRoutes))
-    return { router: frameInRoutes, menu: menu_data }
+    return menuData
   })
 }
 
 
 /**
- * 加载缓存中的菜单,防止F5刷新时404
+ * 将获取到的后端菜单数据,解析为前端路由
  */
-export const loadMenu = function () {
-  let routers = sessionStorage.getItem("frameInRoutes")
-  if (routers) {
-    routers = JSON.parse(routers)
-  } else {
-    routers = []
+export const handleRouter = function (menuData) {
+  let result = []
+  for (let item of menuData) {
+    if (item.path !== "" && item.parent !== null && item.component) {
+      let obj = {
+        path: item.path,
+        name: item.component_name,
+        component: _import(item.component),
+        meta: {
+          title: item.name,
+          auth: true
+        }
+      }
+      result.push(obj)
+
+    } else {
+      delete item.path
+    }
   }
+  frameInRoutes[0].children = [...result]
+  return frameInRoutes
+}
 
-  return routers
 
-  // router.addRoutes(routers)
+/**
+ * 将前端的侧边菜单进行处理
+ */
+export const handleAsideMenu = function (menuData) {
+  // 将列表数据转换为树形数据
+  const data = XEUtils.toArrayTree(menuData, {
+    parentKey: 'parent',
+    strict: true
+  })
+  let menu = [
+    { path: '/index', title: '首页', icon: 'home' },
+    ...data
+  ]
+  let menu_data = supplementPath(menu)
+  return menu_data
 }
