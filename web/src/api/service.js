@@ -11,7 +11,7 @@ import router from '@/router'
 axios.defaults.retry = 1
 axios.defaults.retryDelay = 1000
 
-function createService() {
+function createService () {
   // 创建一个 axios 实例
   const service = axios.create({
     baseURL: process.env.VUE_APP_API_URL,
@@ -152,7 +152,7 @@ function createService() {
  * @description 创建请求方法
  * @param {Object} service axios 实例
  */
-function createRequestFunction(service) {
+function createRequestFunction (service) {
   // 校验是否为租户模式。租户模式把域名替换成 域名 加端口
   return function (config) {
     const token = util.cookies.get('token')

@@ -61,7 +61,6 @@ new Vue({
     this.$store.commit('d2admin/ua/get')
     // 初始化全屏监听
     this.$store.dispatch('d2admin/fullscreen/listen')
-
   },
   watch: {
     // 检测路由变化切换侧边栏内容

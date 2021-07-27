@@ -24,7 +24,7 @@ const frameIn = [{
       path: 'userInfo',
       name: 'userInfo',
       meta: {
-        title: "个人信息",
+        title: '个人信息',
         auth: true
       },
       component: () => import('@/layout/header-aside/components/header-user/userinfo')

@@ -9,8 +9,6 @@
 import { uniqueId } from 'lodash'
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-import store from '@/store/index'
-import router from '@/router'
 import { frameInRoutes } from '@/router/routes'
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 /**
@@ -107,18 +105,16 @@ export const getMenu = function (self) {
       { path: '/index', title: '首页', icon: 'home' },
       ...data
     ]
-    let menu_data = supplementPath(menu)
-    sessionStorage.setItem("frameInRoutes", JSON.stringify(frameInRoutes))
-    return { router: frameInRoutes, menu: menu_data }
+    sessionStorage.setItem('frameInRoutes', JSON.stringify(frameInRoutes))
+    return { router: frameInRoutes, menu: supplementPath(menu) }
   })
 }
-
 
 /**
  * 加载缓存中的菜单,防止F5刷新时404
  */
 export const loadMenu = function () {
-  let routers = sessionStorage.getItem("frameInRoutes")
+  let routers = sessionStorage.getItem('frameInRoutes')
   if (routers) {
     routers = JSON.parse(routers)
   } else {

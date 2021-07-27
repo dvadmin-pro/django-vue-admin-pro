@@ -39,10 +39,10 @@ export default {
         confirm: true
       })
     },
-    /**个人信息 */
-    userInfo() {
-      this.$router.push({ path: "userInfo" });
-    },
+    /** 个人信息 */
+    userInfo () {
+      this.$router.push({ path: 'userInfo' })
+    }
   }
 }
 </script>
