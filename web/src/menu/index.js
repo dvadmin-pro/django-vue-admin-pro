@@ -69,7 +69,7 @@ export const menuAside = supplementPath([])
 // 请求菜单数据,用于解析路由和侧边栏菜单
 export const getMenu = function (self) {
   return request({
-    url: '/api/system/web_router',
+    url: '/api/system/web_router/',
     method: 'get',
     params: {}
   }).then((res) => {

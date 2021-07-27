@@ -39,20 +39,6 @@ new Vue({
   i18n,
   render: h => h(App),
   created () {
-    // 动态添加路由
-    getMenu().then(ret => {
-      const routes = handleRouter(ret)
-      // 处理路由 得到每一级的路由设置
-      store.commit('d2admin/page/init', routes)
-      router.addRoutes(routes)
-    })
-
-    // 设置菜单
-    getMenu().then((ret) => {
-      const menu = handleAsideMenu(ret)
-      store.commit('d2admin/menu/asideSet', menu) // 设置侧边栏菜单
-      store.commit('d2admin/search/init', menu) // 设置搜索
-    })
 
     // 处理路由 得到每一级的路由设置
     // this.$store.commit('d2admin/page/init', frameInRoutes)
