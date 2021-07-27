@@ -9,8 +9,6 @@
 import { uniqueId } from 'lodash'
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
-import store from '@/store/index'
-import router from '@/router'
 import { frameInRoutes } from '@/router/routes'
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 /**
@@ -18,7 +16,7 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath(menu) {
+function supplementPath (menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
@@ -68,8 +66,7 @@ export const menuAside = supplementPath([])
 //     }
 // ])
 
-
-//请求菜单数据,用于解析路由和侧边栏菜单
+// 请求菜单数据,用于解析路由和侧边栏菜单
 export const getMenu = function (self) {
   return request({
     url: '/api/system/web_router',
@@ -77,21 +74,20 @@ export const getMenu = function (self) {
     params: {}
   }).then((res) => {
     // 设置动态路由
-    let menuData = res.data.data
-    sessionStorage.setItem("menuData", JSON.stringify(menuData))
+    const menuData = res.data.data
+    sessionStorage.setItem('menuData', JSON.stringify(menuData))
     return menuData
   })
 }
-
 
 /**
  * 将获取到的后端菜单数据,解析为前端路由
  */
 export const handleRouter = function (menuData) {
-  let result = []
-  for (let item of menuData) {
-    if (item.path !== "" && item.parent !== null && item.component) {
-      let obj = {
+  const result = []
+  for (const item of menuData) {
+    if (item.path !== '' && item.parent !== null && item.component) {
+      const obj = {
         path: item.path,
         name: item.component_name,
         component: _import(item.component),
@@ -101,7 +97,6 @@ export const handleRouter = function (menuData) {
         }
       }
       result.push(obj)
-
     } else {
       delete item.path
     }
@@ -109,7 +104,6 @@ export const handleRouter = function (menuData) {
   frameInRoutes[0].children = [...result]
   return frameInRoutes
 }
-
 
 /**
  * 将前端的侧边菜单进行处理
@@ -120,10 +114,9 @@ export const handleAsideMenu = function (menuData) {
     parentKey: 'parent',
     strict: true
   })
-  let menu = [
+  const menu = [
     { path: '/index', title: '首页', icon: 'home' },
     ...data
   ]
-  let menu_data = supplementPath(menu)
-  return menu_data
+  return supplementPath(menu)
 }

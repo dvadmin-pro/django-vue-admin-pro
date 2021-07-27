@@ -100,23 +100,23 @@
 </template>
 
 <script>
-import d2MenuSide from "./components/menu-side";
-import d2MenuHeader from "./components/menu-header";
-import d2Tabs from "./components/tabs";
-import d2HeaderFullscreen from "./components/header-fullscreen";
-import d2HeaderLocales from "./components/header-locales";
-import d2HeaderSearch from "./components/header-search";
-import d2HeaderSize from "./components/header-size";
-import d2HeaderTheme from "./components/header-theme";
-import d2HeaderUser from "./components/header-user";
-import d2HeaderLog from "./components/header-log";
-import d2HeaderColor from "./components/header-color";
-import { mapState, mapGetters, mapActions } from "vuex";
-import mixinSearch from "./mixins/search";
-import { getMenu, handleRouter, handleAsideMenu } from "@/menu/index";
-import store from "@/store/index";
+import d2MenuSide from './components/menu-side'
+import d2MenuHeader from './components/menu-header'
+import d2Tabs from './components/tabs'
+import d2HeaderFullscreen from './components/header-fullscreen'
+import d2HeaderLocales from './components/header-locales'
+import d2HeaderSearch from './components/header-search'
+import d2HeaderSize from './components/header-size'
+import d2HeaderTheme from './components/header-theme'
+import d2HeaderUser from './components/header-user'
+import d2HeaderLog from './components/header-log'
+import d2HeaderColor from './components/header-color'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import mixinSearch from './mixins/search'
+import { getMenu, handleAsideMenu } from '@/menu/index'
+import store from '@/store/index'
 export default {
-  name: "d2-layout-header-aside",
+  name: 'd2-layout-header-aside',
   mixins: [mixinSearch],
   components: {
     d2MenuSide,
@@ -129,69 +129,69 @@ export default {
     d2HeaderTheme,
     d2HeaderUser,
     d2HeaderLog,
-    d2HeaderColor,
+    d2HeaderColor
   },
-  data() {
+  data () {
     return {
       // [侧边栏宽度] 正常状态
-      asideWidth: "200px",
+      asideWidth: '200px',
       // [侧边栏宽度] 折叠状态
-      asideWidthCollapse: "65px",
-    };
+      asideWidthCollapse: '65px'
+    }
   },
   computed: {
-    ...mapState("d2admin", {
+    ...mapState('d2admin', {
       keepAlive: (state) => state.page.keepAlive,
       grayActive: (state) => state.gray.active,
       transitionActive: (state) => state.transition.active,
       asideCollapse: (state) => state.menu.asideCollapse,
-      asideTransition: (state) => state.menu.asideTransition,
+      asideTransition: (state) => state.menu.asideTransition
     }),
-    ...mapGetters("d2admin", {
-      themeActiveSetting: "theme/activeSetting",
+    ...mapGetters('d2admin', {
+      themeActiveSetting: 'theme/activeSetting'
     }),
     /**
      * @description 用来实现带参路由的缓存
      */
-    routerViewKey() {
+    routerViewKey () {
       // 默认情况下 key 类似 __transition-n-/foo
       // 这里的字符串操作是为了最终 key 的格式和原来相同 类似 __transition-n-__stamp-time-/foo
-      const stamp = this.$route.meta[`__stamp-${this.$route.path}`] || "";
-      return `${stamp ? `__stamp-${stamp}-` : ""}${this.$route.path}`;
+      const stamp = this.$route.meta[`__stamp-${this.$route.path}`] || ''
+      return `${stamp ? `__stamp-${stamp}-` : ''}${this.$route.path}`
     },
     /**
      * @description 最外层容器的背景图片样式
      */
-    styleLayoutMainGroup() {
+    styleLayoutMainGroup () {
       return this.themeActiveSetting.backgroundImage
         ? {
-            backgroundImage: `url('${this.$baseUrl}${this.themeActiveSetting.backgroundImage}')`,
-          }
-        : {};
-    },
+          backgroundImage: `url('${this.$baseUrl}${this.themeActiveSetting.backgroundImage}')`
+        }
+        : {}
+    }
   },
   methods: {
-    ...mapActions("d2admin/menu", ["asideCollapseToggle"]),
+    ...mapActions('d2admin/menu', ['asideCollapseToggle']),
     /**
      * 接收点击切换侧边栏的按钮
      */
-    handleToggleAside() {
-      this.asideCollapseToggle();
+    handleToggleAside () {
+      this.asideCollapseToggle()
     },
-    //加载菜单
-    loadMenu() {
-      //设置菜单
+    // 加载菜单
+    loadMenu () {
+      // 设置菜单
       getMenu().then((ret) => {
-        let menu = handleAsideMenu(ret);
-        store.commit("d2admin/menu/asideSet", menu); // 设置侧边栏菜单
-        store.commit("d2admin/search/init", menu); // 设置搜索
-      });
-    },
+        const menu = handleAsideMenu(ret)
+        store.commit('d2admin/menu/asideSet', menu) // 设置侧边栏菜单
+        store.commit('d2admin/search/init', menu) // 设置搜索
+      })
+    }
   },
-  created() {
-    this.loadMenu();
-  },
-};
+  created () {
+    this.loadMenu()
+  }
+}
 </script>
 
 <style lang="scss">

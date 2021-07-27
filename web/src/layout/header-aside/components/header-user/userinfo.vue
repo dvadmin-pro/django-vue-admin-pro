@@ -200,7 +200,7 @@ export default {
     // 重置
     resetForm (name) {
       const _self = this
-      if (name == 'info') {
+      if (name === 'info') {
         _self.getCurrentUserInfo()
       } else {
         _self.userPasswordForm = {}
@@ -209,7 +209,7 @@ export default {
     // tab切换
     handleClick (tab, event) {
       const _self = this
-      if (tab.paneName == 'userInfo') {
+      if (tab.paneName === 'userInfo') {
         _self.$refs.userPasswordForm.resetFields()
       } else {
         _self.$refs.userInfoForm.resetFields()
