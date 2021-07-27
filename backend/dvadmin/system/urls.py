@@ -31,6 +31,8 @@ urlpatterns = [
     re_path('dept_tree/', DeptViewSet.as_view({'get': 'dept_tree'})),
     re_path('role_id_to_menu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
     re_path('web_router/', MenuViewSet.as_view({'get': 'web_router'})),
+    path('user_info/',UserViewSet.as_view({'get':'user_info','put':'update_user_info'})),
+    re_path('change_password/(?P<pk>.*?)/',UserViewSet.as_view({'put':'change_password'})),
 
 ]
 urlpatterns += system_url.urls

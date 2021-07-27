@@ -10,7 +10,7 @@ import { request } from '@/api/service'
 
 export function GetList (query) {
   return request({
-    url: '/api/system/operation_log',
+    url: '/api/system/operation_log/',
     method: 'get',
     params: query
   })
