@@ -17,7 +17,6 @@ import util from '@/libs/util.js'
 // 路由数据
 import routes from './routes'
 import { getMenu, handleAsideMenu, handleRouter } from '@/menu'
-const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 
 // fix vue-router NavigationDuplicated
 const VueRouterPush = VueRouter.prototype.push

@@ -9,9 +9,8 @@
 import XEUtils from 'xe-utils'
 import router from '@/router'
 export default {
-  hasPermissions(value) {
-    let premission_enabled = process.env.VUE_APP_PM_ENABLED | false
-    if (premission_enabled) {
+  hasPermissions (value) {
+    if (process.env.VUE_APP_PM_ENABLED) {
       const path = router.history.current.path// 当前路由
       let need = []
       if (typeof value === 'string') {

@@ -17,7 +17,7 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-import { menuHeader, handleAsideMenu, getMenu, handleRouter } from '@/menu'
+import { menuHeader } from '@/menu'
 
 // 按钮权限
 import '@/plugin/permission' // 加载permission

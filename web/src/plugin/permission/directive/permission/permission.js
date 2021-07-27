@@ -8,11 +8,10 @@
  */
 import permissionUtil from './util.permission'
 export default {
-  inserted(el, binding, vnode) {
+  inserted (el, binding, vnode) {
     const { value } = binding
     const hasPermission = permissionUtil.hasPermissions(value)
-    let premission_enabled = process.env.VUE_APP_PM_ENABLED | false
-    if (premission_enabled) {
+    if (process.env.VUE_APP_PM_ENABLED) {
       if (!hasPermission) {
         el.parentNode && el.parentNode.removeChild(el)
       }
