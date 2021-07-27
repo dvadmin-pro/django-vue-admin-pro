@@ -58,13 +58,10 @@ class ApiLoggingMiddleware(MiddlewareMixin):
             'status': True if response.data.get('code') in [2000, ] else False,
             'json_result': {"code": response.data.get('code'), "msg": response.data.get('msg')},
         }
-        OperationLog.objects.update_or_create(defaults=info, id=self.operation_log_id)
-        # if not request.session.get('operation_log_id', None):
-        #     log = OperationLog(**info)
-        #     log.save()
-        # else:
-        #     operation_log_obj = OperationLog.objects.filter(id=request.session.get('operation_log_id'))
-        #     operation_log_obj.update(**info)
+        operation_log, creat = OperationLog.objects.update_or_create(defaults=info, id=self.operation_log_id)
+        if not operation_log.request_modular and settings.API_MODEL_MAP[request.request_path]:
+            operation_log.request_modular = settings.API_MODEL_MAP[request.request_path]
+            operation_log.save()
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if hasattr(view_func, 'cls') and hasattr(view_func.cls, 'queryset'):

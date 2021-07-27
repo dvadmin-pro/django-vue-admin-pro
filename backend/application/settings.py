@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ================================================= #
-# ******************** ¶¯Ì¬ÅäÖÃ ******************** #
+# ******************** åŠ¨æ€é…ç½® ******************** #
 # ================================================= #
 
 from conf.env import *
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django_comment_migrate',
     'rest_framework',
     'django_filters',
-    'corsheaders',  # ×¢²á¿çÓòapp
+    'corsheaders',  # æ³¨å†Œè·¨åŸŸapp
     'dvadmin.system',
     'drf_yasg',
 ]
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # ¿çÓòÖĞ¼ä¼ş
+    'corsheaders.middleware.CorsMiddleware',  # è·¨åŸŸä¸­é—´ä»¶
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,35 +132,35 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# # ÉèÖÃdjangoµÄ¾²Ì¬ÎÄ¼şÄ¿Â¼
+# # è®¾ç½®djangoçš„é™æ€æ–‡ä»¶ç›®å½•
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-# ÊÕ¼¯¾²Ì¬ÎÄ¼ş£¬±ØĞë½« MEDIA_ROOT,STATICFILES_DIRSÏÈ×¢ÊÍ
+# æ”¶é›†é™æ€æ–‡ä»¶ï¼Œå¿…é¡»å°† MEDIA_ROOT,STATICFILES_DIRSå…ˆæ³¨é‡Š
 # python manage.py collectstatic
 # STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 # ================================================= #
-# ******************* ¿çÓòµÄÅäÖÃ ******************* #
+# ******************* è·¨åŸŸçš„é…ç½® ******************* #
 # ================================================= #
 
-# È«²¿ÔÊĞíÅäÖÃ
+# å…¨éƒ¨å…è®¸é…ç½®
 CORS_ORIGIN_ALLOW_ALL = True
-# ÔÊĞícookie
-CORS_ALLOW_CREDENTIALS = True  # Ö¸Ã÷ÔÚ¿çÓò·ÃÎÊÖĞ£¬ºó¶ËÊÇ·ñÖ§³Ö¶ÔcookieµÄ²Ù×÷
+# å…è®¸cookie
+CORS_ALLOW_CREDENTIALS = True  # æŒ‡æ˜åœ¨è·¨åŸŸè®¿é—®ä¸­ï¼Œåç«¯æ˜¯å¦æ”¯æŒå¯¹cookieçš„æ“ä½œ
 
 # ================================================= #
-# ********************* ÈÕÖ¾ÅäÖÃ ******************* #
+# ********************* æ—¥å¿—é…ç½® ******************* #
 # ================================================= #
 
-# log ÅäÖÃ²¿·ÖBEGIN #
+# log é…ç½®éƒ¨åˆ†BEGIN #
 SERVER_LOGS_FILE = os.path.join(BASE_DIR, 'logs', 'server.log')
 ERROR_LOGS_FILE = os.path.join(BASE_DIR, 'logs', 'error.log')
 if not os.path.exists(os.path.join(BASE_DIR, 'logs')):
     os.makedirs(os.path.join(BASE_DIR, 'logs'))
 
-# ¸ñÊ½:[2020-04-22 23:33:01][micoservice.apps.ready():16] [INFO] ÕâÊÇÒ»ÌõÈÕÖ¾:
-# ¸ñÊ½:[ÈÕÆÚ][Ä£¿é.º¯ÊıÃû³Æ():ĞĞºÅ] [¼¶±ğ] ĞÅÏ¢
+# æ ¼å¼:[2020-04-22 23:33:01][micoservice.apps.ready():16] [INFO] è¿™æ˜¯ä¸€æ¡æ—¥å¿—:
+# æ ¼å¼:[æ—¥æœŸ][æ¨¡å—.å‡½æ•°åç§°():è¡Œå·] [çº§åˆ«] ä¿¡æ¯
 STANDARD_LOG_FORMAT = '[%(asctime)s][%(name)s.%(funcName)s():%(lineno)d] [%(levelname)s] %(message)s'
 CONSOLE_LOG_FORMAT = '[%(asctime)s][%(name)s.%(funcName)s():%(lineno)d] [%(levelname)s] %(message)s'
 
@@ -186,7 +186,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': SERVER_LOGS_FILE,
             'maxBytes': 1024 * 1024 * 100,  # 100 MB
-            'backupCount': 5,  # ×î¶à±¸·İ5¸ö
+            'backupCount': 5,  # æœ€å¤šå¤‡ä»½5ä¸ª
             'formatter': 'standard',
             'encoding': 'utf-8',
         },
@@ -195,7 +195,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': ERROR_LOGS_FILE,
             'maxBytes': 1024 * 1024 * 100,  # 100 MB
-            'backupCount': 3,  # ×î¶à±¸·İ3¸ö
+            'backupCount': 3,  # æœ€å¤šå¤‡ä»½3ä¸ª
             'formatter': 'standard',
             'encoding': 'utf-8',
         },
@@ -206,12 +206,12 @@ LOGGING = {
         }
     },
     'loggers': {
-        # defaultÈÕÖ¾
+        # defaultæ—¥å¿—
         '': {
             'handlers': ['console', 'error', 'file'],
             'level': 'INFO',
         },
-        # Êı¾İ¿âÏà¹ØÈÕÖ¾
+        # æ•°æ®åº“ç›¸å…³æ—¥å¿—
         'django.db.backends': {
             'handlers': [],
             'propagate': True,
@@ -221,11 +221,11 @@ LOGGING = {
 }
 
 # ================================================= #
-# *************** REST_FRAMEWORKÅäÖÃ *************** #
+# *************** REST_FRAMEWORKé…ç½® *************** #
 # ================================================= #
 
 REST_FRAMEWORK = {
-    'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",  # ÈÕÆÚÊ±¼ä¸ñÊ½ÅäÖÃ
+    'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",  # æ—¥æœŸæ—¶é—´æ ¼å¼é…ç½®
     'DATE_FORMAT': "%Y-%m-%d",
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -233,36 +233,39 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
 
     ),
-    'DEFAULT_PAGINATION_CLASS': 'dvadmin.utils.pagination.CustomPagination',  # ×Ô¶¨Òå·ÖÒ³
+    'DEFAULT_PAGINATION_CLASS': 'dvadmin.utils.pagination.CustomPagination',  # è‡ªå®šä¹‰åˆ†é¡µ
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'dvadmin.utils.exception.CustomExceptionHandler',  # ×Ô¶¨ÒåµÄÒì³£´¦Àí
+    'EXCEPTION_HANDLER': 'dvadmin.utils.exception.CustomExceptionHandler',  # è‡ªå®šä¹‰çš„å¼‚å¸¸å¤„ç†
 }
 
 # ================================================= #
-# ****************** simplejwtÅäÖÃ ***************** #
+# ****************** simplejwté…ç½® ***************** #
 # ================================================= #
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    # tokenÓĞĞ§Ê±³¤
+    # tokenæœ‰æ•ˆæ—¶é•¿
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-    # tokenË¢ĞÂºóµÄÓĞĞ§Ê±¼ä
+    # tokenåˆ·æ–°åçš„æœ‰æ•ˆæ—¶é—´
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    # ÉèÖÃÇ°×º
+    # è®¾ç½®å‰ç¼€
     'AUTH_HEADER_TYPES': ('JWT',),
     'ROTATE_REFRESH_TOKENS': True
 }
 
 # ================================================= #
-# ******************** ÆäËûÅäÖÃ ******************** #
+# ******************** å…¶ä»–é…ç½® ******************** #
 # ================================================= #
 API_LOG_ENABLE = True
 # API_LOG_METHODS = 'ALL' # ['POST', 'DELETE']
 API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
+API_MODEL_MAP = {
+    "/token/": "ç™»å½•æ¨¡å—"
+}
 DJANGO_CELERY_BEAT_TZ_AWARE = False
-CELERY_TIMEZONE = 'Asia/Shanghai'  # celery Ê±ÇøÎÊÌâ
-# µ¼Èë×â»§Êı¾İ
+CELERY_TIMEZONE = 'Asia/Shanghai'  # celery æ—¶åŒºé—®é¢˜
+# å¯¼å…¥ç§Ÿæˆ·æ•°æ®
 from plugins import *

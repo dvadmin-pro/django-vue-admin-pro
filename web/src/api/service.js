@@ -86,6 +86,9 @@ function createService () {
             router.push({ path: '/login' })
             errorCreate(`${dataAxios.msg}`)
             break
+          case 400:
+            errorCreate(`${dataAxios.msg}`)
+            break
           default:
             // 不是正确的 code
             errorCreate(`${dataAxios.msg}: ${response.config.url}`)
