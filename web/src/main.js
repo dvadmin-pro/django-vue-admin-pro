@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:19
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-25 00:03:51
+ * @最后修改时间: 2021-07-27 01:06:32
  * 联系Qq:1638245306
  * @文件介绍:
  */
@@ -17,7 +17,8 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-import { menuHeader } from '@/menu'
+import { menuHeader, menuAside, loadMenu } from '@/menu'
+import { frameInRoutes, getRouters } from '@/router/routes'
 
 // 按钮权限
 import '@/plugin/permission' // 加载permission
@@ -32,6 +33,8 @@ import 'vxe-table/lib/style.css'
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(VXETable)
+
+router.addRoutes(loadMenu())
 
 new Vue({
   router,
@@ -58,6 +61,7 @@ new Vue({
     this.$store.commit('d2admin/ua/get')
     // 初始化全屏监听
     this.$store.dispatch('d2admin/fullscreen/listen')
+
   },
   watch: {
     // 检测路由变化切换侧边栏内容

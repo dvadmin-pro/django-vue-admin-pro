@@ -1,3 +1,11 @@
+/*
+ * @创建文件时间: 2021-06-01 22:41:21
+ * @Auther: 猿小天
+ * @最后修改人: 猿小天
+ * @最后修改时间: 2021-07-27 01:06:24
+ * 联系Qq:1638245306
+ * @文件介绍: 
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -13,20 +21,26 @@ import routes from './routes'
 
 // fix vue-router NavigationDuplicated
 const VueRouterPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location) {
+VueRouter.prototype.push = function push(location) {
   return VueRouterPush.call(this, location).catch(err => err)
 }
 const VueRouterReplace = VueRouter.prototype.replace
-VueRouter.prototype.replace = function replace (location) {
+VueRouter.prototype.replace = function replace(location) {
   return VueRouterReplace.call(this, location).catch(err => err)
 }
 
 Vue.use(VueRouter)
 
+
+
 // 导出路由 在 main.js 里使用
 const router = new VueRouter({
   routes
 })
+
+import { loadMenu } from '@/menu'
+
+
 
 /**
  * 路由拦截
