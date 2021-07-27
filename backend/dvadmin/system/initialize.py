@@ -16,82 +16,96 @@ class Initialize:
         delete 是否删除已初始化数据
         """
         self.delete = delete
+        self.creator_id = "456b688c-8ad5-46de-bc2e-d41d8047bd42"
 
     def save(self, obj, data: list, name):
         print(f"正在初始化【{name}】")
         if self.delete:
             obj.objects.all().delete()
+
         for ele in data:
-            id = ele.pop('id')
-            obj.objects.get_or_create(id=id, defaults=ele)
+            m2m_dict = {}
+            new_data = {}
+            for key, value in ele.items():
+                # 判断传的 value 为 list 的多对多进行抽离，使用set 进行更新
+                if isinstance(value, list):
+                    m2m_dict[key] = value
+                else:
+                    new_data[key] = value
+            object, _ = obj.objects.get_or_create(id=id, defaults=new_data)
+            for key, m2m in m2m_dict.items():
+                m2m = list(set(m2m))
+                if m2m and len(m2m) > 0 and m2m[0]:
+                    exec(f"""
+if object.{key}:
+    object.{key}.set({m2m})
+""")
         print(f"初始化完成【{name}】")
 
     def init_dept(self):
         """
         初始化部门信息
         """
-        creator_id = "456b688c-8ad5-46de-bc2e-d41d8047bd42"
-        data = [
-            {"id": "cae96ade-7483-4827-bb0d-d2bd63ec1cc4", "name": "财务部门", "sort": 1, "creator_id": creator_id,
+        self.dept_data = [
+            {"id": "cae96ade-7483-4827-bb0d-d2bd63ec1cc4", "name": "财务部门", "sort": 1,
              "parent_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3"},
-            {"id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3", "name": "dvadmin团队", "sort": 1, "creator_id": creator_id,
-             "parent_id": None},
-            {"id": "fd8230ca-67bd-4347-8a9b-57eb19be5d9e", "name": "研发部门", "sort": 2, "creator_id": creator_id,
+            {"id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3", "name": "dvadmin团队", "sort": 1, "parent_id": None},
+            {"id": "fd8230ca-67bd-4347-8a9b-57eb19be5d9e", "name": "研发部门", "sort": 2,
              "parent_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3"}
         ]
-        self.save(Dept, data, "部门信息")
+        self.save(Dept, self.dept_data, "部门信息")
 
     def init_button(self):
         """
         初始化权限表标识
         """
-        data = [
-            {"id": "4547b93a-36b9-410d-987c-3c52a9b51156", "name": "编辑", "value": "Update"},
-            {"id": "4a410769-6b0a-4ed3-90f0-b5d89a6f802c", "name": "删除", "value": "Delete"},
-            {"id": "644e9c34-e3d6-4518-b795-a603a6e9a137", "name": "单例", "value": "Retrieve"},
-            {"id": "80cb145b-5035-4517-a28a-7d59426f73f8", "name": "新增", "value": "Create"},
-            {"id": "ccc3f35f-c80c-4929-b8cc-67531698f397", "name": "查询", "value": "Search"},
+        self.button_data = [
+            {"id": "4547b93a-36b9-410d-987c-3c52a9b51156", "name": "编辑", "value": "Update", },
+            {"id": "4a410769-6b0a-4ed3-90f0-b5d89a6f802c", "name": "删除", "value": "Delete", },
+            {"id": "644e9c34-e3d6-4518-b795-a603a6e9a137", "name": "单例", "value": "Retrieve", },
+            {"id": "80cb145b-5035-4517-a28a-7d59426f73f8", "name": "新增", "value": "Create", },
+            {"id": "ccc3f35f-c80c-4929-b8cc-67531698f397", "name": "查询", "value": "Search", },
         ]
-        self.save(Button, data, "权限表标识")
+        self.save(Button, self.button_data, "权限表标识")
 
     def init_menu(self):
         """
         初始化菜单表
         """
-        data = [
-            {"id": "151035da-77a3-4a62-b474-fce6824571fb", "name": "按钮管理", "sort": 6, "web_path": "/button",
-             "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system//button",
+        self.menu_data = [
+            {"id": "151035da-77a3-4a62-b474-fce6824571fb", "name": "按钮管理", "sort": 6, "web_path": "button",
+             "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/button",
              "component_name": "button", "status": 0},
-            {"id": "15c9ebc5-d12f-470a-a560-938a7dc57570", "name": "角色管理", "sort": 3, "web_path": "/role",
+            {"id": "15c9ebc5-d12f-470a-a560-938a7dc57570", "name": "角色管理", "sort": 3, "web_path": "role",
              "icon": "users", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/role",
              "component_name": "role"},
-            {"id": "4236eb70-1558-43a0-9cf2-037230c547f9", "name": "部门管理", "sort": 1, "web_path": "/dept",
+            {"id": "4236eb70-1558-43a0-9cf2-037230c547f9", "name": "部门管理", "sort": 1, "web_path": "dept",
              "icon": "university", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/dept",
              "component_name": "dept"},
-            {"id": "4ba07859-8b73-4524-a1a6-bbff36d98337", "name": "操作日志", "sort": 1, "web_path": "/operationLog",
+            {"id": "4ba07859-8b73-4524-a1a6-bbff36d98337", "name": "操作日志", "sort": 1, "web_path": "operationLog",
              "icon": "gears", "parent_id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f",
              "component": "system/log/operationLog", "component_name": "operationLog"},
             {"id": "54f769b0-3dff-416c-8102-e55ec44827cc", "name": "系统管理", "sort": 1, "web_path": "",
-             "icon": "briefcase", "parent_id": None, "component": None, "component_name": None},
-            {"id": "56c3f341-4f46-4b04-9cfc-c8a14701707e", "name": "菜单管理", "sort": 2, "web_path": "/menu",
+             "icon": "briefcase", "parent_id": None, },
+            {"id": "56c3f341-4f46-4b04-9cfc-c8a14701707e", "name": "菜单管理", "sort": 2, "web_path": "menu",
              "icon": "reorder", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/menu",
              "component_name": "menu"},
-            {"id": "5a05450c-cec2-4819-8d54-e0d6f6aac3a6", "name": "用户管理", "sort": 5, "web_path": "/user",
+            {"id": "5a05450c-cec2-4819-8d54-e0d6f6aac3a6", "name": "用户管理", "sort": 5, "web_path": "user",
              "icon": "user", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/user",
              "component_name": "user"},
-            {"id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac", "name": "权限管理", "sort": 4, "web_path": "/rolePermission",
+            {"id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac", "name": "权限管理", "sort": 4, "web_path": "rolePermission",
              "icon": "user-plus", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc",
              "component": "system/rolePermission", "component_name": "rolePermission"},
             {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 2, "web_path": "", "icon": "clock-o",
-             "parent_id": None, "component": None, "component_name": None},
+             "parent_id": None},
         ]
-        self.save(Menu, data, "菜单表")
+        self.save(Menu, self.menu_data, "菜单表")
 
     def init_menu_button(self):
         """
         初始化菜单权限表
         """
-        data = [
+        self.menu_button_data = [
             {"id": "0209de89-6b9f-4d8a-84d3-ccfc3cc8b4da", "menu_id": "151035da-77a3-4a62-b474-fce6824571fb",
              "name": "编辑", "value": "Update", "api": "/api/system/button/{id}/", "method": 2},
             {"id": "04896a47-0f3a-4e2f-a111-bfe15f9e31c5", "menu_id": "56c3f341-4f46-4b04-9cfc-c8a14701707e",
@@ -153,7 +167,7 @@ class Initialize:
             {"id": "fcbe4cec-cc2d-436d-92ba-023f8c9ad31c", "menu_id": "56c3f341-4f46-4b04-9cfc-c8a14701707e",
              "name": "单例", "value": "Retrieve", "api": "/api/system/menu/{id}/", "method": 0},
         ]
-        self.save(MenuButton, data, "菜单权限表")
+        self.save(MenuButton, self.menu_button_data, "菜单权限表")
 
     def init_role(self):
         """
@@ -161,9 +175,18 @@ class Initialize:
         """
         data = [
             {"id": "36001d1a-1b3e-4413-bdfe-b3bc04375f46", "name": "管理员", "key": "admin", "sort": 1, "status": 1,
-             "admin": 0, "data_range": 3},
+             "admin": 1, "data_range": 3,
+             "menu": [ele.get("id") for ele in self.menu_data],
+             "permission": [ele.get("id") for ele in self.menu_button_data]
+             },
             {"id": "35b58d98-b506-4f93-be79-ed1e109da071", "name": "普通用户", "key": "public", "sort": 2, "status": 1,
-             "admin": 1, "data_range": 4},
+             "admin": 0, "data_range": 4,
+             "dept": ["d2c03bd9-dad0-4262-88ca-c3681d224fc3", "fd8230ca-67bd-4347-8a9b-57eb19be5d9e"],
+             "menu": ["15c9ebc5-d12f-470a-a560-938a7dc57570", "4236eb70-1558-43a0-9cf2-037230c547f9",
+                      "54f769b0-3dff-416c-8102-e55ec44827cc", "56c3f341-4f46-4b04-9cfc-c8a14701707e",
+                      "5a05450c-cec2-4819-8d54-e0d6f6aac3a6"],
+             "permission": []
+             },
 
         ]
         self.save(Role, data, "角色表")
@@ -176,19 +199,30 @@ class Initialize:
             {"id": "2457d43b-bb74-4ac6-94ae-454acf1f0160",
              "password": "pbkdf2_sha256$260000$Q60dvTUcDJAiVzvZMPSYyV$9ZFqbjqTDa5U4GGubAh1xX+YDKsqm5AU8GCficncr5I=",
              "is_superuser": 0, "is_staff": 0,
-             "is_active": 1, "username": "test", "name": "测试"},
+             "is_active": 1, "username": "test", "name": "测试",
+             "role": ["35b58d98-b506-4f93-be79-ed1e109da071"],
+             "dept_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3",
+             },
             {"id": "456b688c-8ad5-46de-bc2e-d41d8047bd42",
              "password": "pbkdf2_sha256$260000$oE0tnjC7PRIV6aCEah0J1F$scZo6l2/kekoClW8jZ6bM4PmSXevb4qzqHLro8PvzLc=",
              "is_superuser": 1, "is_staff": 1,
-             "is_active": 1, "username": "superadmin", "name": "超级管理员"},
+             "is_active": 1, "username": "superadmin", "name": "超级管理员",
+             "dept_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3",
+             },
             {"id": "bcb411ce-13ff-4a2a-8eda-fcdd243a7f76",
              "password": "pbkdf2_sha256$260000$oE0tnjC7PRIV6aCEah0J1F$scZo6l2/kekoClW8jZ6bM4PmSXevb4qzqHLro8PvzLc=",
              "is_superuser": 0, "is_staff": 0,
-             "is_active": 0, "username": "demo", "name": "demo"},
+             "is_active": 0, "username": "demo", "name": "demo",
+             "dept_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3",
+             "role": ["35b58d98-b506-4f93-be79-ed1e109da071"],
+             },
             {"id": "d1431450-5068-4461-b57e-7862c005a547",
              "password": "pbkdf2_sha256$260000$DO6dpT8e4Ls0yD51grncC8$KZfswxNJ8MILTWwy+bicRyU7Q3PKC4orn4SJbhIkN4Q=",
              "is_superuser": 0, "is_staff": 0,
-             "is_active": 1, "username": "admin", "name": "管理员"},
+             "is_active": 1, "username": "admin", "name": "管理员",
+             "dept_id": "d2c03bd9-dad0-4262-88ca-c3681d224fc3",
+             "role": ["36001d1a-1b3e-4413-bdfe-b3bc04375f46"],
+             },
         ]
         self.save(Users, data, "用户表")
 

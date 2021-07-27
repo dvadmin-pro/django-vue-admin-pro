@@ -1,3 +1,5 @@
+import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER } from '@/config/button'
+
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -14,7 +16,7 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
@@ -22,22 +24,22 @@ export const crudOptions = (vm) => {
       edit: {
         thin: true,
         text: '编辑',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       },
       custom: [{
-        show(index, row) {
+        show (index, row) {
           return true
         },
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         },
         text: '权限管理',
@@ -145,7 +147,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '是', value: 1 }, { label: '否', value: 0 }]
+        data: BUTTON_WHETHER_NUMBER
       },
       form: {
         value: 0,
@@ -165,7 +167,7 @@ export const crudOptions = (vm) => {
 
       type: 'radio',
       dict: {
-        data: [{ label: '启用', value: 1 }, { label: '禁用', value: 0 }]
+        data: BUTTON_STATUS_NUMBER
       },
       form: {
         value: 1,

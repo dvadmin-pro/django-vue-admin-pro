@@ -4,7 +4,7 @@
  * @最后修改人: 猿小天
  * @最后修改时间: 2021-07-27 00:18:52
  * 联系Qq:1638245306
- * @文件介绍: 
+ * @文件介绍:
 -->
 <template>
   <el-dropdown size="small" class="d2-mr">
@@ -24,25 +24,25 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState("d2admin/user", ["info"]),
+    ...mapState('d2admin/user', ['info'])
   },
   methods: {
-    ...mapActions("d2admin/account", ["logout"]),
+    ...mapActions('d2admin/account', ['logout']),
     /**
      * @description 登出
      */
-    logOff() {
+    logOff () {
       this.logout({
-        confirm: true,
-      });
+        confirm: true
+      })
     },
-    /**个人信息 */
-    userInfo() {
-      this.$router.push({ path: "userInfo" });
-    },
-  },
-};
+    /** 个人信息 */
+    userInfo () {
+      this.$router.push({ path: 'userInfo' })
+    }
+  }
+}
 </script>

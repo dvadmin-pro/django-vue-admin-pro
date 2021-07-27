@@ -4,7 +4,7 @@
  * @最后修改人: 猿小天
  * @最后修改时间: 2021-07-27 22:17:24
  * 联系Qq:1638245306
- * @文件介绍: 
+ * @文件介绍:
  */
 // Vue
 import Vue from 'vue'
@@ -41,7 +41,7 @@ new Vue({
   store,
   i18n,
   render: h => h(App),
-  created() {
+  created () {
 
     // 动态添加路由
     getMenu().then(ret => {
@@ -69,7 +69,7 @@ new Vue({
     // 初始化菜单搜索功能
     // this.$store.commit('d2admin/search/init', menuAside)
   },
-  mounted() {
+  mounted () {
     // 展示系统信息
     this.$store.commit('d2admin/releases/versionShow')
     // 用户登录后从数据库加载一系列的设置
@@ -78,12 +78,11 @@ new Vue({
     this.$store.commit('d2admin/ua/get')
     // 初始化全屏监听
     this.$store.dispatch('d2admin/fullscreen/listen')
-
   },
   watch: {
     // 检测路由变化切换侧边栏内容
     '$route.matched': {
-      handler(matched) {
+      handler (matched) {
         if (matched.length > 0) {
           const _side = menuHeader.filter(menu => menu.path === matched[0].path)
           if (_side.length > 0) {

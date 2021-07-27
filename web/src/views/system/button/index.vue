@@ -39,42 +39,42 @@
 </template>
 
 <script>
-import * as api from "./api";
-import { crudOptions } from "./crud";
-import { d2CrudPlus } from "d2-crud-plus";
+import * as api from './api'
+import { crudOptions } from './crud'
+import { d2CrudPlus } from 'd2-crud-plus'
 export default {
-  name: "formSelect",
+  name: 'formSelect',
   mixins: [d2CrudPlus.crud],
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    getCrudOptions() {
-      return crudOptions(this);
+    getCrudOptions () {
+      return crudOptions(this)
     },
-    pageRequest(query) {
-      return api.GetList(query);
+    pageRequest (query) {
+      return api.GetList(query)
     },
-    addRequest(row) {
-      console.log("api", api);
-      return api.createObj(row);
+    addRequest (row) {
+      console.log('api', api)
+      return api.createObj(row)
     },
-    updateRequest(row) {
-      console.log("----", row);
-      return api.UpdateObj(row);
+    updateRequest (row) {
+      console.log('----', row)
+      return api.UpdateObj(row)
     },
-    delRequest(row) {
-      return api.DelObj(row.id);
+    delRequest (row) {
+      return api.DelObj(row.id)
     },
     // 授权
-    createPermission(scope) {
-      console.log("custom btn:", scope);
+    createPermission (scope) {
+      console.log('custom btn:', scope)
       this.$message(
-        "自定义操作按钮：" + scope.row.data + ",index:" + scope.index
-      );
-    },
-  },
-};
+        '自定义操作按钮：' + scope.row.data + ',index:' + scope.index
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss">
