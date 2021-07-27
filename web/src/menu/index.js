@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-24 23:35:06
+ * @最后修改时间: 2021-07-27 01:04:24
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -107,7 +107,24 @@ export const getMenu = function (self) {
       ...data
     ]
     let menu_data = supplementPath(menu)
-
+    sessionStorage.setItem("frameInRoutes", JSON.stringify(frameInRoutes))
     return { router: frameInRoutes, menu: menu_data }
   })
+}
+
+
+/**
+ * 加载缓存中的菜单,防止F5刷新时404
+ */
+export const loadMenu = function () {
+  let routers = sessionStorage.getItem("frameInRoutes")
+  if (routers) {
+    routers = JSON.parse(routers)
+  } else {
+    routers = []
+  }
+
+  return routers
+
+  // router.addRoutes(routers)
 }

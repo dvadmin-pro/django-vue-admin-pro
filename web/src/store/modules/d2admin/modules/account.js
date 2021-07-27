@@ -1,3 +1,11 @@
+/*
+ * @创建文件时间: 2021-06-01 22:41:21
+ * @Auther: 猿小天
+ * @最后修改人: 猿小天
+ * @最后修改时间: 2021-07-26 23:47:51
+ * 联系Qq:1638245306
+ * @文件介绍: 登录和登出
+ */
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
@@ -29,7 +37,7 @@ export default {
       util.cookies.set('token', res.access)
       util.cookies.set('refresh', res.refresh)
       // 设置 vuex 用户信息
-      await dispatch('d2admin/user/set', { name: res.name }, { root: true })
+      await dispatch('d2admin/user/set', { name: res.name, user_id: res.userId }, { root: true })
       // 用户登录后从持久化数据加载一系列的设置
       await dispatch('load')
     },
@@ -53,7 +61,7 @@ export default {
         sessionStorage.removeItem("menuData")
 
         store.dispatch('d2admin/db/databaseClear')
-        console.log(store);
+
         // 跳转路由
         router.push({ name: 'login' })
       }
