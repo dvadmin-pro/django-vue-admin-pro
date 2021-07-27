@@ -8,7 +8,7 @@ export const crudOptions = (vm) => {
       align: 'center'
     },
     viewOptions: {
-      componentType: 'row'
+      componentType: 'form'
     },
     formOptions: {
       disabled: true,

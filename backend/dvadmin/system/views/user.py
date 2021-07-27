@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
 from dvadmin.system.models import Users
+from dvadmin.utils.jsonResponse import SuccessResponse, ErrorResponse
 from dvadmin.utils.permission import CustomPermission
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomUniqueValidator
@@ -83,3 +84,41 @@ class UserViewSet(CustomModelViewSet):
     create_serializer_class = UserCreateSerializer
     update_serializer_class = UserUpdateSerializer
     permission_classes = []
+
+    def user_info(self,request):
+        """获取当前用户信息"""
+        user = request.user
+        result = {
+            "name":user.name,
+            "mobile":user.mobile,
+            "gender":user.gender,
+            "email":user.email
+        }
+        return SuccessResponse(data=result,msg="获取成功")
+
+    def update_user_info(self,request):
+        """修改当前用户信息"""
+        user = request.user
+        Users.objects.filter(id=user.id).update(**request.data)
+        return SuccessResponse(data=None, msg="修改成功")
+
+
+    def change_password(self,request,*args, **kwargs):
+
+        instance = Users.objects.filter(id=kwargs.get('pk')).first()
+        print(instance)
+        data = request.data
+        old_pwd = data.get('oldPassword')
+        new_pwd = data.get('newPassword')
+        new_pwd2 = data.get('newPassword2')
+        if instance:
+            if new_pwd != new_pwd2:
+                return ErrorResponse(msg="2次密码不匹配")
+            elif instance.check_password(old_pwd):
+                instance.password = make_password(new_pwd)
+                instance.save()
+                return SuccessResponse(data=None, msg="修改成功")
+            else:
+                return ErrorResponse(msg="旧密码不正确")
+        else:
+            return ErrorResponse(msg="未获取到用户")

@@ -74,7 +74,7 @@ if object.{key}:
         """
         self.menu_data = [
             {"id": "151035da-77a3-4a62-b474-fce6824571fb", "name": "按钮管理", "sort": 6, "web_path": "button",
-             "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system//button",
+             "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/button",
              "component_name": "button", "status": 0},
             {"id": "15c9ebc5-d12f-470a-a560-938a7dc57570", "name": "角色管理", "sort": 3, "web_path": "role",
              "icon": "users", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/role",

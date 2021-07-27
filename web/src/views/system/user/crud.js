@@ -168,7 +168,7 @@ export const crudOptions = (vm) => {
             props: {
               dict: {
                 cache: false, // 表单的dict可以禁用缓存
-                url: '/api/system/dept?status=1',
+                url: '/api/system/dept/?status=1',
                 isTree: true,
                 value: 'id', // 数据字典中value字段的属性名
                 label: 'name', // 数据字典中label字段的属性名
@@ -224,7 +224,7 @@ export const crudOptions = (vm) => {
             props: {
               dict: {
                 cache: false, // 表单的dict可以禁用缓存
-                url: '/api/system/role?status=1',
+                url: '/api/system/role/?status=1',
                 value: 'id', // 数据字典中value字段的属性名
                 label: 'name', // 数据字典中label字段的属性名
                 getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc

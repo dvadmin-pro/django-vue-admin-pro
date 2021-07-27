@@ -144,7 +144,7 @@ export const crudOptions = (vm) => {
           }
         },
         dict: {
-          url: '/api/system/dept',
+          url: '/api/system/dept/',
           isTree: true,
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
@@ -167,7 +167,7 @@ export const crudOptions = (vm) => {
         }, // 查询的时候触发一个空方法
         type: 'checkbox',
         dict: {
-          url: '/api/system/role',
+          url: '/api/system/role/',
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
