@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-24 00:48:08
+ * @最后修改时间: 2021-07-29 22:17:28
  * 联系Qq:1638245306
  * @文件介绍:
 -->
@@ -43,7 +43,7 @@ import * as api from "./api";
 import { crudOptions } from "./crud";
 import { d2CrudPlus } from "d2-crud-plus";
 export default {
-  name: "formSelect",
+  name: "button",
   mixins: [d2CrudPlus.crud],
   data() {
     return {};

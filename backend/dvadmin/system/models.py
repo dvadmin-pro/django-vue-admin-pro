@@ -131,6 +131,16 @@ class Menu(CoreModel):
         (1, "启用"),
     )
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="菜单状态", help_text="菜单状态")
+    CACHE_CHOICES=(
+        (0,'禁用'),
+        (1,"启用")
+    )
+    cache = models.IntegerField(choices=CACHE_CHOICES, default=0, verbose_name="是否页面缓存", help_text="是否页面缓存")
+    VISIBLE_CHOICES=(
+        (0,'不可见'),
+        (1,"可见")
+    )
+    visible = models.IntegerField(choices=CACHE_CHOICES, default=1, verbose_name="侧边栏中是否显示", help_text="侧边栏中是否显示")
 
     class Meta:
         db_table = table_prefix + "menu"
