@@ -19,19 +19,33 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
+        }
+      },
+      edit: {
+        thin: true,
+        text: '编辑',
+        disabled() {
+          return !vm.hasPermissions('Update')
+        }
+      },
+      remove: {
+        thin: true,
+        text: '删除',
+        disabled() {
+          return !vm.hasPermissions('Delete')
         }
       },
       width: 370,
       custom: [{
-        show (index, row) {
+        show(index, row) {
           if (row.web_path) {
             return true
           }
           return false
         },
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         },
         text: ' 按钮配置',
@@ -207,6 +221,12 @@ export const crudOptions = (vm) => {
             props: {
               clearable: true
             }
+          },
+          helper: {
+            render(h) {
+              return (< el-alert title="浏览器中url的地址" type="warning" />
+              )
+            }
           }
         }
       },
@@ -219,6 +239,12 @@ export const crudOptions = (vm) => {
             props: {
               clearable: true
             }
+          },
+          helper: {
+            render(h) {
+              return (< el-alert title="xx.vue文件中的name" type="warning" />
+              )
+            }
           }
         }
       },
@@ -230,6 +256,12 @@ export const crudOptions = (vm) => {
             span: 12,
             props: {
               clearable: true
+            }
+          },
+          helper: {
+            render(h) {
+              return (< el-alert title="src/views下的文件夹地址" type="warning" />
+              )
             }
           }
         }
@@ -260,6 +292,56 @@ export const crudOptions = (vm) => {
                 return Object.assign(item, { color: BUTTON_VALUE_TO_COLOR_MAPPING[item.value] || 'auto' })
               })
             })
+          }
+        }
+      },
+      {
+        title: '是否缓存',
+        key: 'cache',
+        sortable: true,
+        search: {
+          disabled: false
+        },
+        width: 90,
+        type: 'radio',
+        dict: {
+          data: BUTTON_WHETHER_NUMBER
+        },
+        form: {
+          value: 0,
+          component: {
+            span: 12
+          },
+          helper: {
+            render(h) {
+              return (< el-alert title="是否开启页面缓存,需要组件名称和xx.vue页面的name一致" type="warning" />
+              )
+            }
+          }
+        }
+      },
+      {
+        title: '是否侧边可见',
+        key: 'visible',
+        sortable: true,
+        search: {
+          disabled: false
+        },
+        width: 90,
+        type: 'radio',
+        dict: {
+          data: BUTTON_WHETHER_NUMBER
+        },
+        form: {
+          value: 1,
+          component: {
+            span: 12
+          },
+          helper: {
+            render(h) {
+              return (< el-alert title="是否显示在侧边菜单中" type="warning" />
+              )
+            }
           }
         }
       },

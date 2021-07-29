@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 22:22:34
+ * @最后修改时间: 2021-07-29 22:37:22
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -16,7 +16,7 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath (menu) {
+function supplementPath(menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
@@ -93,7 +93,8 @@ export const handleRouter = function (menuData) {
         component: _import(item.component),
         meta: {
           title: item.name,
-          auth: true
+          auth: true,
+          cache: item.cache == 1 ? true : false,
         }
       }
       result.push(obj)
