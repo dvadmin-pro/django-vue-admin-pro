@@ -1,0 +1,16 @@
+{
+  "dvadmin_tenant_backend": {
+    "name": "租户插件",
+    "enable": true,
+    "type": "backend",
+    "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
+    "priority": 1
+  },
+  "dvadmin_tenant_web": {
+    "name": "租户插件前端",
+    "type": "web",
+    "enable": true,
+    "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
+    "priority": 1
+  }
+}
