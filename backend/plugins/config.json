@@ -1,0 +1,8 @@
+{
+  "dvadmin_tenant_backend": {
+    "name": "租户插件",
+    "enable": false,
+    "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
+    "priority": 1
+  }
+}

@@ -2,14 +2,13 @@
  * @创建文件时间: 2021-06-03 00:50:28
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-24 00:50:32
+ * @最后修改时间: 2021-07-29 22:49:02
  * 联系Qq:1638245306
  * @文件介绍: 菜单的按钮和接口配置
  */
 import { request } from '@/api/service'
 export const crudOptions = (vm) => {
   return {
-
     pageOptions: {
       compact: true
     },
@@ -66,18 +65,7 @@ export const crudOptions = (vm) => {
         disabled: true
       }
     },
-    {
-      title: '添加按钮',
-      key: 'createBtn',
-      type: 'select',
-      show: false,
-      search: {
-        disabled: true
-      },
-      form: {
-        slot: true
-      }
-    },
+
     {
       title: '名称',
       key: 'name',
@@ -103,25 +91,44 @@ export const crudOptions = (vm) => {
           { required: true, message: '必填项' }
         ],
         component: {
-          span: 12,
-          children: [
-            (h) => {
-              return <div>112233</div>
-            },
-            (h) => {
-              return <el-button slot="prefix" icon="el-icon-search" onClick={() => { vm.$message('input后缀按钮') }} />
-            }
-          ]
+          span: 10
         },
         itemProps: {
           class: { yxtInput: true }
+        },
+        valueChange (key, value, form, { getColumn, mode, component, immediate, getComponent }) {
+          if (value != null) {
+            const obj = component.dictOptions.find(item => {
+              return item.name === value
+            })
+            form.value = obj.value
+          }
         }
       }
     },
     {
+      title: '',
+      key: 'createBtn',
+      type: 'button',
+      show: false,
+      search: {
+        disabled: true
+      },
+      form: {
+        slot: true,
+        component: {
+          span: 2
+        },
+        itemProps: {
+          labelWidth: '0px' // 可以隐藏表单项的label
+        }
+      }
+
+    },
+    {
       title: '权限值',
       key: 'value',
-      disabled: true,
+
       show: false,
       sortable: true,
       search: {
@@ -216,7 +223,7 @@ export const crudOptions = (vm) => {
           class: { yxtInput: true }
         },
         helper: {
-          render(h) {
+          render (h) {
             return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/.*?/" type="warning" />
             )
           }

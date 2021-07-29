@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-24 22:31:47
+ * @最后修改时间: 2021-07-29 23:31:01
  * 联系Qq:1638245306
  * @文件介绍:角色管理
 -->
@@ -22,13 +22,12 @@
                 type="primary"
                 size="mini"
                 @click="submitPermisson"
-                v-permission="'Update'"
-              >保存
-              </el-button
-              >
+                v-permission="'Save'"
+                >保存
+              </el-button>
             </div>
           </div>
-          <br/>
+          <br />
           <el-tree
             class="filter-tree"
             :data="data"
@@ -52,8 +51,13 @@
                   <div class="yxt-flex-align-center">
                     <div class="yxt-divider"></div>
                     <span>数据授权</span>
-                    <el-tooltip class="item" effect="dark" :content="dataAuthorizationTips" placement="right">
-                      <icon class="el-icon-question"></icon>
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      :content="dataAuthorizationTips"
+                      placement="right"
+                    >
+                      <el-icon class="el-icon-question"></el-icon>
                     </el-tooltip>
                   </div>
                 </div>
@@ -97,8 +101,13 @@
                   <div class="yxt-flex-align-center">
                     <div class="yxt-divider"></div>
                     <span>菜单授权</span>
-                    <el-tooltip class="item" effect="dark" :content="menuAuthorizationTips" placement="right">
-                      <icon class="el-icon-question"></icon>
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      :content="menuAuthorizationTips"
+                      placement="right"
+                    >
+                      <el-icon class="el-icon-question"></el-icon>
                     </el-tooltip>
                   </div>
                 </div>
@@ -122,7 +131,7 @@
                           v-for="(item, index) in data.menuPermission"
                           :key="index"
                           v-model="item.checked"
-                        >{{ item.name }}</el-checkbox
+                          >{{ item.name }}</el-checkbox
                         >
                       </div>
                     </div>

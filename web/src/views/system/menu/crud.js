@@ -23,7 +23,21 @@ export const crudOptions = (vm) => {
           return !vm.hasPermissions('Retrieve')
         }
       },
-      width: 370,
+      edit: {
+        thin: true,
+        text: '编辑',
+        disabled () {
+          return !vm.hasPermissions('Update')
+        }
+      },
+      remove: {
+        thin: true,
+        text: '删除',
+        disabled () {
+          return !vm.hasPermissions('Delete')
+        }
+      },
+      width: 350,
       custom: [{
         show (index, row) {
           if (row.web_path) {
@@ -37,8 +51,7 @@ export const crudOptions = (vm) => {
         text: ' 按钮配置',
         type: 'warning',
         size: 'small',
-        emit: 'createPermission',
-        icon: 'el-icon-s-flag'
+        emit: 'createPermission'
       }]
 
     },
@@ -84,7 +97,7 @@ export const crudOptions = (vm) => {
         title: 'ID',
         key: 'id',
         show: false,
-        width: 90,
+        width: 60,
         form: {
           disabled: true
         }
@@ -162,7 +175,7 @@ export const crudOptions = (vm) => {
       {
         title: '图标',
         key: 'icon',
-        width: 80,
+        width: 60,
         type: 'icon-selector',
         form: {
           component: {
@@ -174,7 +187,7 @@ export const crudOptions = (vm) => {
       {
         title: '排序',
         key: 'sort',
-        width: 80,
+        width: 60,
         type: 'number',
         form: {
           value: 1,
@@ -184,9 +197,9 @@ export const crudOptions = (vm) => {
         }
       },
       {
-        title: '是否外链接',
+        title: '外链接',
         key: 'is_link',
-        width: 100,
+        width: 70,
         type: 'radio',
         dict: {
           data: BUTTON_WHETHER_NUMBER
@@ -201,11 +214,18 @@ export const crudOptions = (vm) => {
       {
         title: '路由地址',
         key: 'web_path',
+        width: 130,
         form: {
           component: {
             span: 12,
             props: {
               clearable: true
+            }
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="浏览器中url的地址" type="warning" />
+              )
             }
           }
         }
@@ -213,11 +233,18 @@ export const crudOptions = (vm) => {
       {
         title: '组件名称',
         key: 'component_name',
+        width: 130,
         form: {
           component: {
             span: 12,
             props: {
               clearable: true
+            }
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="xx.vue文件中的name" type="warning" />
+              )
             }
           }
         }
@@ -225,11 +252,18 @@ export const crudOptions = (vm) => {
       {
         title: '组件地址',
         key: 'component',
+        width: 130,
         form: {
           component: {
             span: 12,
             props: {
               clearable: true
+            }
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="src/views下的文件夹地址" type="warning" />
+              )
             }
           }
         }
@@ -237,7 +271,7 @@ export const crudOptions = (vm) => {
       {
         title: '权限',
         key: 'menuPermission',
-        width: 260,
+        width: 165,
         type: 'select',
         form: {
           disabled: true,
@@ -264,13 +298,61 @@ export const crudOptions = (vm) => {
         }
       },
       {
+        title: '缓存',
+        key: 'cache',
+        search: {
+          disabled: false
+        },
+        width: 50,
+        type: 'radio',
+        dict: {
+          data: BUTTON_WHETHER_NUMBER
+        },
+        form: {
+          value: 0,
+          component: {
+            span: 12
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="是否开启页面缓存,需要组件名称和xx.vue页面的name一致" type="warning" />
+              )
+            }
+          }
+        }
+      },
+      {
+        title: '侧边可见',
+        key: 'visible',
+        search: {
+          disabled: false
+        },
+        width: 75,
+        type: 'radio',
+        dict: {
+          data: BUTTON_WHETHER_NUMBER
+        },
+        form: {
+          value: 1,
+          component: {
+            span: 12
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="是否显示在侧边菜单中" type="warning" />
+              )
+            }
+          }
+        }
+      },
+      {
         title: '状态',
         key: 'status',
         sortable: true,
         search: {
           disabled: false
         },
-        width: 90,
+        width: 80,
         type: 'radio',
         dict: {
           data: BUTTON_STATUS_NUMBER

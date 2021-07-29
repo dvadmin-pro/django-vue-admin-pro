@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 22:22:34
+ * @最后修改时间: 2021-07-29 22:37:22
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -93,7 +93,8 @@ export const handleRouter = function (menuData) {
         component: _import(item.component),
         meta: {
           title: item.name,
-          auth: true
+          auth: true,
+          cache: item.cache === 1
         }
       }
       result.push(obj)
