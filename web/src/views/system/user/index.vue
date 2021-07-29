@@ -42,37 +42,37 @@
 </template>
 
 <script>
-import * as api from "./api";
-import { crudOptions } from "./crud";
-import { d2CrudPlus } from "d2-crud-plus";
+import * as api from './api'
+import { crudOptions } from './crud'
+import { d2CrudPlus } from 'd2-crud-plus'
 
 export default {
-  name: "user",
+  name: 'user',
 
   mixins: [d2CrudPlus.crud],
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    getCrudOptions() {
-      return crudOptions(this);
+    getCrudOptions () {
+      return crudOptions(this)
     },
-    pageRequest(query) {
-      return api.GetList(query);
+    pageRequest (query) {
+      return api.GetList(query)
     },
-    addRequest(row) {
-      console.log("api", api);
-      return api.AddObj(row);
+    addRequest (row) {
+      console.log('api', api)
+      return api.AddObj(row)
     },
-    updateRequest(row) {
-      console.log("----", row);
-      return api.UpdateObj(row);
+    updateRequest (row) {
+      console.log('----', row)
+      return api.UpdateObj(row)
     },
-    delRequest(row) {
-      return api.DelObj(row.id);
-    },
-  },
-};
+    delRequest (row) {
+      return api.DelObj(row.id)
+    }
+  }
+}
 </script>
 
 <style lang="scss">

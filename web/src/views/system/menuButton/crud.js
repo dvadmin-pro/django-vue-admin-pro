@@ -91,19 +91,19 @@ export const crudOptions = (vm) => {
           { required: true, message: '必填项' }
         ],
         component: {
-          span: 10,
+          span: 10
         },
         itemProps: {
           class: { yxtInput: true }
         },
-        valueChange(key, value, form, { getColumn, mode, component, immediate, getComponent }) {
+        valueChange (key, value, form, { getColumn, mode, component, immediate, getComponent }) {
           if (value != null) {
-            let obj = component.dictOptions.find(item => {
-              return item.name == value
+            const obj = component.dictOptions.find(item => {
+              return item.name === value
             })
             form.value = obj.value
           }
-        },
+        }
       }
     },
     {
@@ -117,12 +117,12 @@ export const crudOptions = (vm) => {
       form: {
         slot: true,
         component: {
-          span: 2,
+          span: 2
         },
         itemProps: {
-          labelWidth: '0px' //可以隐藏表单项的label
+          labelWidth: '0px' // 可以隐藏表单项的label
         }
-      },
+      }
 
     },
     {
@@ -223,7 +223,7 @@ export const crudOptions = (vm) => {
           class: { yxtInput: true }
         },
         helper: {
-          render(h) {
+          render (h) {
             return (< el-alert title="请正确填写，以免请求时被拦截。匹配单例使用正则,例如:/api/xx/.*?/" type="warning" />
             )
           }

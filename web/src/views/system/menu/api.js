@@ -12,7 +12,7 @@ import XEUtils from 'xe-utils'
 /**
  * 列表查询
  */
-export function GetList(query) {
+export function GetList (query) {
   query.limit = 999
   return request({
     url: '/api/system/menu/',
@@ -28,7 +28,7 @@ export function GetList(query) {
 /**
  * 新增
  */
-export function createObj(obj) {
+export function createObj (obj) {
   return request({
     url: '/api/system/menu/',
     method: 'post',
@@ -39,7 +39,7 @@ export function createObj(obj) {
 /**
  * 修改
  */
-export function UpdateObj(obj) {
+export function UpdateObj (obj) {
   return request({
     url: '/api/system/menu/' + obj.id + '/',
     method: 'put',
@@ -50,11 +50,10 @@ export function UpdateObj(obj) {
 /**
  * 删除
  */
-export function DelObj(id) {
+export function DelObj (id) {
   return request({
     url: '/api/system/menu/' + id + '/',
     method: 'delete',
     data: { id }
   })
 }
-

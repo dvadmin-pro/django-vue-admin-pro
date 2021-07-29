@@ -1,9 +1,9 @@
-import PluginsConfig from '../../../backend/plugins/config.json'
+import PluginsConfig from './config.json'
 
 export function getPlugins () {
   const plugins = {}
   for (var key in PluginsConfig) {
-    if (PluginsConfig[key].enable && PluginsConfig[key].type === 'web') {
+    if (PluginsConfig[key].enable) {
       plugins[key] = PluginsConfig[key]
     }
   }

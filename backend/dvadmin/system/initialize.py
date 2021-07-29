@@ -65,6 +65,7 @@ if object.{key}:
             {"id": "644e9c34-e3d6-4518-b795-a603a6e9a137", "name": "单例", "value": "Retrieve", },
             {"id": "80cb145b-5035-4517-a28a-7d59426f73f8", "name": "新增", "value": "Create", },
             {"id": "ccc3f35f-c80c-4929-b8cc-67531698f397", "name": "查询", "value": "Search", },
+            {"id": "83a9b774-4669-4d2f-b61d-8ee4944c2316", "name": "保存", "value": "Save", },
         ]
         self.save(Button, self.button_data, "权限表标识")
 
@@ -75,7 +76,7 @@ if object.{key}:
         self.menu_data = [
             {"id": "151035da-77a3-4a62-b474-fce6824571fb", "name": "按钮管理", "sort": 6, "web_path": "/button",
              "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/button",
-             "component_name": "button", "status": 0},
+             "component_name": "button", "visible": 0},
             {"id": "15c9ebc5-d12f-470a-a560-938a7dc57570", "name": "角色管理", "sort": 3, "web_path": "/role",
              "icon": "users", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/role",
              "component_name": "role"},
@@ -90,6 +91,9 @@ if object.{key}:
             {"id": "56c3f341-4f46-4b04-9cfc-c8a14701707e", "name": "菜单管理", "sort": 2, "web_path": "/menu",
              "icon": "reorder", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/menu",
              "component_name": "menu"},
+            {"id": "e0f53902-e901-490c-83f3-331e60b97fcf", "name": "菜单按钮", "sort": 2, "web_path": "/menuButton/:id",
+             "icon": "clock-o", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/menuButton",
+             "visible": 0},
             {"id": "5a05450c-cec2-4819-8d54-e0d6f6aac3a6", "name": "用户管理", "sort": 5, "web_path": "/user",
              "icon": "user", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/user",
              "component_name": "user"},
@@ -166,6 +170,18 @@ if object.{key}:
              "name": "编辑", "value": "Update", "api": "/api/system/operation_log/{id}/", "method": 2},
             {"id": "fcbe4cec-cc2d-436d-92ba-023f8c9ad31c", "menu_id": "56c3f341-4f46-4b04-9cfc-c8a14701707e",
              "name": "单例", "value": "Retrieve", "api": "/api/system/menu/{id}/", "method": 0},
+            {"id": "1a0c96cf-09a6-43b4-b08a-0c5b6e2f7bb8", "menu_id": "a607e820-36e5-45c0-aabf-85a8e4e2c7ac",
+             "name": "保存", "value": "Retrieve", "api": "/api/system/role/{id}/", "method": 2},
+            {"id": "bc6104a0-f487-4dfd-a368-fb587d6d57d8", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
+             "name": "编辑", "value": "Update", "api": "/api/system/menu_button/{id}/", "method": 2},
+            {"id": "5aac29b0-5a32-45fb-81c5-437b48f4a5df", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
+             "name": "查询", "value": "Search", "api": "/api/system/menu_button/", "method": 0},
+            {"id": "fc71b446-fde1-439f-ab41-c38f30230caa", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
+             "name": "新增", "value": "Create", "api": "/api/system/menu_button/", "method": 1},
+            {"id": "fe96f32c-6124-4b24-b809-4964186f5163", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
+             "name": "单例", "value": "Retrieve", "api": "/api/system/menu_button/{id}/", "method": 0},
+            {"id": "4fe4b7f5-0bc8-4375-9f39-747e06ec285a", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
+             "name": "删除", "value": "Delete", "api": "/api/system/menu_button/{id}/", "method": 3},
         ]
         self.save(MenuButton, self.menu_button_data, "菜单权限表")
 
