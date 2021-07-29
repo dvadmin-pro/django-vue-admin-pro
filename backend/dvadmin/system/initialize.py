@@ -32,7 +32,7 @@ class Initialize:
                     m2m_dict[key] = value
                 else:
                     new_data[key] = value
-            object, _ = obj.objects.get_or_create(id=id, defaults=new_data)
+            object, _ = obj.objects.get_or_create(id=ele.get("id"), defaults=new_data)
             for key, m2m in m2m_dict.items():
                 m2m = list(set(m2m))
                 if m2m and len(m2m) > 0 and m2m[0]:

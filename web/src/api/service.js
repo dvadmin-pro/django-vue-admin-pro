@@ -11,6 +11,24 @@ import router from '@/router'
 axios.defaults.retry = 1
 axios.defaults.retryDelay = 1000
 
+export function getErrorMessage (msg) {
+  if (typeof msg === 'string') {
+    return msg
+  }
+  if (typeof msg === 'object') {
+    if (msg.code === 'token_not_valid') {
+      util.cookies.remove('token')
+      util.cookies.remove('uuid')
+      router.push({ path: '/login' })
+      return '登录超时，请重新登录！'
+    }
+    return msg
+  }
+  if (Object.prototype.toString.call(msg).slice(8, -1) === 'Array') {
+    return msg
+  }
+  return msg
+}
 function createService () {
   // 创建一个 axios 实例
   const service = axios.create({
@@ -81,10 +99,7 @@ function createService () {
             break
           case 4000:
             // 删除cookie
-            util.cookies.remove('token')
-            util.cookies.remove('uuid')
-            router.push({ path: '/login' })
-            errorCreate(`${dataAxios.msg}`)
+            errorCreate(`${getErrorMessage(dataAxios)}`)
             break
           case 400:
             errorCreate(`${dataAxios.msg}`)
