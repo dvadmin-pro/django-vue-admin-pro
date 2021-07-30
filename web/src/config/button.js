@@ -28,3 +28,5 @@ export const BUTTON_STATUS_NUMBER = getButtonSettings([{ label: '启用', value:
 
 // 是 1/ 否 0
 export const BUTTON_WHETHER_NUMBER = getButtonSettings([{ label: '是', value: 1 }, { label: '否', value: 0 }])
+// 是 true/ 否 false
+export const BUTTON_WHETHER_BOOL = getButtonSettings([{ label: '是', value: true }, { label: '否', value: false }])
