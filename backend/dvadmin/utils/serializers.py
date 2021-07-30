@@ -24,6 +24,8 @@ class CustomModelSerializer(ModelSerializer):
     modifier_name = serializers.SerializerMethodField(read_only=True)
 
     def get_modifier_name(self, instance):
+        if not hasattr(instance,'modifier'):
+            return None
         queryset = Users.objects.filter(id=instance.modifier).values_list('name', flat=True).first()
         if queryset:
             return queryset

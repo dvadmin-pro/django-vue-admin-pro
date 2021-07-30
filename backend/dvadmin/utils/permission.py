@@ -34,7 +34,6 @@ class CustomPermission(BasePermission):
 
     def has_permission(self, request, view):
         # 判断是否是超级管理员
-        print(request.user.is_superuser)
         if request.user.is_superuser:
             return True
         else:

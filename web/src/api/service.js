@@ -22,6 +22,12 @@ export function getErrorMessage (msg) {
       router.push({ path: '/login' })
       return '登录超时，请重新登录！'
     }
+    if (msg.code === 'user_not_found') {
+      util.cookies.remove('token')
+      util.cookies.remove('uuid')
+      router.push({ path: '/login' })
+      return '用户无效，请重新登录！'
+    }
     return msg
   }
   if (Object.prototype.toString.call(msg).slice(8, -1) === 'Array') {
@@ -99,7 +105,7 @@ function createService () {
             break
           case 4000:
             // 删除cookie
-            errorCreate(`${getErrorMessage(dataAxios)}`)
+            errorCreate(`${getErrorMessage(dataAxios.msg)}`)
             break
           case 400:
             errorCreate(`${dataAxios.msg}`)
@@ -176,7 +182,7 @@ function createRequestFunction (service) {
         Authorization: 'JWT ' + token,
         'Content-Type': get(config, 'headers.Content-Type', 'application/json')
       },
-      timeout: 5000,
+      timeout: 60000,
       baseURL: util.baseURL(),
       data: {}
     }

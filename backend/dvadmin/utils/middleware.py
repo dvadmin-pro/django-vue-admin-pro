@@ -59,7 +59,7 @@ class ApiLoggingMiddleware(MiddlewareMixin):
             'json_result': {"code": response.data.get('code'), "msg": response.data.get('msg')},
         }
         operation_log, creat = OperationLog.objects.update_or_create(defaults=info, id=self.operation_log_id)
-        if not operation_log.request_modular and settings.API_MODEL_MAP[request.request_path]:
+        if not operation_log.request_modular and settings.API_MODEL_MAP.get(request.request_path, None):
             operation_log.request_modular = settings.API_MODEL_MAP[request.request_path]
             operation_log.save()
 
