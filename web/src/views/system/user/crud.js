@@ -1,6 +1,7 @@
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
 import { BUTTON_STATUS_BOOL } from '@/config/button'
+import { getTreeDict } from '@/api/tools'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -11,21 +12,21 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -167,17 +168,14 @@ export const crudOptions = (vm) => {
             span: 12,
             props: {
               dict: {
-                cache: false, // 表单的dict可以禁用缓存
-                url: '/api/system/dept/?status=1',
+                // cache: true, // 表单的dict可以禁用缓存
+                url: '/api/system/dept/',
+                body: {
+                  status: 1
+                },
                 isTree: true,
                 value: 'id', // 数据字典中value字段的属性名
                 label: 'name', // 数据字典中label字段的属性名
-                getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
-                  return request({ url: url }).then(ret => {
-                    const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
-                    return data
-                  })
-                }
               },
               multiple: false,
               clearable: true
@@ -191,17 +189,10 @@ export const crudOptions = (vm) => {
         component: {
           props: { color: 'auto' },
           dict: {
-            cache: false, // 表单的dict可以禁用缓存
             url: '/api/system/dept/',
             isTree: true,
             value: 'id', // 数据字典中value字段的属性名
             label: 'name', // 数据字典中label字段的属性名
-            getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
-              return request({ url: url }).then(ret => {
-                const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
-                return data
-              })
-            }
           }
         } // 自动染色
       },
@@ -224,14 +215,13 @@ export const crudOptions = (vm) => {
             props: {
               dict: {
                 cache: false, // 表单的dict可以禁用缓存
-                url: '/api/system/role/?status=1',
+                url: '/api/system/role/',
+                body: {
+                  status: 1
+                },
                 value: 'id', // 数据字典中value字段的属性名
                 label: 'name', // 数据字典中label字段的属性名
-                getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
-                  return request({ url: url }).then(ret => {
-                    return ret.data.data
-                  })
-                }
+
               }
             }
           },

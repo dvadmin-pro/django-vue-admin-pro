@@ -7,6 +7,7 @@ import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2p
 import { request } from '@/api/service'
 import ECharts from 'vue-echarts'
 import util from '@/libs/util'
+import XEUtils from 'xe-utils'
 
 /**
  // vxe0
@@ -26,18 +27,23 @@ Vue.use(d2CrudX, { name: 'd2-crud-x' })
 // 引入d2CrudPlus
 Vue.use(d2CrudPlus, {
   starTip: false,
-  getRemoteDictFunc (url, dict) {
+  getRemoteDictFunc(url, dict) {
     // 此处配置你的字典http请求方法
     // 实际使用请改成request
     return request({
       url: url,
-      data: dict.body,
+      params: dict.body,
       method: 'get'
     }).then(ret => {
-      return ret
+      if (dict.isTree) {
+        const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
+        return data
+      } else {
+        return ret.data.data
+      }
     })
   },
-  commonOption () { // 公共配置
+  commonOption() { // 公共配置
     return {
       format: {
         page: { // page接口返回的数据结构配置，
@@ -97,7 +103,7 @@ Vue.use(D2pUploader, {
     region: 'ap-guangzhou',
     secretId: '', //
     secretKey: '', // 传了secretKey 和secretId 代表使用本地签名模式（不安全，生产环境不推荐）
-    getAuthorization (custom) { // 不传secretKey代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
+    getAuthorization(custom) { // 不传secretKey代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
       return request({
         url: '/upload/cos/getAuthorization',
         method: 'get'
@@ -119,7 +125,7 @@ Vue.use(D2pUploader, {
     region: 'oss-cn-shenzhen',
     accessKeyId: '',
     accessKeySecret: '',
-    getAuthorization (custom, context) { // 不传accessKeySecret代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
+    getAuthorization(custom, context) { // 不传accessKeySecret代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
       return request({
         url: '/upload/alioss/getAuthorization',
         method: 'get'
@@ -133,7 +139,7 @@ Vue.use(D2pUploader, {
   },
   qiniu: {
     bucket: 'd2p-demo',
-    getToken (custom) {
+    getToken(custom) {
       return request({
         url: '/upload/qiniu/getToken',
         method: 'get'

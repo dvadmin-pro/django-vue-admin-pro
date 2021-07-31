@@ -114,7 +114,7 @@ import d2HeaderColor from './components/header-color'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import mixinSearch from './mixins/search'
 export default {
-  name: 'd2-layout-header-aside',
+  name: "d2-layout-header-aside",
   mixins: [mixinSearch],
   components: {
     d2MenuSide,
@@ -127,57 +127,57 @@ export default {
     d2HeaderTheme,
     d2HeaderUser,
     d2HeaderLog,
-    d2HeaderColor
+    d2HeaderColor,
   },
-  data () {
+  data() {
     return {
       // [侧边栏宽度] 正常状态
-      asideWidth: '200px',
+      asideWidth: "200px",
       // [侧边栏宽度] 折叠状态
-      asideWidthCollapse: '65px'
-    }
+      asideWidthCollapse: "65px",
+    };
   },
   computed: {
-    ...mapState('d2admin', {
+    ...mapState("d2admin", {
       keepAlive: (state) => state.page.keepAlive,
       grayActive: (state) => state.gray.active,
       transitionActive: (state) => state.transition.active,
       asideCollapse: (state) => state.menu.asideCollapse,
-      asideTransition: (state) => state.menu.asideTransition
+      asideTransition: (state) => state.menu.asideTransition,
     }),
-    ...mapGetters('d2admin', {
-      themeActiveSetting: 'theme/activeSetting'
+    ...mapGetters("d2admin", {
+      themeActiveSetting: "theme/activeSetting",
     }),
     /**
      * @description 用来实现带参路由的缓存
      */
-    routerViewKey () {
+    routerViewKey() {
       // 默认情况下 key 类似 __transition-n-/foo
       // 这里的字符串操作是为了最终 key 的格式和原来相同 类似 __transition-n-__stamp-time-/foo
-      const stamp = this.$route.meta[`__stamp-${this.$route.path}`] || ''
-      return `${stamp ? `__stamp-${stamp}-` : ''}${this.$route.path}`
+      const stamp = this.$route.meta[`__stamp-${this.$route.path}`] || "";
+      return `${stamp ? `__stamp-${stamp}-` : ""}${this.$route.path}`;
     },
     /**
      * @description 最外层容器的背景图片样式
      */
-    styleLayoutMainGroup () {
+    styleLayoutMainGroup() {
       return this.themeActiveSetting.backgroundImage
         ? {
-          backgroundImage: `url('${this.$baseUrl}${this.themeActiveSetting.backgroundImage}')`
-        }
-        : {}
-    }
+            backgroundImage: `url('${this.$baseUrl}${this.themeActiveSetting.backgroundImage}')`,
+          }
+        : {};
+    },
   },
   methods: {
-    ...mapActions('d2admin/menu', ['asideCollapseToggle']),
+    ...mapActions("d2admin/menu", ["asideCollapseToggle"]),
     /**
      * 接收点击切换侧边栏的按钮
      */
-    handleToggleAside () {
-      this.asideCollapseToggle()
+    handleToggleAside() {
+      this.asideCollapseToggle();
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">

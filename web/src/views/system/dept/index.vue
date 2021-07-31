@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-29 22:15:38
+ * @最后修改时间: 2021-07-31 22:35:15
  * 联系Qq:1638245306
  * @文件介绍: 部门管理
 -->
@@ -38,42 +38,43 @@
 </template>
 
 <script>
-import * as api from './api'
-import { crudOptions } from './crud'
-import { d2CrudPlus } from 'd2-crud-plus'
+import * as api from "./api";
+import { crudOptions } from "./crud";
+import { d2CrudPlus } from "d2-crud-plus";
 export default {
-  name: 'dept',
+  name: "dept",
   mixins: [d2CrudPlus.crud],
-  data () {
-    return {}
+  data() {
+    return {};
   },
   methods: {
-    getCrudOptions () {
-      return crudOptions(this)
+    getCrudOptions() {
+      return crudOptions(this);
     },
-    pageRequest (query) {
-      return api.GetList(query)
+    pageRequest(query) {
+      return api.GetList(query);
     },
-    addRequest (row) {
-      console.log('api', api)
-      return api.createObj(row)
+    addRequest(row) {
+      d2CrudPlus.util.dict.clear();
+      return api.createObj(row);
     },
-    updateRequest (row) {
-      return api.UpdateObj(row)
+    updateRequest(row) {
+      d2CrudPlus.util.dict.clear();
+      return api.UpdateObj(row);
     },
-    delRequest (row) {
-      return api.DelObj(row.id)
+    delRequest(row) {
+      return api.DelObj(row.id);
     },
     // 授权
-    createPermission (scope) {
+    createPermission(scope) {
       this.$router.push({
-        name: 'menuButton',
+        name: "menuButton",
         params: { id: scope.row.id },
-        query: { name: scope.row.name }
-      })
-    }
-  }
-}
+        query: { name: scope.row.name },
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
