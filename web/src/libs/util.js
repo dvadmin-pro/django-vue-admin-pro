@@ -1,7 +1,7 @@
 import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
-import plugins from '@/dvadmin_plugins/index.js'
+import plugins from '@/views/dvadmin_plugins/index.js'
 const util = {
   cookies,
   db,
