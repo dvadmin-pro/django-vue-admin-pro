@@ -1,7 +1,5 @@
 import { request } from '@/api/service'
-import XEUtils from 'xe-utils'
 import { BUTTON_STATUS_BOOL } from '@/config/button'
-import { getTreeDict } from '@/api/tools'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -12,21 +10,21 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -175,7 +173,7 @@ export const crudOptions = (vm) => {
                 },
                 isTree: true,
                 value: 'id', // 数据字典中value字段的属性名
-                label: 'name', // 数据字典中label字段的属性名
+                label: 'name' // 数据字典中label字段的属性名
               },
               multiple: false,
               clearable: true
@@ -192,7 +190,7 @@ export const crudOptions = (vm) => {
             url: '/api/system/dept/',
             isTree: true,
             value: 'id', // 数据字典中value字段的属性名
-            label: 'name', // 数据字典中label字段的属性名
+            label: 'name' // 数据字典中label字段的属性名
           }
         } // 自动染色
       },
@@ -220,7 +218,7 @@ export const crudOptions = (vm) => {
                   status: 1
                 },
                 value: 'id', // 数据字典中value字段的属性名
-                label: 'name', // 数据字典中label字段的属性名
+                label: 'name' // 数据字典中label字段的属性名
 
               }
             }
