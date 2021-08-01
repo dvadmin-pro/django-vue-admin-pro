@@ -22,18 +22,16 @@
             </el-button>
           </div>
           <el-row>
-              <el-col :span="8" v-for="({name,icon,team,createTime,slogan},index) in projects" :key="index" style="padding: 0">
+              <el-col :span="12" v-for="({name,imageUrl,slogan,link},index) in projects" :key="index" style="padding: 0">
               <el-card shadow="hover">
                 <div class="project-detail">
                   <div>
-                    <d2-icon-svg :name="icon" style="width: 25px;height: 25px;"/>
-                    <span v-text="name" class="name"></span>
+                    <a :href="link" target="_blank">
+                      <img :src="imageUrl" alt="">
+                      <span v-text="name" class="name"></span>
+                    </a>
                   </div>
                   <div v-text="slogan" class="slogan"></div>
-                  <div  style="display: flex;justify-content: space-between;">
-                    <span v-text="team" class="team"></span>
-                    <span v-text="createTime" class="createTime"></span>
-                  </div>
                 </div>
 
               </el-card>
@@ -53,6 +51,7 @@
               <div style="display: inline-block" class="activity-detail">
                 <p v-text="message"></p>
                 <p v-text="createTime" style="color: #333333;font-size: 10px"></p>
+
               </div>
               <el-divider v-if="index+1 < activities.length"></el-divider>
             </el-col>
@@ -150,63 +149,44 @@ export default {
           avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
           message: '对面打得很好，什么？打个分？四分吧',
           createTime: '4个小时前'
-        },
-        {
-          avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
-          message: '厂长在三年前种下的果，三年后亲手收获回来！',
-          createTime: '4个小时前'
-        },
-        {
-          avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
-          message: '在没人相信你的时候，你相信了自己并赢得了胜利，这就是成为英雄的道路！',
-          createTime: '4个小时前'
         }
       ],
       projects: [
         {
-          name: 'Github',
-          icon: 'github',
-          team: 'OMG',
-          slogan: '这波团老干爹看来要输了',
-          createTime: '2021-04-01'
+          name: '官方文档',
+          imageUrl: '/image/django-vue-admin.png',
+          slogan: 'Django-Vue-Admin 是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。',
+          link: 'https://d2.pub/zh/doc/d2-admin/'
         },
         {
-          name: 'Django',
-          icon: 'django',
-          team: 'JDG',
-          slogan: '顺境简自豪，逆境狂小狗！',
-          createTime: '2021-04-02'
+          name: '若依',
+          imageUrl: '/image/ruoyi.png',
+          slogan: '基于SpringBoot、Shiro、Mybatis的权限后台管理系统。',
+          link: 'http://ruoyi.vip/'
         },
         {
-          name: 'Javascript',
-          icon: 'javascript',
-          team: 'DK',
-          slogan: '重铸lck的荣光 我辈义不容辞',
-          createTime: '2021-04-03'
+          name: 'SimpleUi',
+          imageUrl: '/image/simple-ui.png',
+          slogan: '一个基于Django Admin的现代化主题。',
+          link: 'https://simpleui.72wo.com/'
         },
         {
-          name: 'Python',
-          icon: 'python',
-          color: '#333399',
-          team: 'EDG',
-          slogan: '你的野区我养猪',
-          createTime: '2021-04-04'
+          name: 'Gin-Vue-Admin',
+          imageUrl: '/image/gin-vue-admin.png',
+          slogan: '使用gin+vue进行极速开发的全栈后台管理系统。',
+          link: 'https://www.gin-vue-admin.com/'
         },
         {
-          name: 'Vue',
-          icon: 'vue',
-          color: '#eb4310',
-          team: 'WE',
-          slogan: '这波还是赚了，小赚',
-          createTime: '2021-04-05'
+          name: 'BBS-GO',
+          imageUrl: '/image/bbs-go.png',
+          slogan: '基于Go语言的开源BBS系统',
+          link: 'https://docs.bbs-go.com/'
         },
         {
-          name: 'React',
-          icon: 'react',
-          color: '#ff0000',
-          team: 'FPX',
-          slogan: '香锅快走啊，小狗也倒了！',
-          createTime: '2021-04-01'
+          name: 'DCM',
+          imageUrl: '/image/django-comment-migrate.png',
+          slogan: '这是一个Django model注释迁移的app',
+          link: 'https://github.com/starryrbs/django-comment-migrate'
         }
       ],
       navigators: [
@@ -361,12 +341,13 @@ export default {
 
   .project-detail{
     color: rgba(0,0,0,.45);
-      .icon{
-        font-size: 30px;
-        line-height: 2rem;
-      }
+    height: 120px;
+     img {
+       width: 25px;
+       height: 25px;
+     }
     .name{
-      margin-left: 1rem;
+      margin-left: 2rem;
       font-size: 1.125rem;
       line-height: 2rem;
       height: 2rem;
@@ -406,6 +387,7 @@ export default {
     margin: 4px 0;
     background: 0 0;
     border-top: 1px solid #e8eaec;
+
   }
   .el-card, .el-message {
     border-radius: 0;
