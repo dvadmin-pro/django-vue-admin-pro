@@ -299,6 +299,8 @@ API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
 API_MODEL_MAP = {
     "/token/": "登录模块"
 }
+# 表前缀
+TABLE_PREFIX = "dvadmin_"
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
 # 导入租户数据
