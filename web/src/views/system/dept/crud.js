@@ -19,21 +19,21 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
