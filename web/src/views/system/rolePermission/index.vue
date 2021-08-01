@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-31 23:19:24
+ * @最后修改时间: 2021-08-01 02:35:22
  * 联系Qq:1638245306
  * @文件介绍:角色管理
 -->
@@ -295,14 +295,13 @@ export default {
       const permissionData = []
       menuData.forEach((x) => {
         const checkedPermission = x.menuPermission.filter((f) => {
-          return f.checked === true
+          return f.checked
         })
 
         if (checkedPermission.length > 0) {
-          const permission = checkedPermission.find((m) => {
-            return m.id
-          })
-          permissionData.push(permission.id)
+          for (const item of checkedPermission) {
+            permissionData.push(item.id)
+          }
         }
       })
 
