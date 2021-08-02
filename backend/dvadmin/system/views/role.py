@@ -86,3 +86,8 @@ class RoleViewSet(CustomModelViewSet):
         queryset = Menu.objects.filter(status=1).all()
         serializer = MenuPermissonSerializer(queryset, many=True)
         return SuccessResponse(data=serializer.data)
+
+    def role_data(self,request,*args,**kwargs):
+        instance = self.get_object()
+        serializer = RoleSerializer(instance)
+        return SuccessResponse(data=serializer.data)

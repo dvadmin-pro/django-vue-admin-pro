@@ -9,6 +9,7 @@
 from rest_framework import serializers
 
 from dvadmin.system.models import Menu, MenuButton, Button
+from dvadmin.system.views.menu_button import MenuButtonSerializer
 from dvadmin.utils.jsonResponse import SuccessResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.viewset import CustomModelViewSet
@@ -50,7 +51,8 @@ class MenuTreeSerializer(CustomModelSerializer):
     菜单表的树形序列化器
     """
     children = serializers.SerializerMethodField(read_only=True)
-    menuPermission = serializers.SerializerMethodField(read_only=True)
+    menuPermission_name = serializers.SerializerMethodField(read_only=True)
+    menuPermission = MenuButtonSerializer(read_only=True,many=True)
 
     def get_children(self, instance):
         queryset = Menu.objects.filter(parent=instance.id).filter(status=1)
@@ -60,7 +62,7 @@ class MenuTreeSerializer(CustomModelSerializer):
         else:
             return None
 
-    def get_menuPermission(self, instance):
+    def get_menuPermission_name(self, instance):
         queryset = MenuButton.objects.filter(menu=instance.id).values_list('name', flat=True)
         if queryset:
             return queryset
