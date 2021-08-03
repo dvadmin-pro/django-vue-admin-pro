@@ -113,8 +113,6 @@ import d2HeaderLog from './components/header-log'
 import d2HeaderColor from './components/header-color'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import mixinSearch from './mixins/search'
-import { getMenu, handleAsideMenu } from '@/menu/index'
-import store from '@/store/index'
 export default {
   name: 'd2-layout-header-aside',
   mixins: [mixinSearch],
@@ -177,19 +175,7 @@ export default {
      */
     handleToggleAside () {
       this.asideCollapseToggle()
-    },
-    // 加载菜单
-    loadMenu () {
-      // 设置菜单
-      getMenu().then((ret) => {
-        const menu = handleAsideMenu(ret)
-        store.commit('d2admin/menu/asideSet', menu) // 设置侧边栏菜单
-        store.commit('d2admin/search/init', menu) // 设置搜索
-      })
     }
-  },
-  created () {
-    this.loadMenu()
   }
 }
 </script>

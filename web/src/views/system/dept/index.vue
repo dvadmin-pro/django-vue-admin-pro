@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-29 22:15:38
+ * @最后修改时间: 2021-07-31 22:35:15
  * 联系Qq:1638245306
  * @文件介绍: 部门管理
 -->
@@ -55,10 +55,11 @@ export default {
       return api.GetList(query)
     },
     addRequest (row) {
-      console.log('api', api)
+      d2CrudPlus.util.dict.clear()
       return api.createObj(row)
     },
     updateRequest (row) {
+      d2CrudPlus.util.dict.clear()
       return api.UpdateObj(row)
     },
     delRequest (row) {
