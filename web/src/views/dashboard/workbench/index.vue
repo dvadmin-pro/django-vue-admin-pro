@@ -22,8 +22,8 @@
             </el-button>
           </div>
           <el-row>
-              <el-col :span="12" v-for="({name,imageUrl,slogan,link},index) in projects" :key="index" style="padding: 0">
-              <el-card shadow="hover">
+              <el-col :span="8" v-for="({name,imageUrl,slogan,link},index) in projects" :key="index">
+              <el-card shadow="hover" style="padding: 0">
                 <div class="project-detail">
                   <div>
                     <a :href="link" target="_blank">
@@ -31,7 +31,7 @@
                       <span v-text="name" class="name"></span>
                     </a>
                   </div>
-                  <div v-text="slogan" class="slogan"></div>
+                  <div v-text="slogan" class="slogan" :title="slogan"></div>
                 </div>
 
               </el-card>
@@ -149,6 +149,16 @@ export default {
           avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
           message: '对面打得很好，什么？打个分？四分吧',
           createTime: '4个小时前'
+        },
+        {
+          avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+          message: '这个炼金很有艺术性',
+          createTime: '3个小时前'
+        },
+        {
+          avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+          message: '对面打得很好，什么？打个分？四分吧',
+          createTime: '4个小时前'
         }
       ],
       projects: [
@@ -156,7 +166,14 @@ export default {
           name: '官方文档',
           imageUrl: '/image/django-vue-admin.png',
           slogan: 'Django-Vue-Admin 是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。',
-          link: 'https://d2.pub/zh/doc/d2-admin/'
+          link: 'http://django-vue-admin.com'
+        },
+        {
+          name: 'D2admin',
+          imageUrl: '/image/d2-pub.png',
+          slogan: 'D2Admin (opens new window)是一个完全 开源免费 的企业中后台产品前端集成方案，使用最新的前端技术栈，' +
+            '小于 60kb 的本地首屏 js 加载，已经做好大部分项目前期准备工作，并且带有大量示例代码，助力管理系统快速开发。',
+          link: 'https://d2.pub/zh'
         },
         {
           name: '若依',
@@ -187,6 +204,18 @@ export default {
           imageUrl: '/image/django-comment-migrate.png',
           slogan: '这是一个Django model注释迁移的app',
           link: 'https://github.com/starryrbs/django-comment-migrate'
+        },
+        {
+          name: 'Jetbrains',
+          imageUrl: '/image/jetbrains.jpeg',
+          slogan: '我们构建我们的软件，让您可以享受构建自己的软件的乐趣',
+          link: 'https://www.jetbrains.com/'
+        },
+        {
+          name: 'Django',
+          imageUrl: '/image/django.png',
+          slogan: '有期限的完美主义者的网络框架。',
+          link: 'https://github.com/django/django'
         }
       ],
       navigators: [
@@ -341,14 +370,14 @@ export default {
 
   .project-detail{
     color: rgba(0,0,0,.45);
-    height: 120px;
+    height: 65px;
      img {
        width: 25px;
        height: 25px;
      }
     .name{
-      margin-left: 2rem;
-      font-size: 1.125rem;
+      margin-left: 1rem;
+      font-size: 1rem;
       line-height: 2rem;
       height: 2rem;
       display: inline-block;
@@ -357,8 +386,11 @@ export default {
       top: -5px;
     }
     .slogan{
-      font-size: 14px;
-      padding: 25px 0;
+      font-size: 12px;
+      padding: 5px 0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
     .team{
       font-size: 14px;
@@ -373,7 +405,7 @@ export default {
       line-height: 40px;
     }
     .activity-detail{
-      padding: 15px;
+      padding: 10px;
       line-height: 15px;
       font-size: 14px;
       color: rgba(0,0,0,.85);
