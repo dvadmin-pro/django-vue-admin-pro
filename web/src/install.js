@@ -7,6 +7,7 @@ import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2p
 import { request } from '@/api/service'
 import ECharts from 'vue-echarts'
 import util from '@/libs/util'
+import XEUtils from 'xe-utils'
 
 /**
  // vxe0
@@ -31,10 +32,15 @@ Vue.use(d2CrudPlus, {
     // 实际使用请改成request
     return request({
       url: url,
-      data: dict.body,
+      params: dict.body,
       method: 'get'
     }).then(ret => {
-      return ret
+      if (dict.isTree) {
+        const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
+        return data
+      } else {
+        return ret.data.data
+      }
     })
   },
   commonOption () { // 公共配置
