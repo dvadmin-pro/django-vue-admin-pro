@@ -136,3 +136,7 @@ npm run build:prod
 ![image-20210727094632707](https://gitee.com/liqianglog/pic/raw/master/master/image-20210727094632707.png)
 
 ![image-20210727094647990](https://gitee.com/liqianglog/pic/raw/master/master/image-20210727094647990.png)
+
+
+
+💡 特别感谢[jetbrains](https://www.jetbrains.com/) 为本开源项目提供免费的 IntelliJ IDEA 授权
