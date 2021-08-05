@@ -21,8 +21,10 @@ class Initialize:
     def save(self, obj, data: list, name):
         print(f"正在初始化【{name}】")
         if self.delete:
-            obj.objects.all().delete()
-
+            try:
+                obj.objects.filter(id__in=[ele.get('id') for ele in data]).delete()
+            except Exception:
+                pass
         for ele in data:
             m2m_dict = {}
             new_data = {}

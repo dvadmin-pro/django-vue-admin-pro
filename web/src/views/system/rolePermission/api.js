@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-17 19:16:06
+ * @最后修改时间: 2021-08-02 22:42:06
  * 联系Qq:1638245306
  * @文件介绍: 角色管理接口
  */
@@ -62,16 +62,13 @@ export function GetMenuData (obj) {
 }
 
 // 获取部门数据,用于角色授权
-export function GetDeptData () {
+export function getDeptData () {
   return request({
-    url: '/api/system/dept/',
+    url: '/api/system/dept_tree/',
     method: 'get',
     params: {}
   }).then(res => {
-    // 将列表数据转换为树形数据
-
     const data = res.data.data
-
     return data
   })
 }

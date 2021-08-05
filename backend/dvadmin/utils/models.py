@@ -12,7 +12,7 @@ from django.db import models
 
 from application import settings
 
-table_prefix = "system_"  # 数据库表名前缀
+table_prefix = settings.TABLE_PREFIX  # 数据库表名前缀
 
 
 class CoreModel(models.Model):

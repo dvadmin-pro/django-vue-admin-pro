@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-29 23:31:01
+ * @最后修改时间: 2021-08-02 22:44:09
  * 联系Qq:1638245306
  * @文件介绍:角色管理
 -->
@@ -83,6 +83,7 @@
                         :data="deptOptions"
                         show-checkbox
                         default-expand-all
+                        :default-checked-keys="deptCheckedKeys"
                         ref="dept"
                         node-key="id"
                         :check-strictly="true"
@@ -113,7 +114,7 @@
                 </div>
                 <el-tree
                   ref="menuTree"
-                  :data="menuTreeData"
+                  :data="menuOptions"
                   node-key="id"
                   default-expand-all
                   show-checkbox
@@ -163,10 +164,11 @@ export default {
         name: null,
         data_range: null
       },
-      menuTreeData: [],
+      menuOptions: [],
       permissionData: [],
       menuCheckedKeys: [], // 菜单默认选中的节点
       deptOptions: [],
+      deptCheckedKeys: [],
       dataScopeOptions: [
         {
           value: 0,
@@ -241,19 +243,13 @@ export default {
     },
     // 获取部门数据
     getDeptData () {
-      api.GetDeptData().then((res) => {
-        const data = XEUtils.toArrayTree(res, {
-          parentKey: 'parent'
-        })
-        this.deptOptions = data
+      api.getDeptData().then((ret) => {
+        this.deptOptions = ret
       })
     },
-    // 角色树被点击
-    nodeClick (data, node, self) {
-      this.roleObj = data
-      this.getDeptData()
-      this.menuCheckedKeys = data.menu // 加载已勾选的菜单
-      return api.GetMenuData(data).then((res) => {
+    // 获取菜单数据
+    getMenuData (data) {
+      api.GetMenuData(data).then((res) => {
         res.forEach((x) => {
           // 根据当前角色的permission,对menuPermisson进行勾选处理
           x.menuPermission.forEach((a) => {
@@ -264,10 +260,17 @@ export default {
             }
           })
         })
-
         // 将菜单列表转换为树形列表
-        this.menuTreeData = XEUtils.toArrayTree(res, { parentKey: 'parent' })
+        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent' })
       })
+    },
+    // 角色树被点击
+    nodeClick (data, node, self) {
+      this.roleObj = data
+      this.getDeptData()
+      this.getMenuData(data)
+      this.menuCheckedKeys = data.menu // 加载已勾选的菜单
+      this.deptCheckedKeys = data.dept
     },
     // 所有勾选菜单节点数据
     getMenuAllCheckedKeys () {
@@ -291,17 +294,17 @@ export default {
     submitPermisson () {
       this.roleObj.menu = this.getMenuAllCheckedKeys() // 获取选中的菜单
       this.roleObj.dept = this.getDeptAllCheckedKeys() // 获取选中的部门
-      const menuData = XEUtils.toTreeArray(this.menuTreeData)
-      let permissionData = []
+      const menuData = XEUtils.toTreeArray(this.menuOptions)
+      const permissionData = []
       menuData.forEach((x) => {
         const checkedPermission = x.menuPermission.filter((f) => {
           return f.checked
         })
+
         if (checkedPermission.length > 0) {
-          const permission = checkedPermission.map((m) => {
-            return m.id
-          })
-          permissionData = permission
+          for (const item of checkedPermission) {
+            permissionData.push(item.id)
+          }
         }
       })
       this.roleObj.permission = permissionData
