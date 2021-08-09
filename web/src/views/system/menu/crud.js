@@ -19,33 +19,33 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       },
       width: 350,
       custom: [{
-        show (index, row) {
+        show(index, row) {
           if (row.web_path) {
             return true
           }
           return false
         },
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         },
         text: ' 按钮配置',
@@ -223,8 +223,8 @@ export const crudOptions = (vm) => {
             }
           },
           helper: {
-            render (h) {
-              return (< el-alert title="浏览器中url的地址" type="warning" />
+            render(h) {
+              return (< el-alert title="浏览器中url的地址,请以/开头" type="warning" />
               )
             }
           }
@@ -242,7 +242,7 @@ export const crudOptions = (vm) => {
             }
           },
           helper: {
-            render (h) {
+            render(h) {
               return (< el-alert title="xx.vue文件中的name" type="warning" />
               )
             }
@@ -261,7 +261,7 @@ export const crudOptions = (vm) => {
             }
           },
           helper: {
-            render (h) {
+            render(h) {
               return (< el-alert title="src/views下的文件夹地址" type="warning" />
               )
             }
@@ -314,7 +314,7 @@ export const crudOptions = (vm) => {
             span: 12
           },
           helper: {
-            render (h) {
+            render(h) {
               return (< el-alert title="是否开启页面缓存,需要组件名称和xx.vue页面的name一致" type="warning" />
               )
             }
@@ -338,7 +338,7 @@ export const crudOptions = (vm) => {
             span: 12
           },
           helper: {
-            render (h) {
+            render(h) {
               return (< el-alert title="是否显示在侧边菜单中" type="warning" />
               )
             }

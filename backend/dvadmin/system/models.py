@@ -170,17 +170,38 @@ class MenuButton(CoreModel):
         ordering = ('-name',)
 
 
+# class Dictionary(CoreModel):
+#     code = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="编码", help_text="编码")
+#     name = models.CharField(max_length=100, blank=True, null=True, verbose_name="名称", help_text="名称")
+#     STATUS_CHOICES = (
+#         (0, "禁用"),
+#         (1, "启用"),
+#     )
+#     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="状态", help_text="状态")
+#     sort = models.IntegerField(default=1, verbose_name="显示排序", null=True, blank=True, help_text="显示排序")
+#     parent = models.ForeignKey(to="Dictionary", db_constraint=False, on_delete=models.PROTECT, blank=True, null=True,
+#                                verbose_name="父级", help_text="父级")
+#     remark = models.CharField(max_length=2000, blank=True, null=True, verbose_name="备注", help_text="备注")
+#
+#     class Meta:
+#         db_table = table_prefix + 'dictionary'
+#         verbose_name = "字典表"
+#         verbose_name_plural = verbose_name
+#         ordering = ('sort',)
+
+
 class Dictionary(CoreModel):
-    code = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="编码", help_text="编码")
-    name = models.CharField(max_length=100, blank=True, null=True, verbose_name="名称", help_text="名称")
+    code = models.CharField(max_length=100, blank=True, null=True, verbose_name="编码", help_text="编码")
+    label = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
+    value = models.CharField(max_length=100, blank=True, null=True, verbose_name="实际值", help_text="实际值")
+    parent = models.ForeignKey(to='self',related_name='sublist', db_constraint=False, on_delete=models.PROTECT, blank=True, null=True,
+                             verbose_name="父级", help_text="父级")
     STATUS_CHOICES = (
         (0, "禁用"),
         (1, "启用"),
     )
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="状态", help_text="状态")
     sort = models.IntegerField(default=1, verbose_name="显示排序", null=True, blank=True, help_text="显示排序")
-    parent = models.ForeignKey(to="Dictionary", db_constraint=False, on_delete=models.PROTECT, blank=True, null=True,
-                               verbose_name="父级", help_text="父级")
     remark = models.CharField(max_length=2000, blank=True, null=True, verbose_name="备注", help_text="备注")
 
     class Meta:
@@ -188,26 +209,6 @@ class Dictionary(CoreModel):
         verbose_name = "字典表"
         verbose_name_plural = verbose_name
         ordering = ('sort',)
-
-
-class SysDictionarylist(CoreModel):
-    code = models.CharField(max_length=100, blank=True, null=True, verbose_name="编码", help_text="编码")
-    label = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
-    value = models.CharField(max_length=100, blank=True, null=True, verbose_name="实际值", help_text="实际值")
-    dict = models.ForeignKey(to='Dictionary', db_constraint=False, on_delete=models.PROTECT, blank=True, null=True,
-                             verbose_name="关联主表", help_text="关联主表")
-    STATUS_CHOICES = (
-        (0, "禁用"),
-        (1, "启用"),
-    )
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="状态", help_text="状态")
-    remark = models.CharField(max_length=2000, blank=True, null=True, verbose_name="备注", help_text="备注")
-
-    class Meta:
-        db_table = table_prefix + 'dictionary_detail'
-        verbose_name = "字典详细表"
-        verbose_name_plural = verbose_name
-        ordering = ('code',)
 
 
 class OperationLog(CoreModel):
@@ -244,3 +245,15 @@ class LoginLog(CoreModel):
         verbose_name = '登录日志'
         verbose_name_plural = verbose_name
         ordering = ('-create_datetime',)
+
+
+class ImgList(CoreModel):
+    name = models.CharField(max_length=50,null=True,blank=True,verbose_name="名称",help_text="名称")
+    url = models.ImageField(upload_to='media')
+    class Meta:
+        db_table = table_prefix + 'img_list'
+        verbose_name = '图片管理'
+        verbose_name_plural = verbose_name
+        ordering = ('-create_datetime',)
+
+
