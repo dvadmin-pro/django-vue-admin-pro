@@ -26,7 +26,7 @@ class CustomModelViewSet(ModelViewSet):
     create_serializer_class = None
     update_serializer_class = None
     # permission_classes  = [CustomPermission]
-    filter_fields = ()
+    filter_fields = '__all__'
     search_fields = ()
     extra_filter_backends = [DataLevelPermissionsFilter]
     permission_classes = [CustomPermission]
