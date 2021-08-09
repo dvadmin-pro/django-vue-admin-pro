@@ -8,16 +8,18 @@
  */
 import { request } from '@/api/service'
 
+export const urlPrefix = '/api/system/button/'
+
 export function GetList (query) {
   return request({
-    url: '/api/system/button/',
+    url: urlPrefix,
     method: 'get',
     data: query
   })
 }
 export function createObj (obj) {
   return request({
-    url: '/api/system/button/',
+    url: urlPrefix,
     method: 'post',
     data: obj
   })
@@ -25,14 +27,14 @@ export function createObj (obj) {
 
 export function UpdateObj (obj) {
   return request({
-    url: '/api/system/button/' + obj.id + '/',
+    url: urlPrefix + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
 export function DelObj (id) {
   return request({
-    url: '/api/system/button/' + id + '/',
+    url: urlPrefix + id + '/',
     method: 'delete',
     data: { id }
   })

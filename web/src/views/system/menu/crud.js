@@ -1,5 +1,8 @@
 import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING } from '@/config/button'
+import { urlPrefix as menuPrefix } from './api'
+import { urlPrefix as buttonPrefix } from '../button/api'
+
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -19,25 +22,27 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
+        thin: true,
+        text: '',
         disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
-        text: '编辑',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
-        text: '删除',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Delete')
         }
       },
-      width: 350,
+      width: 230,
       custom: [{
         show (index, row) {
           if (row.web_path) {
@@ -65,7 +70,7 @@ export const crudOptions = (vm) => {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 12 // 默认的表单 span
     },
     columns: [
       {
@@ -78,7 +83,8 @@ export const crudOptions = (vm) => {
           component: {
             props: {
               clearable: true
-            }
+            },
+            placeholder: '请输入关键词'
           }
         },
         form: {
@@ -111,8 +117,9 @@ export const crudOptions = (vm) => {
         },
         type: 'cascader',
         dict: {
-          url: '/api/system/menu_tree/',
+          url: menuPrefix + '?limit=999&status=1',
           cache: false,
+          isTree: true,
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
           children: 'children', // 数据字典中children字段的属性名
@@ -125,12 +132,11 @@ export const crudOptions = (vm) => {
         },
         form: {
           component: {
-            span: 12,
             props: {
               elProps: {
                 clearable: true,
-                showAllLevels: false, // 仅显示最后一级
                 props: {
+                  showAllLevels: false, // 仅显示最后一级
                   checkStrictly: true, // 可以不需要选到最后一级
                   emitPath: false,
                   clearable: true
@@ -157,14 +163,13 @@ export const crudOptions = (vm) => {
         type: 'input',
         form: {
           rules: [ // 表单校验规则
-            { required: true, message: '必填项' }
+            { required: true, message: '菜单名称必填项' }
           ],
           component: {
-            span: 12,
             props: {
               clearable: true
-            }
-
+            },
+            placeholder: '请输入菜单名称'
           },
           itemProps: {
             class: { yxtInput: true }
@@ -179,8 +184,7 @@ export const crudOptions = (vm) => {
         type: 'icon-selector',
         form: {
           component: {
-            span: 12
-
+            placeholder: '请输入图标'
           }
         }
       },
@@ -192,7 +196,7 @@ export const crudOptions = (vm) => {
         form: {
           value: 1,
           component: {
-            span: 12
+            placeholder: '请输入排序'
           }
         }
       },
@@ -207,20 +211,20 @@ export const crudOptions = (vm) => {
         form: {
           value: 0,
           component: {
-            span: 12
+            placeholder: '请选择是否外链接'
           }
         }
       },
       {
         title: '路由地址',
         key: 'web_path',
-        width: 130,
+        width: 150,
         form: {
           component: {
-            span: 12,
             props: {
               clearable: true
-            }
+            },
+            placeholder: '请输入路由地址'
           },
           helper: {
             render (h) {
@@ -236,10 +240,10 @@ export const crudOptions = (vm) => {
         width: 130,
         form: {
           component: {
-            span: 12,
             props: {
               clearable: true
-            }
+            },
+            placeholder: '请输入组件名称'
           },
           helper: {
             render (h) {
@@ -252,13 +256,12 @@ export const crudOptions = (vm) => {
       {
         title: '组件地址',
         key: 'component',
-        width: 130,
         form: {
           component: {
-            span: 12,
             props: {
               clearable: true
-            }
+            },
+            placeholder: '请输入组件地址'
           },
           helper: {
             render (h) {
@@ -269,14 +272,13 @@ export const crudOptions = (vm) => {
         }
       },
       {
-        title: '权限',
+        title: '拥有权限',
         key: 'menuPermission',
         width: 165,
         type: 'select',
         form: {
           disabled: true,
           component: {
-            span: 12,
             elProps: { // el-select的配置项，https://element.eleme.cn/#/zh-CN/component/select
               filterable: true,
               multiple: true,
@@ -285,7 +287,7 @@ export const crudOptions = (vm) => {
           }
         },
         dict: {
-          url: '/api/system/button/',
+          url: buttonPrefix,
           label: 'name',
           value: 'name',
           getData: (url, dict) => {
@@ -311,7 +313,7 @@ export const crudOptions = (vm) => {
         form: {
           value: 0,
           component: {
-            span: 12
+            placeholder: '请选择是否缓存'
           },
           helper: {
             render (h) {
@@ -335,7 +337,7 @@ export const crudOptions = (vm) => {
         form: {
           value: 1,
           component: {
-            span: 12
+            placeholder: '请选择侧边可见'
           },
           helper: {
             render (h) {
@@ -360,8 +362,56 @@ export const crudOptions = (vm) => {
         form: {
           value: 1,
           component: {
-            span: 12
+            placeholder: '请选择状态'
           }
+        }
+      }, {
+        title: '备注',
+        key: 'description',
+        show: false,
+        search: {
+          disabled: true
+        },
+        type: 'textarea',
+        form: {
+          component: {
+            placeholder: '请输入内容',
+            showWordLimit: true,
+            maxlength: '200',
+            props: {
+              type: 'textarea'
+            }
+          }
+        }
+      }, {
+        title: '创建人',
+        show: false,
+        width: 100,
+        key: 'modifier_name',
+        form: {
+          disabled: true
+        }
+      },
+      {
+        title: '更新时间',
+        key: 'update_datetime',
+        show: false,
+        width: 160,
+        type: 'datetime',
+        sortable: true,
+        form: {
+          disabled: true
+        }
+      },
+      {
+        title: '创建时间',
+        key: 'create_datetime',
+        show: false,
+        width: 160,
+        type: 'datetime',
+        sortable: true,
+        form: {
+          disabled: true
         }
       }
     ]

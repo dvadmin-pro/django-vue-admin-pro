@@ -7,9 +7,12 @@
  * @文件介绍: 角色管理接口
  */
 import { request } from '@/api/service'
+
+export const urlPrefix = '/api/system/role/'
+
 export function GetList (query) {
   return request({
-    url: '/api/system/role/',
+    url: urlPrefix,
     method: 'get',
     params: query
   }).then(res => {
@@ -17,16 +20,9 @@ export function GetList (query) {
   })
 }
 
-export function GetObj (obj) {
-  return request({
-    url: '/api/system/role/' + obj.id + '/',
-    method: 'get'
-  })
-}
-
 export function createObj (obj) {
   return request({
-    url: '/api/system/role/',
+    url: urlPrefix,
     method: 'post',
     data: obj
   })
@@ -34,14 +30,15 @@ export function createObj (obj) {
 
 export function UpdateObj (obj) {
   return request({
-    url: '/api/system/role/' + obj.id + '/',
+    url: urlPrefix + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
+
 export function DelObj (id) {
   return request({
-    url: '/api/system/role/' + id + '/',
+    url: urlPrefix + id + '/',
     method: 'delete',
     data: { id }
   })
@@ -55,9 +52,7 @@ export function GetMenuData (obj) {
     params: {}
   }).then(res => {
     // 将列表数据转换为树形数据
-    // let data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent' })
-    const data = res.data.data
-    return data
+    return res.data.data
   })
 }
 
@@ -68,7 +63,6 @@ export function getDeptData () {
     method: 'get',
     params: {}
   }).then(res => {
-    const data = res.data.data
-    return data
+    return res.data.data
   })
 }

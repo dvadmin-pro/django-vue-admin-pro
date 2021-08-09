@@ -15,21 +15,23 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
+        thin: true,
+        text: '',
         disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
-      width: 370,
+      width: 230,
       edit: {
         thin: true,
-        text: '编辑',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
-        text: '删除',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Delete')
         }
@@ -44,8 +46,7 @@ export const crudOptions = (vm) => {
         text: '权限管理',
         type: 'warning',
         size: 'small',
-        emit: 'createPermission',
-        icon: 'el-icon-s-flag'
+        emit: 'createPermission'
       }]
 
     },
@@ -59,7 +60,8 @@ export const crudOptions = (vm) => {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 24, // 默认的表单 span
+      width: '35%'
     },
     columns: [{
       title: '关键词',
@@ -74,7 +76,8 @@ export const crudOptions = (vm) => {
         component: {
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入关键词'
         }
       },
       view: { // 查看对话框组件的单独配置
@@ -107,13 +110,13 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '角色名称必填项' }
         ],
         component: {
-          span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入角色名称'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -121,21 +124,33 @@ export const crudOptions = (vm) => {
       }
     },
     {
-      title: '权限字符',
+      title: '权限标识',
       key: 'key',
       sortable: true,
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '权限标识必填项' }
         ],
         component: {
-          span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入标识字符'
         },
         itemProps: {
           class: { yxtInput: true }
+        }
+      }
+    }, {
+      title: '排序',
+      key: 'sort',
+      sortable: true,
+      width: 80,
+      type: 'number',
+      form: {
+        value: 1,
+        component: {
+          placeholder: '请输入排序'
         }
       }
     },
@@ -151,7 +166,7 @@ export const crudOptions = (vm) => {
       form: {
         value: 0,
         component: {
-          span: 12
+          placeholder: '请选择是否管理员'
         }
       }
     },
@@ -163,7 +178,6 @@ export const crudOptions = (vm) => {
       search: {
         disabled: false
       },
-
       type: 'radio',
       dict: {
         data: BUTTON_STATUS_NUMBER
@@ -171,22 +185,55 @@ export const crudOptions = (vm) => {
       form: {
         value: 1,
         component: {
-          span: 12
+          placeholder: '请选择状态'
         }
       },
       component: { props: { color: 'auto' } }
+    }, {
+      title: '备注',
+      key: 'description',
+      show: false,
+      search: {
+        disabled: true
+      },
+      type: 'textarea',
+      form: {
+        component: {
+          placeholder: '请输入内容',
+          showWordLimit: true,
+          maxlength: '200',
+          props: {
+            type: 'textarea'
+          }
+        }
+      }
+    }, {
+      title: '创建人',
+      show: false,
+      width: 100,
+      key: 'modifier_name',
+      form: {
+        disabled: true
+      }
     },
     {
-      title: '排序',
-      key: 'sort',
+      title: '更新时间',
+      key: 'update_datetime',
+      width: 160,
+      type: 'datetime',
       sortable: true,
-
-      type: 'number',
       form: {
-        value: 1,
-        component: {
-          span: 12
-        }
+        disabled: true
+      }
+    },
+    {
+      title: '创建时间',
+      key: 'create_datetime',
+      width: 160,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
       }
     }
     ]

@@ -261,7 +261,7 @@ export default {
           })
         })
         // 将菜单列表转换为树形列表
-        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent' })
+        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent', strict: true })
       })
     },
     // 角色树被点击
