@@ -1,28 +1,8 @@
-import { request } from '@/api/service'
-export const crudOptions = (vm) => {
-  return {
-    pageOptions: {
-      compact: true
-    },
-    options: {
-      height: '100%'
-    },
-    viewOptions: {
-      componentType: 'row'
-    },
-    formOptions: {
-      defaultSpan: 12 // 默认的表单 span
-    },
-    columns: [
-      {
-        title: '编码',
-        key: 'id',
-        width: 90,
-        form: {
-          disabled: true
-        }
-      },
-      {
+# 表格选择框配置说明
+
+## crud.js
+```
+ {
         title: '单选本地',
         key: 'select1',
         sortable: true,
@@ -39,7 +19,6 @@ export const crudOptions = (vm) => {
               component._elProps.page = ret.data.page
               component._elProps.limit = ret.data.limit
               component._elProps.total = ret.data.total
-              console.log(11, ret.data);
               return ret.data.data
             })
           }
@@ -72,32 +51,22 @@ export const crudOptions = (vm) => {
             }
           }
         }
-      },
-      {
-        title: '多选,本地,自动染色',
-        key: 'select2',
-        sortable: true,
-        width: 180,
-        search: {
-          disabled: false,
-          title: '多选'
-        },
-        type: 'select',
-        form: {
-          title: '多选本地',
-          component: {
-            props: {
-              filterable: true,
-              multiple: true,
-              clearable: true
-            }
-          }
-        },
-        dict: {
-          data: [{ value: 'sz', label: '深圳' }, { value: 'gz', label: '广州' }, { value: 'wh', label: '武汉' }, { value: 'sh', label: '上海' }]
-        },
-        component: { props: { color: 'auto' } } // 自动染色
       }
-    ]
-  }
-}
+```
+
+## 配置说明
+```
+详细文档:
+1.http://d2-crud-plus.docmirror.cn/d2-crud-plus/guide/dict.html
+2.https://xuliangzhan_admin.gitee.io/vxe-table/#/grid/api
+```
+ 
+| Name       | Description      | Type    | Required | Default        |
+| ---------- | ---------------- | ------- | -------- | -------------- |
+| type       | 字段所使用的组件 | String  | true     | table-selector |
+| dict       | 字典的配置       | Object  | true     | {}             |
+| multiple   | 是否多选         | Boolean | false    | false          |
+| pagination | 是否分页         | Boolean | false    | false          |
+| columns    | 表格的列配置     | Array   | true     | []             |
+| field      | 字段             | String  | true     | ''             |
+| title      | 字段名称         | String  | true     | ''             |
