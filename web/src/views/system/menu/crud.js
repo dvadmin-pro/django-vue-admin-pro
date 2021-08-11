@@ -253,11 +253,16 @@ export const crudOptions = (vm) => {
         title: '组件地址',
         key: 'component',
         width: 130,
+        type: "select",
+        dict: {
+          data: vm.searchFiles()
+        },
         form: {
           component: {
             span: 12,
             props: {
-              clearable: true
+              clearable: true,
+              filterable: true, //可过滤选择项
             }
           },
           helper: {
