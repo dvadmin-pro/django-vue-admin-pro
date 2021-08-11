@@ -15,7 +15,7 @@ from dvadmin.utils.permission import CustomPermission
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomUniqueValidator
 from dvadmin.utils.viewset import CustomModelViewSet
-
+import hashlib
 
 class UserSerializer(CustomModelSerializer):
     """
@@ -37,7 +37,7 @@ class UserCreateSerializer(CustomModelSerializer):
     """
     username = serializers.CharField(max_length=50,
                                      validators=[CustomUniqueValidator(queryset=Users.objects.all(), message="账号必须唯一")])
-    password = serializers.CharField(required=False, default=make_password("123456"))
+    password = serializers.CharField(required=False, default=make_password(hashlib.md5('admin123456'.encode(encoding='UTF-8')).hexdigest()))
 
     def save(self, **kwargs):
         data = super().save(**kwargs)
@@ -112,7 +112,7 @@ class UserViewSet(CustomModelViewSet):
         new_pwd2 = data.get('newPassword2')
         if instance:
             if new_pwd != new_pwd2:
-                return ErrorResponse(msg="2次密码不匹配")
+                return ErrorResponse(msg="两次密码不匹配")
             elif instance.check_password(old_pwd):
                 instance.password = make_password(new_pwd)
                 instance.save()

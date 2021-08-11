@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-07-26 23:08:16
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 00:18:06
+ * @最后修改时间: 2021-08-12 01:08:21
  * 联系Qq:1638245306
  * @文件介绍: 用户信息
 -->
@@ -97,153 +97,159 @@
   </d2-container>
 </template>
 <script>
-import util from '@/libs/util.js'
-import { request } from '@/api/service'
-import { mapActions } from 'vuex'
+import util from "@/libs/util.js";
+import { request } from "@/api/service";
+import { mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'))
+      let pwdRegex = new RegExp("(?=.*[0-9])(?=.*[a-zA-Z]).{8,30}");
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else if (value === this.userPasswordInfo.oldPassword) {
-        callback(new Error('原密码与新密码一致'))
+        callback(new Error("原密码与新密码一致"));
+      } else if (!pwdRegex.test(value)) {
+        callback(new Error("您的密码复杂度太低(密码中必须包含字母、数字)"));
       } else {
-        if (this.userPasswordInfo.newPassword2 !== '') {
-          this.$refs.userPasswordForm.validateField('newPassword2')
+        if (this.userPasswordInfo.newPassword2 !== "") {
+          this.$refs.userPasswordForm.validateField("newPassword2");
         }
-        callback()
+        callback();
       }
-    }
+    };
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'))
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.userPasswordInfo.newPassword) {
-        callback(new Error('两次输入密码不一致!'))
+        callback(new Error("两次输入密码不一致!"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
-      position: 'left',
-      activeName: 'userInfo',
+      position: "left",
+      activeName: "userInfo",
       userInfo: {
-        name: '',
+        name: "",
         gender: 1,
-        mobile: '',
-        avatar: '',
-        email: ''
+        mobile: "",
+        avatar: "",
+        email: "",
       },
       userInforules: {
-        name: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+        name: [{ required: true, message: "请输入昵称", trigger: "blur" }],
         mobile: [
-          { pattern: /^1[3|4|5|7|8]\d{9}$/, message: '请输入正确手机号' }
-        ]
+          { pattern: /^1[3|4|5|7|8]\d{9}$/, message: "请输入正确手机号" },
+        ],
       },
       userPasswordInfo: {
-        oldPassword: '',
-        newPassword: '',
-        newPassword2: ''
+        oldPassword: "",
+        newPassword: "",
+        newPassword2: "",
       },
       passwordRules: {
         oldPassword: [
           {
             required: true,
-            message: '请输入原密码',
-            trigger: 'blur'
-          }
+            message: "请输入原密码",
+            trigger: "blur",
+          },
         ],
-        newPassword: [{ validator: validatePass, trigger: 'blur' }],
-        newPassword2: [{ validator: validatePass2, trigger: 'blur' }]
-      }
-    }
+        newPassword: [{ validator: validatePass, trigger: "blur" }],
+        newPassword2: [{ validator: validatePass2, trigger: "blur" }],
+      },
+    };
   },
-  mounted () {
-    this.getCurrentUserInfo()
+  mounted() {
+    this.getCurrentUserInfo();
   },
   methods: {
-    ...mapActions('d2admin/account', ['logout']),
+    ...mapActions("d2admin/account", ["logout"]),
     /**
      * 获取当前用户信息
      */
-    getCurrentUserInfo () {
-      const _self = this
+    getCurrentUserInfo() {
+      const _self = this;
       return request({
-        url: '/api/system/user_info/',
-        method: 'get',
-        params: {}
+        url: "/api/system/user_info/",
+        method: "get",
+        params: {},
       }).then((res) => {
-        _self.userInfo = res.data.data
-      })
+        _self.userInfo = res.data.data;
+      });
     },
     /**
      * 更新用户信息
      */
-    updateInfo () {
-      const _self = this
+    updateInfo() {
+      const _self = this;
+
       _self.$refs.userInfoForm.validate((valid) => {
         if (valid) {
           request({
-            url: '/api/system/user_info/',
-            method: 'put',
-            data: _self.userInfo
+            url: "/api/system/user_info/",
+            method: "put",
+            data: _self.userInfo,
           }).then((res) => {
-            _self.$message.success('修改成功')
-            _self.getCurrentUserInfo()
-          })
+            _self.$message.success("修改成功");
+            _self.getCurrentUserInfo();
+          });
         } else {
           // 校验失败
           // 登录表单校验失败
-          this.$message.error('表单校验失败，请检查')
+          this.$message.error("表单校验失败，请检查");
         }
-      })
+      });
     },
     // 重置
-    resetForm (name) {
-      const _self = this
-      if (name === 'info') {
-        _self.getCurrentUserInfo()
+    resetForm(name) {
+      const _self = this;
+      if (name === "info") {
+        _self.getCurrentUserInfo();
       } else {
-        _self.userPasswordForm = {}
+        _self.userPasswordForm = {};
       }
     },
     // tab切换
-    handleClick (tab, event) {
-      const _self = this
-      if (tab.paneName === 'userInfo') {
-        _self.$refs.userPasswordForm.resetFields()
+    handleClick(tab, event) {
+      const _self = this;
+      if (tab.paneName === "userInfo") {
+        _self.$refs.userPasswordForm.resetFields();
       } else {
-        _self.$refs.userInfoForm.resetFields()
+        _self.$refs.userInfoForm.resetFields();
       }
     },
     /**
      * 重新设置密码
      */
-    settingPassword () {
-      const _self = this
+    settingPassword() {
+      const _self = this;
 
       _self.$refs.userPasswordForm.validate((valid) => {
         if (valid) {
-          const userId = util.cookies.get('uuid')
+          const userId = util.cookies.get("uuid");
           if (userId) {
-            const params = JSON.parse(JSON.stringify(_self.userPasswordInfo))
-
+            let params = JSON.parse(JSON.stringify(_self.userPasswordInfo));
+            params["oldPassword"] = _self.$md5(params["oldPassword"]);
+            params["newPassword"] = _self.$md5(params["newPassword"]);
+            params["newPassword2"] = _self.$md5(params["newPassword2"]);
             request({
-              url: '/api/system/change_password/' + userId + '/',
-              method: 'put',
-              data: params
+              url: "/api/system/change_password/" + userId + "/",
+              method: "put",
+              data: params,
             }).then((res) => {
-              _self.activeName = 'userInfo'
-              _self.$message.success('修改成功')
-              _self.logout({})
-            })
+              _self.activeName = "userInfo";
+              _self.$message.success("修改成功");
+              _self.logout({});
+            });
           }
         } else {
           // 校验失败
           // 登录表单校验失败
-          this.$message.error('表单校验失败，请检查')
+          this.$message.error("表单校验失败，请检查");
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
