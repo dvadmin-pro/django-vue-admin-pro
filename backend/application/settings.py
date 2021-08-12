@@ -288,6 +288,7 @@ SWAGGER_SETTINGS = {
     # 方法列表字母排序
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'conf.swagger.CustomSwaggerAutoSchema',
 }
 
 # ================================================= #

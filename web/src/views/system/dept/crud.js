@@ -19,21 +19,21 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -90,7 +90,7 @@ export const crudOptions = (vm) => {
       type: 'cascader',
       dict: {
         cache: false,
-        url: '/api/system/dept_tree/?limit=999',
+        url: '/api/system/dept/dept_tree/?limit=999',
         value: 'id', // 数据字典中value字段的属性名
         label: 'name', // 数据字典中label字段的属性名
         children: 'children', // 数据字典中children字段的属性名

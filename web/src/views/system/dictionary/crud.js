@@ -92,7 +92,7 @@ export const crudOptions = (vm) => {
       type: 'cascader',
       dict: {
         cache: false,
-        url: '/api/system/dictionary_tree/?limit=999',
+        url: '/api/system/dictionary/dictionary_tree/?limit=999',
         value: 'id', // 数据字典中value字段的属性名
         label: 'label', // 数据字典中label字段的属性名
         children: 'children', // 数据字典中children字段的属性名

@@ -8,6 +8,7 @@
 """
 
 from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -19,6 +20,11 @@ class LoginSerializer(TokenObtainPairSerializer):
     登录的序列化器:
     重写djangorestframework-simplejwt的序列化器
     """
+    class Meta:
+        model = Users
+        fields = "__all__"
+        read_only_fields = ["id"]
+
     default_error_messages = {
         'no_active_account': _('该账号已被禁用,请联系管理员')
     }

@@ -25,9 +25,11 @@ from rest_framework_simplejwt.views import (
 )
 
 from application.settings import BASE_DIR
+from conf.swagger import CustomOpenAPISchemaGenerator
 from dvadmin.system.views.login import LoginView
 
 yamlPath = os.path.join(BASE_DIR, "plugins", "config.json")
+from drf_yasg.renderers import SwaggerUIRenderer, OpenAPIRenderer
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -39,6 +41,8 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
+    generator_class = CustomOpenAPISchemaGenerator,
+
 )
 
 urlpatterns = [

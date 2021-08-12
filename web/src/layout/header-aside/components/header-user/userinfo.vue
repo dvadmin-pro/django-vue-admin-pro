@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-07-26 23:08:16
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-12 01:08:21
+ * @最后修改时间: 2021-08-12 11:32:30
  * 联系Qq:1638245306
  * @文件介绍: 用户信息
 -->
@@ -171,7 +171,7 @@ export default {
     getCurrentUserInfo() {
       const _self = this;
       return request({
-        url: "/api/system/user_info/",
+        url: "/api/system/user/user_info/",
         method: "get",
         params: {},
       }).then((res) => {
@@ -187,7 +187,7 @@ export default {
       _self.$refs.userInfoForm.validate((valid) => {
         if (valid) {
           request({
-            url: "/api/system/user_info/",
+            url: "/api/system/user/user_info/",
             method: "put",
             data: _self.userInfo,
           }).then((res) => {
@@ -234,7 +234,7 @@ export default {
             params["newPassword"] = _self.$md5(params["newPassword"]);
             params["newPassword2"] = _self.$md5(params["newPassword2"]);
             request({
-              url: "/api/system/change_password/" + userId + "/",
+              url: "/api/system/user/change_password/" + userId + "/",
               method: "put",
               data: params,
             }).then((res) => {
