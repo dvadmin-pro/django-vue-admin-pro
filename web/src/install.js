@@ -36,8 +36,7 @@ Vue.use(d2CrudPlus, {
       method: 'get'
     }).then(ret => {
       if (dict.isTree) {
-        const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
-        return data
+        return XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
       } else {
         return ret.data.data
       }
@@ -68,7 +67,8 @@ Vue.use(d2CrudPlus, {
       },
       formOptions: {
         nullToBlankStr: true, // 提交修改表单时，将undefinded的数据修改为空字符串''，可以解决无法清空字段的问题
-        defaultSpan: 12 // 默认的表单 span
+        defaultSpan: 12, // 默认的表单 span
+        saveRemind: true
       },
       viewOptions: {
         disabled: false,

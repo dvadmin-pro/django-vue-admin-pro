@@ -1,5 +1,6 @@
 import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER } from '@/config/button'
+import { urlPrefix as deptPrefix } from './api'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -18,21 +19,24 @@ export const crudOptions = (vm) => {
       }
     },
     rowHandle: {
+      width: 140,
       view: {
+        thin: true,
+        text: '',
         disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
-        text: '编辑',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
-        text: '删除',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Delete')
         }
@@ -63,7 +67,8 @@ export const crudOptions = (vm) => {
         component: {
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入关键词'
         }
       },
       view: { // 查看对话框组件的单独配置
@@ -90,7 +95,8 @@ export const crudOptions = (vm) => {
       type: 'cascader',
       dict: {
         cache: false,
-        url: '/api/system/dept/dept_tree/?limit=999',
+        url: deptPrefix + '?limit=999&status=1',
+        isTree: true,
         value: 'id', // 数据字典中value字段的属性名
         label: 'name', // 数据字典中label字段的属性名
         children: 'children', // 数据字典中children字段的属性名
@@ -107,8 +113,8 @@ export const crudOptions = (vm) => {
           props: {
             elProps: {
               clearable: true,
-              showAllLevels: false, // 仅显示最后一级
               props: {
+                showAllLevels: false, // 仅显示最后一级
                 checkStrictly: true, // 可以不需要选到最后一级
                 emitPath: false,
                 clearable: true
@@ -135,13 +141,14 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '部门名称必填项' }
         ],
         component: {
           span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入部门名称'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -157,7 +164,8 @@ export const crudOptions = (vm) => {
           span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入负责人'
         }
       }
     },
@@ -170,7 +178,8 @@ export const crudOptions = (vm) => {
           span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入联系电话'
         }
       }
     },
@@ -183,7 +192,24 @@ export const crudOptions = (vm) => {
           span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入邮箱'
+        },
+        rules: [
+          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+        ]
+      }
+    }, {
+      title: '排序',
+      key: 'sort',
+      sortable: true,
+      width: 80,
+      type: 'number',
+      form: {
+        value: 1,
+        component: {
+          span: 12,
+          placeholder: '请选择序号'
         }
       }
     },
@@ -202,21 +228,56 @@ export const crudOptions = (vm) => {
       form: {
         value: 1,
         component: {
-          span: 12
+          span: 12,
+          placeholder: '请选择状态'
         }
+      }
+    }, {
+      title: '备注',
+      key: 'description',
+      show: false,
+      search: {
+        disabled: true
+      },
+      type: 'textarea',
+      form: {
+        component: {
+          span: 12,
+          placeholder: '请输入内容',
+          showWordLimit: true,
+          maxlength: '200',
+          props: {
+            type: 'textarea'
+          }
+        }
+      }
+    }, {
+      title: '创建人',
+      show: false,
+      width: 100,
+      key: 'modifier_name',
+      form: {
+        disabled: true
       }
     },
     {
-      title: '排序',
-      key: 'sort',
+      title: '更新时间',
+      key: 'update_datetime',
+      width: 160,
+      type: 'datetime',
       sortable: true,
-      width: 180,
-      type: 'number',
       form: {
-        value: 1,
-        component: {
-          span: 12
-        }
+        disabled: true
+      }
+    },
+    {
+      title: '创建时间',
+      key: 'create_datetime',
+      width: 160,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
       }
     }
     ]

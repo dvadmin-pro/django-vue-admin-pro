@@ -110,7 +110,6 @@ class MenuViewSet(CustomModelViewSet):
     serializer_class = MenuSerializer
     create_serializer_class = MenuCreateSerializer
     update_serializer_class = MenuCreateSerializer
-    filter_fields = ['name', 'status']
     search_fields = ['name', 'status']
     permission_classes = []
 

@@ -8,9 +8,11 @@
  */
 import { request } from '@/api/service'
 
+export const urlPrefix = '/api/system/menu_button/'
+
 export function GetList (query) {
   return request({
-    url: '/api/system/menu_button/',
+    url: urlPrefix,
     method: 'get',
     params: query
   })
@@ -19,7 +21,7 @@ export function GetList (query) {
 export function createObj (obj, id) {
   const data = { ...obj, menu: id }
   return request({
-    url: '/api/system/menu_button/',
+    url: urlPrefix,
     method: 'post',
     data: data
   })
@@ -27,21 +29,16 @@ export function createObj (obj, id) {
 
 export function UpdateObj (obj) {
   return request({
-    url: '/api/system/menu_button/' + obj.id + '/',
+    url: urlPrefix + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
+
 export function DelObj (id) {
   return request({
-    url: '/api/system/menu_button/' + id + '/',
+    url: urlPrefix + id + '/',
     method: 'delete',
     data: { id }
-  })
-}
-export function GetCascadeData () {
-  return request({
-    url: '/select/cascadeData',
-    method: 'get'
   })
 }
