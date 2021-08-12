@@ -111,7 +111,7 @@ export const crudOptions = (vm) => {
         },
         type: 'cascader',
         dict: {
-          url: '/api/system/menu_tree/',
+          url: '/api/system/menu/menu_tree/',
           cache: false,
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
