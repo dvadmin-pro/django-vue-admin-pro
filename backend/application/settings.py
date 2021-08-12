@@ -320,7 +320,8 @@ API_LOG_ENABLE = True
 # API_LOG_METHODS = 'ALL' # ['POST', 'DELETE']
 API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
 API_MODEL_MAP = {
-    "/token/": "登录模块"
+    "/token/": "登录模块",
+    "/api/login/": "登录模块",
 }
 # 表前缀
 TABLE_PREFIX = "dvadmin_"
