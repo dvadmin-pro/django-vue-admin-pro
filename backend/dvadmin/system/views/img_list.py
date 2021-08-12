@@ -14,7 +14,7 @@ from dvadmin.utils.viewset import CustomModelViewSet
 class ImgSerializer(CustomModelSerializer):
     class Meta:
         model = ImgList
-        fields = '__all__'
+        exclude = ("url",)
 
     def create(self,validated_data):
         validated_data['name'] = str(validated_data.get('url'))
@@ -24,3 +24,4 @@ class ImgSerializer(CustomModelSerializer):
 class ImgViewSet(CustomModelViewSet):
     queryset = ImgList.objects.all()
     serializer_class = ImgSerializer
+    filter_fields = ['name',]

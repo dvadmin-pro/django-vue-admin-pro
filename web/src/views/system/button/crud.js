@@ -20,13 +20,17 @@ export const crudOptions = (vm) => {
     rowHandle: {
       edit: {
         thin: true,
-        text: '编辑'
-
+        text: '编辑',
+        disabled () {
+          return !vm.hasPermissions('Update')
+        }
       },
       remove: {
         thin: true,
-        text: '删除'
-
+        text: '删除',
+        disabled () {
+          return !vm.hasPermissions('Delete')
+        }
       }
     },
     indexRow: { // 或者直接传true,不显示title，不居中

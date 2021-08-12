@@ -20,8 +20,6 @@ export function GetList (query) {
   })
 }
 
-
-
 export function createObj (obj) {
   return request({
     url: urlPrefix,
