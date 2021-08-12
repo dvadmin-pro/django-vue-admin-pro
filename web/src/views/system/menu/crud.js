@@ -111,7 +111,7 @@ export const crudOptions = (vm) => {
         },
         type: 'cascader',
         dict: {
-          url: '/api/system/menu_tree/',
+          url: '/api/system/menu/menu_tree/',
           cache: false,
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
@@ -224,7 +224,7 @@ export const crudOptions = (vm) => {
           },
           helper: {
             render (h) {
-              return (< el-alert title="浏览器中url的地址" type="warning" />
+              return (< el-alert title="浏览器中url的地址,请以/开头" type="warning" />
               )
             }
           }
@@ -253,11 +253,16 @@ export const crudOptions = (vm) => {
         title: '组件地址',
         key: 'component',
         width: 130,
+        type: 'select',
+        dict: {
+          data: vm.searchFiles()
+        },
         form: {
           component: {
             span: 12,
             props: {
-              clearable: true
+              clearable: true,
+              filterable: true // 可过滤选择项
             }
           },
           helper: {

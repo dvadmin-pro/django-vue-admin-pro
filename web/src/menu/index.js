@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-29 22:37:22
+ * @最后修改时间: 2021-08-12 16:29:26
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -69,7 +69,7 @@ export const menuAside = supplementPath([])
 // 请求菜单数据,用于解析路由和侧边栏菜单
 export const getMenu = function (self) {
   return request({
-    url: '/api/system/web_router/',
+    url: '/api/system/menu/web_router/',
     method: 'get',
     params: {}
   }).then((res) => {

@@ -83,6 +83,12 @@ export const crudOptions = (vm) => {
           },
           itemProps: {
             class: { yxtInput: true }
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="密码默认为:admin123456" type="warning" />
+              )
+            }
           }
         }
       },

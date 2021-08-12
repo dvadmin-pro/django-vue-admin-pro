@@ -1,11 +1,4 @@
-/*
- * @创建文件时间: 2021-06-01 22:41:21
- * @Auther: 猿小天
- * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-25 22:20:49
- * 联系Qq:1638245306
- * @文件介绍:
- */
+import { request } from '@/api/service'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -36,9 +29,48 @@ export const crudOptions = (vm) => {
         search: {
           disabled: true
         },
-        type: 'select',
+        type: 'table-selector',
         dict: {
-          data: [{ value: '1', label: '开启' }, { value: '0', label: '关闭' }, { value: '2', label: '停止' }]
+          url: '/api/system/user/',
+          value: 'id', // 数据字典中value字段的属性名
+          label: 'name', // 数据字典中label字段的属性名
+          getData: (url, dict, { form, component }) => {
+            return request({ url: url, params: { page: 1, limit: 1 } }).then(ret => {
+              component._elProps.page = ret.data.page
+              component._elProps.limit = ret.data.limit
+              component._elProps.total = ret.data.total
+              console.log(11, ret.data)
+              return ret.data.data
+            })
+          }
+        },
+        form: {
+          component: {
+            span: 12,
+            props: { multiple: true },
+            elProps: {
+              pagination: true,
+              columns: [
+                {
+                  field: 'name',
+                  title: '名称'
+                },
+                {
+                  field: 'username',
+                  title: '账号'
+                },
+                {
+                  field: 'role',
+                  title: '角色Id'
+                },
+                {
+                  field: 'dept',
+                  title: '部门Id'
+                }
+
+              ]
+            }
+          }
         }
       },
       {

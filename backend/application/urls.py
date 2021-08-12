@@ -25,9 +25,11 @@ from rest_framework_simplejwt.views import (
 )
 
 from application.settings import BASE_DIR
-from dvadmin.system.views.login import LoginView
+from conf.swagger import CustomOpenAPISchemaGenerator
+from dvadmin.system.views.login import LoginView, CaptchaView
 
 yamlPath = os.path.join(BASE_DIR, "plugins", "config.json")
+from drf_yasg.renderers import SwaggerUIRenderer, OpenAPIRenderer
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -39,6 +41,8 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
+    generator_class = CustomOpenAPISchemaGenerator,
+
 )
 
 urlpatterns = [
@@ -46,9 +50,10 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/system/', include('dvadmin.system.urls')),
-    path('token/', LoginView.as_view(), name='token_obtain_pair'),
+    path('api/login/', LoginView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/captcha/', CaptchaView.as_view()),
 ]
 
 

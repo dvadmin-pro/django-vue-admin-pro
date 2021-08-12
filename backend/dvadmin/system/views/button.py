@@ -24,7 +24,12 @@ class ButtonSerializer(CustomModelSerializer):
 
 class ButtonViewSet(CustomModelViewSet):
     """
-    按钮权限接口:
+    tag:按钮权限接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     queryset = Button.objects.all()
     serializer_class = ButtonSerializer

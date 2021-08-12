@@ -2,7 +2,7 @@ import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER } from '@/config/button'
 export const crudOptions = (vm) => {
   return {
-    pagination: false,
+
     pageOptions: {
       compact: true
     },
@@ -12,9 +12,11 @@ export const crudOptions = (vm) => {
       rowId: 'id',
       height: '100%', // 表格高度100%, 使用toolbar必须设置
       highlightCurrentRow: false,
+
       treeConfig: { // 树形数据配置
         children: 'children',
-        hasChild: 'hasChildren'
+        hasChild: 'hasChildren',
+        expandAll: true
       }
     },
     rowHandle: {
@@ -90,13 +92,13 @@ export const crudOptions = (vm) => {
       type: 'cascader',
       dict: {
         cache: false,
-        url: '/api/system/dept/dept_tree/?limit=999',
+        url: '/api/system/dictionary/dictionary_tree/?limit=999',
         value: 'id', // 数据字典中value字段的属性名
-        label: 'name', // 数据字典中label字段的属性名
+        label: 'label', // 数据字典中label字段的属性名
         children: 'children', // 数据字典中children字段的属性名
         getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
           return request({ url: url }).then(ret => {
-            return [{ id: null, name: '根节点', children: ret.data.data }]
+            return [{ id: null, label: '根节点', children: ret.data.data }]
           })
         }
 
@@ -119,10 +121,40 @@ export const crudOptions = (vm) => {
       }
     },
     {
-      title: '部门名称',
-      key: 'name',
+      title: '编码',
+      key: 'code',
       sortable: true,
-      treeNode: true, // 设置为树形列
+      treeNode: true,
+      search: {
+        disabled: true,
+        component: {
+          props: {
+            clearable: true
+          }
+        }
+      },
+      type: 'input',
+      form: {
+        editDisabled: true,
+        rules: [ // 表单校验规则
+          { required: true, message: '必填项' }
+        ],
+        component: {
+          span: 12,
+          props: {
+            clearable: true
+          }
+        },
+        itemProps: {
+          class: { yxtInput: true }
+        }
+      }
+    },
+    {
+      title: '显示值',
+      key: 'label',
+      sortable: true,
+
       search: {
         disabled: false,
         component: {
@@ -131,7 +163,7 @@ export const crudOptions = (vm) => {
           }
         }
       },
-      width: 180,
+
       type: 'input',
       form: {
         rules: [ // 表单校验规则
@@ -149,44 +181,36 @@ export const crudOptions = (vm) => {
       }
     },
     {
-      title: '负责人',
-      key: 'owner',
+      title: '实际值',
+      key: 'value',
       sortable: true,
+
+      search: {
+        disabled: true,
+        component: {
+          props: {
+            clearable: true
+          }
+        }
+      },
+
+      type: 'input',
       form: {
+        rules: [ // 表单校验规则
+          { required: true, message: '必填项' }
+        ],
         component: {
           span: 12,
           props: {
             clearable: true
           }
+        },
+        itemProps: {
+          class: { yxtInput: true }
         }
       }
     },
-    {
-      title: '联系电话',
-      key: 'phone',
-      sortable: true,
-      form: {
-        component: {
-          span: 12,
-          props: {
-            clearable: true
-          }
-        }
-      }
-    },
-    {
-      title: '邮箱',
-      key: 'email',
-      sortable: true,
-      form: {
-        component: {
-          span: 12,
-          props: {
-            clearable: true
-          }
-        }
-      }
-    },
+
     {
       title: '状态',
       key: 'status',
@@ -194,7 +218,7 @@ export const crudOptions = (vm) => {
       search: {
         disabled: false
       },
-      width: 90,
+
       type: 'radio',
       dict: {
         data: BUTTON_STATUS_NUMBER
@@ -210,7 +234,7 @@ export const crudOptions = (vm) => {
       title: '排序',
       key: 'sort',
       sortable: true,
-      width: 180,
+
       type: 'number',
       form: {
         value: 1,

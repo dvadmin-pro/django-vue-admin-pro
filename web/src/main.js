@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:19
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 22:40:58
+ * @最后修改时间: 2021-08-12 00:57:05
  * 联系Qq:1638245306
  * @文件介绍:
  */
@@ -29,9 +29,13 @@ import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
 
+// md5加密
+import md5 from 'js-md5'
+
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(VXETable)
+Vue.prototype.$md5 = md5
 
 new Vue({
   router,
