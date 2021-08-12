@@ -16,26 +16,26 @@ export const crudOptions = (vm) => {
       treeConfig: { // 树形数据配置
         children: 'children',
         hasChild: 'hasChildren',
-        expandAll: true,
+        expandAll: true
       }
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -210,7 +210,6 @@ export const crudOptions = (vm) => {
         }
       }
     },
-
 
     {
       title: '状态',

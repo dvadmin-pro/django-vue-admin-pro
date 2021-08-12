@@ -64,7 +64,7 @@ class LoginSerializer(TokenObtainPairSerializer):
 
     def validate_captcha(self, captcha):
         image_code = CaptchaStore.objects.filter(
-            id=self.initial_data['captcha_key']).first()
+            id=self.initial_data['captchaKey']).first()
         five_minute_ago = datetime.now() - timedelta(hours=0, minutes=5, seconds=0)
         if image_code and five_minute_ago > image_code.expiration:
             raise CustomValidationError('验证码过期')

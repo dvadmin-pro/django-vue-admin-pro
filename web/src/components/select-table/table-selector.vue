@@ -89,51 +89,51 @@
 </template>
 
 <script>
-import lodash from "lodash";
-import { d2CrudPlus } from "d2-crud-plus";
-import log from "@/libs/util.log";
-import { request } from "@/api/service";
+import lodash from 'lodash'
+import { d2CrudPlus } from 'd2-crud-plus'
+import log from '@/libs/util.log'
+import { request } from '@/api/service'
 // 表格选择组件
 export default {
-  name: "table-selector-input",
+  name: 'table-selector-input',
   mixins: [d2CrudPlus.input, d2CrudPlus.inputDict],
   props: {
     // 值
     value: {
-      type: [Number, String, Boolean, Array, Object],
+      type: [Number, String, Boolean, Array, Object]
     },
     // 过滤，value中的nodes过滤方法 参数为nodes
     filter: {
       type: Function,
-      require: false,
+      require: false
     },
     // 过滤的placeholder
     filterPlaceholder: {
       type: String,
-      default: "输入关键字进行过滤",
+      default: '输入关键字进行过滤'
     },
     dialogTitle: {
       type: String,
-      default: "选择",
+      default: '选择'
     },
     cancelText: {
       type: String,
-      default: "取消",
+      default: '取消'
     },
     confirmText: {
       type: String,
-      default: "确定",
+      default: '确定'
     },
     // 树形组件节点过滤，可以配置elProps.filterNodeMethod ，覆盖默认的过滤方法
     treeFilter: {
       type: Boolean,
       require: false,
-      default: true,
+      default: true
     },
     // 是否多选，传入false为单选
     multiple: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 是否忽略选中节点的子节点
     ignoreFullCheckedChildren: { type: Boolean, default: true },
@@ -143,92 +143,92 @@ export default {
     includeHalfChecked: { type: Boolean, default: false },
     // el-tree的属性配置
     elProps: {
-      type: Object,
+      type: Object
     },
     /**
      * 是否可以清除
      */
     clearable: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 数据字典配置
     dict: {
       type: Object,
-      require: false,
+      require: false
     },
-    //是否开启分页
+    // 是否开启分页
     pagination: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  data() {
+  data () {
     return {
       currentValue: undefined,
       collapseTags: false,
       selected: [],
       dialogVisible: false,
-      filterText: undefined,
-    };
+      filterText: undefined
+    }
   },
-  created() {
+  created () {
     // if (this.dict) {
     //   this.dict = d2CrudPlus.util.dict.mergeDefault(this.dict, true)
     // }
     // this.initData()
   },
   computed: {
-    _elProps() {
+    _elProps () {
       const defaultElProps = {
         showCheckbox: this.multiple,
         highlightCurrent: !this.multiple,
         props: {},
-        columns: [],
-      };
+        columns: []
+      }
       if (this.dict != null) {
         if (this.dict.label != null) {
-          defaultElProps.props.label = this.dict.label;
+          defaultElProps.props.label = this.dict.label
         }
         if (this.dict.value != null) {
-          defaultElProps.props.value = this.dict.value;
+          defaultElProps.props.value = this.dict.value
         }
         if (this.dict.children != null) {
-          defaultElProps.props.children = this.dict.children;
+          defaultElProps.props.children = this.dict.children
         }
       }
-      defaultElProps.nodeKey = defaultElProps.props.value;
-      lodash.merge(defaultElProps, this.elProps);
+      defaultElProps.nodeKey = defaultElProps.props.value
+      lodash.merge(defaultElProps, this.elProps)
 
       if (this.multiple) {
         defaultElProps.columns = [
           {
-            type: "checkbox",
-            width: 60,
+            type: 'checkbox',
+            width: 60
           },
-          ...defaultElProps.columns,
-        ];
+          ...defaultElProps.columns
+        ]
       } else {
         defaultElProps.columns = [
           {
-            type: "radio",
-            width: 60,
+            type: 'radio',
+            width: 60
           },
-          ...defaultElProps.columns,
-        ];
+          ...defaultElProps.columns
+        ]
       }
 
-      return defaultElProps;
+      return defaultElProps
     },
-    collapseTagSize() {
-      return ["small", "mini"].indexOf(this.selectSize) > -1 ? "mini" : "small";
-    },
+    collapseTagSize () {
+      return ['small', 'mini'].indexOf(this.selectSize) > -1 ? 'mini' : 'small'
+    }
   },
   watch: {
-    filterText(val) {
+    filterText (val) {
       // this.$refs.elTree.filter(val);
-      this.searchTableData(val);
-    },
+      this.searchTableData(val)
+    }
   },
   methods: {
     // initData () {
@@ -237,145 +237,145 @@ export default {
     //     this.setValue(this.value)
     //   })
     // },
-    onDictLoaded() {
-      log.danger("onDictLoaded", this.dict, this.value);
-      this.setValue(this.value);
+    onDictLoaded () {
+      log.danger('onDictLoaded', this.dict, this.value)
+      this.setValue(this.value)
     },
-    setValue(value) {
-      log.danger("setValue:", this.currentValue, this.value, this._options);
+    setValue (value) {
+      log.danger('setValue:', this.currentValue, this.value, this._options)
       if (this.currentValue === this.value) {
-        return;
+        return
       }
-      let arrValue = value;
+      let arrValue = value
       if (value == null) {
-        this.selected = [];
+        this.selected = []
       }
 
       if (!(arrValue instanceof Array)) {
-        arrValue = [arrValue];
+        arrValue = [arrValue]
       }
       if (this.dict && this.dict.getNodes) {
-        log.danger("getNodes:", arrValue);
+        log.danger('getNodes:', arrValue)
         this.dict.getNodes(arrValue).then((nodes) => {
-          this.selectedNodes(nodes, value);
-        });
+          this.selectedNodes(nodes, value)
+        })
       } else {
-        const nodes = [];
+        const nodes = []
         if (this._options == null || this._options.length === 0) {
-          return;
+          return
         }
         for (const item of arrValue) {
-          const data = this._options;
-          const node = d2CrudPlus.util.dict.getByValue(item, data, this.dict);
+          const data = this._options
+          const node = d2CrudPlus.util.dict.getByValue(item, data, this.dict)
           if (node != null) {
-            nodes.push(node);
+            nodes.push(node)
           }
         }
-        this.selectedNodes(nodes, value);
+        this.selectedNodes(nodes, value)
       }
     },
-    selectedNodes(nodes, value) {
-      const selected = [];
+    selectedNodes (nodes, value) {
+      const selected = []
       for (const node of nodes) {
-        node.id = node[this.dict.value];
-        selected.push(node);
+        node.id = node[this.dict.value]
+        selected.push(node)
       }
-      log.danger("selected:", selected);
-      this.$set(this, "selected", selected);
-      this.resetInputHeight();
+      log.danger('selected:', selected)
+      this.$set(this, 'selected', selected)
+      this.resetInputHeight()
     },
-    handleCheckChange(event) {
-      this.$emit("check-change", event);
+    handleCheckChange (event) {
+      this.$emit('check-change', event)
     },
-    handleCurrentChange(event) {
-      this.$emit("current-change", event);
+    handleCurrentChange (event) {
+      this.$emit('current-change', event)
     },
-    openDialog() {
+    openDialog () {
       if (this.disabled) {
-        return;
+        return
       }
-      this.dialogVisible = true;
+      this.dialogVisible = true
       setTimeout(() => {
         if (this.selected != null) {
           const ids = this.selected.map(
             (item) => item[this._elProps.props.value]
-          );
+          )
           ids.forEach((id) => {
-            const current = this.$refs.elTree.store.nodesMap[id];
+            const current = this.$refs.elTree.store.nodesMap[id]
             if (current != null) {
-              this.doExpandParent(current);
+              this.doExpandParent(current)
             }
-          });
+          })
           this.$nextTick(() => {
             if (this.multiple) {
               // this.$refs.elTree.setCheckedKeys(ids, this.leafOnly);
-              this.$refs.elTree.setCheckboxRow(ids);
+              this.$refs.elTree.setCheckboxRow(ids)
             } else if (ids.length > 0) {
               // this.$refs.elTree.setCurrentKey(ids[0]);
-              this.$refs.elTree.setRadioRow(ids[0]);
+              this.$refs.elTree.setRadioRow(ids[0])
             }
-          });
+          })
         }
-      }, 1);
+      }, 1)
     },
-    doExpandParent(node) {
+    doExpandParent (node) {
       if (node.parent != null) {
-        this.doExpandParent(node.parent);
+        this.doExpandParent(node.parent)
       }
-      node.expanded = true;
+      node.expanded = true
     },
-    //处理value,是否为原生value还是自定义value
-    getValueKey(item) {
+    // 处理value,是否为原生value还是自定义value
+    getValueKey (item) {
       if (this._elProps.props.value != null) {
-        return item[this._elProps.props.value];
+        return item[this._elProps.props.value]
       } else {
-        return item.value;
+        return item.value
       }
     },
-    //处理label,是否为原生label还是自定义label
-    getValueLabel(item) {
+    // 处理label,是否为原生label还是自定义label
+    getValueLabel (item) {
       if (this._elProps.props.label != null) {
-        return item[this._elProps.props.label];
+        return item[this._elProps.props.label]
       } else {
-        return item.label;
+        return item.label
       }
     },
-    //处理children,是否为原生children还是自定义children
-    getValueChildren(item) {
-      let children = "children";
+    // 处理children,是否为原生children还是自定义children
+    getValueChildren (item) {
+      let children = 'children'
       if (this._elProps.props.children != null) {
-        children = this._elProps.props.children;
+        children = this._elProps.props.children
       }
-      return item[children];
+      return item[children]
     },
-    //确定按钮事件
-    selectSubmit() {
-      const nodes = this.refreshSelected();
-      this.dialogVisible = false;
-      this.doValueInputChanged(nodes);
+    // 确定按钮事件
+    selectSubmit () {
+      const nodes = this.refreshSelected()
+      this.dialogVisible = false
+      this.doValueInputChanged(nodes)
     },
-    //将值传出去
-    doValueInputChanged(nodes) {
-      let values = this.formatValue(nodes);
-      this.resetInputHeight();
+    // 将值传出去
+    doValueInputChanged (nodes) {
+      let values = this.formatValue(nodes)
+      this.resetInputHeight()
       if (!this.multiple) {
-        values = values && values.length > 0 ? values[0] : undefined;
+        values = values && values.length > 0 ? values[0] : undefined
       }
-      this.currentValue = values;
+      this.currentValue = values
       if (this.dispatch) {
-        this.dispatch("ElFormItem", "el.form.blur");
+        this.dispatch('ElFormItem', 'el.form.blur')
       }
-      this.$emit("input", values);
+      this.$emit('input', values)
     },
-    itemClosed(item) {
-      const newNodes = lodash.without(this.selected, item);
-      console.log("new value", item, newNodes);
-      this.$set(this, "selected", newNodes);
-      this.doValueInputChanged(newNodes);
+    itemClosed (item) {
+      const newNodes = lodash.without(this.selected, item)
+      console.log('new value', item, newNodes)
+      this.$set(this, 'selected', newNodes)
+      this.doValueInputChanged(newNodes)
     },
-    //获取选中的行数据
-    refreshSelected() {
-      let nodes = null;
+    // 获取选中的行数据
+    refreshSelected () {
+      let nodes = null
       // if (this.multiple) {
       //   nodes = this.$refs.elTree.getCheckedNodes(
       //     this.leafOnly,
@@ -391,124 +391,124 @@ export default {
       // }
 
       if (this.multiple) {
-        nodes = this.$refs.elTree.getCheckboxRecords();
+        nodes = this.$refs.elTree.getCheckboxRecords()
       } else {
-        const node = this.$refs.elTree.getRadioRecord();
+        const node = this.$refs.elTree.getRadioRecord()
         if (node == null) {
-          nodes = [];
+          nodes = []
         } else {
-          nodes = [node];
+          nodes = [node]
         }
       }
 
       if (this.ignoreFullCheckedChildren) {
-        nodes = this.filterFullCheckedChildren(nodes);
+        nodes = this.filterFullCheckedChildren(nodes)
       }
       if (this.filter != null) {
-        nodes = this.filter(nodes);
+        nodes = this.filter(nodes)
       }
-      log.danger("selected", this.selected);
-      this.$set(this, "selected", nodes);
-      return nodes;
+      log.danger('selected', this.selected)
+      this.$set(this, 'selected', nodes)
+      return nodes
     },
-    resetInputHeight() {
-      if (this.collapseTags && !this.filterable) return;
+    resetInputHeight () {
+      if (this.collapseTags && !this.filterable) return
       this.$nextTick(() => {
-        if (!this.$refs.reference) return;
-        const inputChildNodes = this.$refs.reference.$el.childNodes;
+        if (!this.$refs.reference) return
+        const inputChildNodes = this.$refs.reference.$el.childNodes
         const input = [].filter.call(
           inputChildNodes,
-          (item) => item.tagName === "INPUT"
-        )[0];
-        const tags = this.$refs.tags;
-        const sizeInMap = this.initialInputHeight || 40;
+          (item) => item.tagName === 'INPUT'
+        )[0]
+        const tags = this.$refs.tags
+        const sizeInMap = this.initialInputHeight || 40
         const height =
           this.selected.length === 0
-            ? sizeInMap + "px"
+            ? sizeInMap + 'px'
             : Math.max(
-                tags
-                  ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
-                  : 0,
-                sizeInMap
-              ) + "px";
-        input.style.height = height;
+              tags
+                ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
+                : 0,
+              sizeInMap
+            ) + 'px'
+        input.style.height = height
         if (this.visible && this.emptyText !== false) {
-          this.broadcast("ElSelectDropdown", "updatePopper");
+          this.broadcast('ElSelectDropdown', 'updatePopper')
         }
-      });
+      })
     },
-    //过滤叶子节点
-    filterFullCheckedChildren(nodes) {
-      const ignored = new Set();
+    // 过滤叶子节点
+    filterFullCheckedChildren (nodes) {
+      const ignored = new Set()
       for (const item of nodes) {
-        const children = this.getValueChildren(item);
+        const children = this.getValueChildren(item)
         if (children != null) {
           for (const child of children) {
-            ignored.add(this.getValueKey(child));
+            ignored.add(this.getValueKey(child))
           }
         }
       }
-      const values = [];
+      const values = []
       for (const item of nodes) {
-        const key = this.getValueKey(item);
+        const key = this.getValueKey(item)
         if (!ignored.has(key)) {
-          values.push(item);
+          values.push(item)
         }
       }
-      return values;
+      return values
     },
-    formatValue(nodes) {
-      const values = [];
+    formatValue (nodes) {
+      const values = []
       for (const item of nodes) {
-        values.push(this.getValueKey(item));
+        values.push(this.getValueKey(item))
       }
-      return values;
+      return values
     },
-    filterNode(value, data) {
-      if (!value) return true;
-      return this.getValueLabel(data).indexOf(value) !== -1;
+    filterNode (value, data) {
+      if (!value) return true
+      return this.getValueLabel(data).indexOf(value) !== -1
     },
-    onChange(value) {
-      this.$emit("change", value);
+    onChange (value) {
+      this.$emit('change', value)
 
       if (this.dispatch) {
-        this.dispatch("ElFormItem", "el.form.blur");
+        this.dispatch('ElFormItem', 'el.form.blur')
       }
     },
-    //分页事件
-    handlePageChange({ currentPage, pageSize }) {
-      const that = this;
-      that._elProps.page = currentPage;
-      that._elProps.limit = pageSize;
-      that.searchTableData();
+    // 分页事件
+    handlePageChange ({ currentPage, pageSize }) {
+      const that = this
+      that._elProps.page = currentPage
+      that._elProps.limit = pageSize
+      that.searchTableData()
     },
-    //获取数据事件
-    searchTableData() {
-      const that = this;
-      let params;
+    // 获取数据事件
+    searchTableData () {
+      const that = this
+      let params
       if (that.pagination) {
         params = {
           page: that._elProps.page,
           limit: that._elProps.limit,
-          search: that.filterText,
-        };
+          search: that.filterText
+        }
       } else {
         params = {
-          search: that.filterText,
-        };
+          search: that.filterText
+        }
       }
       request({
         url: that.dict.url,
-        params: params,
+        params: params
       }).then((ret) => {
-        that._elProps.page = ret.data.page;
-        that._elProps.limit = ret.data.limit;
-        that._elProps.total = ret.data.total;
-        that.$set(that, "dictOptions", ret.data.data);
-      });
-    },
-  },
-};
+        that._elProps.page = ret.data.page
+        that._elProps.limit = ret.data.limit
+        that._elProps.total = ret.data.total
+        that.$set(that, 'dictOptions', ret.data.data)
+      })
+    }
+  }
+}
 </script>
 <style lang="scss">
 .d2p-tree-selector {

@@ -10,21 +10,21 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       view: {
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '编辑',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '删除',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -85,7 +85,7 @@ export const crudOptions = (vm) => {
             class: { yxtInput: true }
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="密码默认为:admin123456" type="warning" />
               )
             }

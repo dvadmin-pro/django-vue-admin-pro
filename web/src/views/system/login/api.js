@@ -9,7 +9,7 @@
 
 import { request } from '@/api/service'
 
-export function SYS_USER_LOGIN(data) {
+export function SYS_USER_LOGIN (data) {
   return request({
     url: 'api/login/',
     method: 'post',
@@ -17,7 +17,7 @@ export function SYS_USER_LOGIN(data) {
   })
 }
 
-export function getCaptcha() {
+export function getCaptcha () {
   return request({
     url: 'api/captcha/',
     method: 'get'

@@ -137,97 +137,97 @@
 </template>
 
 <script>
-import dayjs from "dayjs";
-import { mapActions } from "vuex";
-import localeMixin from "@/locales/mixin.js";
-import * as api from "./api";
+import dayjs from 'dayjs'
+import { mapActions } from 'vuex'
+import localeMixin from '@/locales/mixin.js'
+import * as api from './api'
 export default {
   mixins: [localeMixin],
-  data() {
+  data () {
     return {
       timeInterval: null,
-      time: dayjs().format("HH:mm:ss"),
+      time: dayjs().format('HH:mm:ss'),
       // 快速选择用户
       dialogVisible: false,
       users: [
         {
-          name: "Admin",
-          username: "admin",
-          password: "admin",
+          name: 'Admin',
+          username: 'admin',
+          password: 'admin'
         },
         {
-          name: "Editor",
-          username: "editor",
-          password: "editor",
+          name: 'Editor',
+          username: 'editor',
+          password: 'editor'
         },
         {
-          name: "User1",
-          username: "user1",
-          password: "user1",
-        },
+          name: 'User1',
+          username: 'user1',
+          password: 'user1'
+        }
       ],
       // 表单
       formLogin: {
-        username: "",
-        password: "",
-        captcha: "",
+        username: '',
+        password: '',
+        captcha: ''
       },
       // 表单校验
       rules: {
         username: [
           {
             required: true,
-            message: "请输入用户名",
-            trigger: "blur",
-          },
+            message: '请输入用户名',
+            trigger: 'blur'
+          }
         ],
         password: [
           {
             required: true,
-            message: "请输入密码",
-            trigger: "blur",
-          },
+            message: '请输入密码',
+            trigger: 'blur'
+          }
         ],
         captcha: [
           {
             required: true,
-            message: "请输入验证码",
-            trigger: "blur",
-          },
-        ],
+            message: '请输入验证码',
+            trigger: 'blur'
+          }
+        ]
       },
-      captcha_key: null,
-      img_base: null,
-    };
+      captchaKey: null,
+      img_base: null
+    }
   },
-  mounted() {
+  mounted () {
     this.timeInterval = setInterval(() => {
-      this.refreshTime();
-    }, 1000);
+      this.refreshTime()
+    }, 1000)
   },
-  beforeDestroy() {
-    clearInterval(this.timeInterval);
+  beforeDestroy () {
+    clearInterval(this.timeInterval)
   },
   methods: {
-    ...mapActions("d2admin/account", ["login"]),
-    refreshTime() {
-      this.time = dayjs().format("HH:mm:ss");
+    ...mapActions('d2admin/account', ['login']),
+    refreshTime () {
+      this.time = dayjs().format('HH:mm:ss')
     },
     /**
      * @description 接收选择一个用户快速登录的事件
      * @param {Object} user 用户信息
      */
-    handleUserBtnClick(user) {
-      this.formLogin.username = user.username;
-      this.formLogin.password = user.password;
-      this.submit();
+    handleUserBtnClick (user) {
+      this.formLogin.username = user.username
+      this.formLogin.password = user.password
+      this.submit()
     },
     /**
      * @description 提交表单
      */
     // 提交登录信息
-    submit() {
-      const that = this;
+    submit () {
+      const that = this
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           // 登录
@@ -237,37 +237,37 @@ export default {
             username: that.formLogin.username,
             password: that.$md5(that.formLogin.password),
             captcha: that.formLogin.captcha,
-            captcha_key: that.captcha_key,
+            captchaKey: that.captchaKey
           })
             .then(() => {
               // 重定向对象不存在则返回顶层路径
-              this.$router.replace(this.$route.query.redirect || "/");
+              this.$router.replace(this.$route.query.redirect || '/')
             })
-            .catch((error) => {
-              this.getCaptcha();
-            });
+            .catch(() => {
+              this.getCaptcha()
+            })
         } else {
           // 登录表单校验失败
-          this.$message.error("表单校验失败，请检查");
+          this.$message.error('表单校验失败，请检查')
         }
-      });
+      })
     },
     /**
      * 获取验证码
      */
-    getCaptcha() {
+    getCaptcha () {
       api.getCaptcha().then((ret) => {
-        this.formLogin.captcha = null;
-        this.captcha_key = ret.data.data.key;
-        this.image_base = ret.data.data.image_base;
-      });
-    },
+        this.formLogin.captcha = null
+        this.captchaKey = ret.data.data.key
+        this.image_base = ret.data.data.image_base
+      })
+    }
   },
-  created() {
-    this.$store.dispatch("d2admin/db/databaseClear");
-    this.getCaptcha();
-  },
-};
+  created () {
+    this.$store.dispatch('d2admin/db/databaseClear')
+    this.getCaptcha()
+  }
+}
 </script>
 
 <style lang="scss">

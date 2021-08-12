@@ -9,7 +9,7 @@
 import XEUtils from 'xe-utils'
 import router from '@/router'
 export default {
-  hasPermissions(value) {
+  hasPermissions (value) {
     if (process.env.VUE_APP_PM_ENABLED) {
       const path = router.history.current.path// 当前路由
       let need = []

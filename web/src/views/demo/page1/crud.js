@@ -39,7 +39,7 @@ export const crudOptions = (vm) => {
               component._elProps.page = ret.data.page
               component._elProps.limit = ret.data.limit
               component._elProps.total = ret.data.total
-              console.log(11, ret.data);
+              console.log(11, ret.data)
               return ret.data.data
             })
           }
@@ -52,21 +52,21 @@ export const crudOptions = (vm) => {
               pagination: true,
               columns: [
                 {
-                  field: "name",
-                  title: "名称",
+                  field: 'name',
+                  title: '名称'
                 },
                 {
-                  field: "username",
-                  title: "账号",
+                  field: 'username',
+                  title: '账号'
                 },
                 {
-                  field: "role",
-                  title: "角色Id",
+                  field: 'role',
+                  title: '角色Id'
                 },
                 {
-                  field: "dept",
-                  title: "部门Id",
-                },
+                  field: 'dept',
+                  title: '部门Id'
+                }
 
               ]
             }
