@@ -2,9 +2,9 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-02 22:44:09
+ * @最后修改时间: 2021-08-09 22:25:15
  * 联系Qq:1638245306
- * @文件介绍:角色管理
+ * @文件介绍:授权管理
 -->
 <template>
   <d2-container :class="{ 'page-compact': false }">
@@ -77,9 +77,8 @@
                     </el-select>
                   </el-col>
                   <el-col :span="18">
-                    <div v-show="roleObj.data_range === 4">
+                    <div v-show="roleObj.data_range === 4" class="dept-tree">
                       <el-tree
-                        class="tree-border"
                         :data="deptOptions"
                         show-checkbox
                         default-expand-all
@@ -261,7 +260,7 @@ export default {
           })
         })
         // 将菜单列表转换为树形列表
-        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent' })
+        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent', strict: true })
       })
     },
     // 角色树被点击
@@ -331,10 +330,14 @@ export default {
     color: #49a1ff;
   }
 }
-// .splitter-pane.horizontal.splitter-paneL{
-//   overflow: scroll;
-// }
-// .splitter-pane.horizontal.splitter-paneR{
-//   overflow: scroll;
-// }
+
+.dept-tree::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+.dept-tree {
+  height: 160px;
+  overflow-y: scroll;
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
 </style>

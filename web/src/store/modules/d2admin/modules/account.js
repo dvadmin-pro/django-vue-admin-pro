@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-26 23:47:51
+ * @最后修改时间: 2021-08-13 00:06:07
  * 联系Qq:1638245306
  * @文件介绍: 登录和登出
  */
@@ -24,9 +24,16 @@ export default {
          */
     async login ({ dispatch }, {
       username = '',
-      password = ''
+      password = '',
+      captcha = '',
+      captchaKey = ''
     } = {}) {
-      let res = await SYS_USER_LOGIN({ username, password })
+      let res = await SYS_USER_LOGIN({
+        username,
+        password,
+        captcha,
+        captchaKey
+      })
       // 设置 cookie 一定要存 uuid 和 token 两个 cookie
       // 整个系统依赖这两个数据进行校验和存储
       // uuid 是用户身份唯一标识 用户注册的时候确定 并且不可改变 不可重复

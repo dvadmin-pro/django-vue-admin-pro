@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-07-26 23:08:16
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-27 00:18:06
+ * @最后修改时间: 2021-08-12 11:32:30
  * 联系Qq:1638245306
  * @文件介绍: 用户信息
 -->
@@ -103,10 +103,13 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
+      const pwdRegex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z]).{8,30}')
       if (value === '') {
         callback(new Error('请输入密码'))
       } else if (value === this.userPasswordInfo.oldPassword) {
         callback(new Error('原密码与新密码一致'))
+      } else if (!pwdRegex.test(value)) {
+        callback(new Error('您的密码复杂度太低(密码中必须包含字母、数字)'))
       } else {
         if (this.userPasswordInfo.newPassword2 !== '') {
           this.$refs.userPasswordForm.validateField('newPassword2')
@@ -168,7 +171,7 @@ export default {
     getCurrentUserInfo () {
       const _self = this
       return request({
-        url: '/api/system/user_info/',
+        url: '/api/system/user/user_info/',
         method: 'get',
         params: {}
       }).then((res) => {
@@ -180,10 +183,11 @@ export default {
      */
     updateInfo () {
       const _self = this
+
       _self.$refs.userInfoForm.validate((valid) => {
         if (valid) {
           request({
-            url: '/api/system/user_info/',
+            url: '/api/system/user/user_info/',
             method: 'put',
             data: _self.userInfo
           }).then((res) => {
@@ -226,9 +230,11 @@ export default {
           const userId = util.cookies.get('uuid')
           if (userId) {
             const params = JSON.parse(JSON.stringify(_self.userPasswordInfo))
-
+            params.oldPassword = _self.$md5(params.oldPassword)
+            params.newPassword = _self.$md5(params.newPassword)
+            params.newPassword2 = _self.$md5(params.newPassword2)
             request({
-              url: '/api/system/change_password/' + userId + '/',
+              url: '/api/system/user/change_password/' + userId + '/',
               method: 'put',
               data: params
             }).then((res) => {

@@ -1,5 +1,5 @@
 import { request } from '@/api/service'
-import XEUtils from 'xe-utils'
+
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -102,7 +102,10 @@ export const crudOptions = (vm) => {
         form: {
           component: {
             span: 12
-          }
+          },
+          rules: [
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+          ]
         }
       },
       {
@@ -150,8 +153,7 @@ export const crudOptions = (vm) => {
           label: 'name', // 数据字典中label字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent' })
-              return data
+              return ret.data.data
             })
           }
         },

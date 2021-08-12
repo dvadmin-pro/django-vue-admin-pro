@@ -2,48 +2,54 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-06-05 01:03:36
+ * @最后修改时间: 2021-08-09 20:21:47
  * 联系Qq:1638245306
- * @文件介绍: 角色管理接口
+ * @文件介绍: 字典管理接口
  */
 import { request } from '@/api/service'
-
-export const urlPrefix = '/api/system/role/'
-
+import XEUtils from 'xe-utils'
+/**
+ * 列表查询
+ */
 export function GetList (query) {
+  query.limit = 999
   return request({
-    url: urlPrefix,
+    url: '/api/system/dictionary/',
     method: 'get',
     params: query
+  }).then(res => {
+    // 将列表数据转换为树形数据
+    res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent' })
+    return res
   })
 }
-
-export function GetObj (obj) {
-  return request({
-    url: urlPrefix + obj.id + '/',
-    method: 'get'
-  })
-}
-
+/**
+ * 新增
+ */
 export function createObj (obj) {
   return request({
-    url: urlPrefix,
+    url: '/api/system/dictionary/',
     method: 'post',
     data: obj
   })
 }
 
+/**
+ * 修改
+ */
 export function UpdateObj (obj) {
   return request({
-    url: urlPrefix + obj.id + '/',
+    url: '/api/system/dictionary/' + obj.id + '/',
     method: 'put',
     data: obj
   })
 }
-
+/**
+ * 删除
+ */
 export function DelObj (id) {
   return request({
-    url: urlPrefix + id + '/',
+    url: '/api/system/dictionary/' + id + '/',
     method: 'delete',
     data: { id }
   })

@@ -2,19 +2,14 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-12 00:06:38
+ * @最后修改时间: 2021-08-09 20:27:09
  * 联系Qq:1638245306
- * @文件介绍:
+ * @文件介绍: 字典管理
 -->
 <template>
   <d2-container :class="{ 'page-compact': crud.pageOptions.compact }">
     <!--    <template slot="header">测试页面1</template>-->
-    <d2-crud-x
-      ref="d2Crud"
-      v-bind="_crudProps"
-      v-on="_crudListeners"
-      @createPermission="createPermission"
-    >
+    <d2-crud-x ref="d2Crud" v-bind="_crudProps" v-on="_crudListeners">
       <div slot="header">
         <crud-search
           ref="search"
@@ -22,11 +17,7 @@
           @submit="handleSearch"
         />
         <el-button-group>
-          <el-button
-            size="small"
-            v-permission="'Create'"
-            type="primary"
-            @click="addRow"
+          <el-button size="small" type="primary" @click="addRow"
             ><i class="el-icon-plus" /> 新增</el-button
           >
         </el-button-group>
@@ -47,7 +38,7 @@ import * as api from './api'
 import { crudOptions } from './crud'
 import { d2CrudPlus } from 'd2-crud-plus'
 export default {
-  name: 'menu',
+  name: 'dictionary',
   mixins: [d2CrudPlus.crud],
   data () {
     return {}
@@ -60,10 +51,11 @@ export default {
       return api.GetList(query)
     },
     addRequest (row) {
-      console.log('api', api)
+      d2CrudPlus.util.dict.clear()
       return api.createObj(row)
     },
     updateRequest (row) {
+      d2CrudPlus.util.dict.clear()
       return api.UpdateObj(row)
     },
     delRequest (row) {
@@ -76,18 +68,6 @@ export default {
         params: { id: scope.row.id },
         query: { name: scope.row.name }
       })
-    },
-    // 返回views目录下所有vue文件路径
-    searchFiles () {
-      const files = require.context('@/views', true, /\.vue$/)
-      const result = []
-      files.keys().forEach((key) => {
-        result.push({
-          label: key.replace(/(\.\/|\.vue)/g, ''),
-          value: key.replace(/(\.\/|\.vue)/g, '')
-        })
-      })
-      return result
     }
   }
 }

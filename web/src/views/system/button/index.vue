@@ -22,7 +22,11 @@
           @submit="handleSearch"
         />
         <el-button-group>
-          <el-button size="small" type="primary" @click="addRow"
+          <el-button
+            size="small"
+            type="primary"
+            v-permission="'Create'"
+            @click="addRow"
             ><i class="el-icon-plus" /> 新增</el-button
           >
         </el-button-group>

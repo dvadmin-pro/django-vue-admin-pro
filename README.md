@@ -109,7 +109,7 @@ npm run build:prod
 	python3 manage.py runserver 127.0.0.1:8000
 或使用 daphne :
   daphne -b 0.0.0.0 application.asgi:application
-初始账号：superadmin 密码：123456
+初始账号：superadmin 密码：admin123456
 后端接口文档地址：http://127.0.0.1:8000/swagger
 ~~~
 
