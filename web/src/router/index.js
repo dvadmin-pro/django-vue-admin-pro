@@ -63,7 +63,8 @@ router.beforeEach(async (to, from, next) => {
         store.commit('d2admin/page/init', routes)
         router.addRoutes(routes)
         const menu = handleAsideMenu(ret)
-        store.commit('d2admin/menu/asideSet', menu) // 设置侧边栏菜单
+        const aside = handleAsideMenu(ret.filter(value => value.visible === 1))
+        store.commit('d2admin/menu/asideSet', aside) // 设置侧边栏菜单
         store.commit('d2admin/search/init', menu) // 设置搜索
         next({ path: to.fullPath, replace: true, params: to.params })
       })

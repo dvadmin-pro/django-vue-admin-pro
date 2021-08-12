@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-07-29 23:31:01
+ * @最后修改时间: 2021-08-01 02:35:22
  * 联系Qq:1638245306
  * @文件介绍:角色管理
 -->
@@ -292,18 +292,19 @@ export default {
       this.roleObj.menu = this.getMenuAllCheckedKeys() // 获取选中的菜单
       this.roleObj.dept = this.getDeptAllCheckedKeys() // 获取选中的部门
       const menuData = XEUtils.toTreeArray(this.menuTreeData)
-      let permissionData = []
+      const permissionData = []
       menuData.forEach((x) => {
         const checkedPermission = x.menuPermission.filter((f) => {
           return f.checked
         })
+
         if (checkedPermission.length > 0) {
-          const permission = checkedPermission.map((m) => {
-            return m.id
-          })
-          permissionData = permission
+          for (const item of checkedPermission) {
+            permissionData.push(item.id)
+          }
         }
       })
+
       this.roleObj.permission = permissionData
       return this.updateRequest(this.roleObj).then((res) => {
         this.$message.success('更新成功')
