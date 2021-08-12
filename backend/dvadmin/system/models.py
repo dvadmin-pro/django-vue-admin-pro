@@ -1,3 +1,5 @@
+import hashlib
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -7,6 +9,7 @@ STATUS_CHOICES = (
     (0, "禁用"),
     (1, "启用"),
 )
+
 
 class Users(AbstractUser, CoreModel):
     username = models.CharField(max_length=150, unique=True, db_index=True, verbose_name='用户账号', help_text="用户账号")
@@ -23,6 +26,9 @@ class Users(AbstractUser, CoreModel):
     role = models.ManyToManyField(to='Role', verbose_name='关联角色', db_constraint=False, help_text="关联角色")
     dept = models.ForeignKey(to='Dept', verbose_name='所属部门', on_delete=models.CASCADE, db_constraint=False, null=True,
                              blank=True, help_text="关联部门")
+
+    def set_password(self, raw_password):
+        super().set_password(hashlib.md5(raw_password.encode(encoding='UTF-8')).hexdigest())
 
     class Meta:
         db_table = table_prefix + "system_users"
@@ -123,14 +129,14 @@ class Menu(CoreModel):
     component = models.CharField(max_length=128, verbose_name="组件地址", null=True, blank=True, help_text="组件地址")
     component_name = models.CharField(max_length=50, verbose_name="组件名称", null=True, blank=True, help_text="组件名称")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="菜单状态", help_text="菜单状态")
-    CACHE_CHOICES=(
-        (0,'禁用'),
-        (1,"启用")
+    CACHE_CHOICES = (
+        (0, '禁用'),
+        (1, "启用")
     )
     cache = models.IntegerField(choices=CACHE_CHOICES, default=0, verbose_name="是否页面缓存", help_text="是否页面缓存")
-    VISIBLE_CHOICES=(
-        (0,'不可见'),
-        (1,"可见")
+    VISIBLE_CHOICES = (
+        (0, '不可见'),
+        (1, "可见")
     )
     visible = models.IntegerField(choices=VISIBLE_CHOICES, default=1, verbose_name="侧边栏中是否显示", help_text="侧边栏中是否显示")
 
@@ -166,8 +172,9 @@ class Dictionary(CoreModel):
     code = models.CharField(max_length=100, blank=True, null=True, verbose_name="编码", help_text="编码")
     label = models.CharField(max_length=100, blank=True, null=True, verbose_name="显示名称", help_text="显示名称")
     value = models.CharField(max_length=100, blank=True, null=True, verbose_name="实际值", help_text="实际值")
-    parent = models.ForeignKey(to='self',related_name='sublist', db_constraint=False, on_delete=models.PROTECT, blank=True, null=True,
-                             verbose_name="父级", help_text="父级")
+    parent = models.ForeignKey(to='self', related_name='sublist', db_constraint=False, on_delete=models.PROTECT,
+                               blank=True, null=True,
+                               verbose_name="父级", help_text="父级")
     STATUS_CHOICES = (
         (0, "禁用"),
         (1, "启用"),
@@ -203,14 +210,12 @@ class OperationLog(CoreModel):
         ordering = ('-create_datetime',)
 
 
-
 class ImgList(CoreModel):
-    name = models.CharField(max_length=50,null=True,blank=True,verbose_name="名称",help_text="名称")
+    name = models.CharField(max_length=50, null=True, blank=True, verbose_name="名称", help_text="名称")
     url = models.ImageField(upload_to='media')
+
     class Meta:
         db_table = table_prefix + 'img_list'
         verbose_name = '图片管理'
         verbose_name_plural = verbose_name
         ordering = ('-create_datetime',)
-
-

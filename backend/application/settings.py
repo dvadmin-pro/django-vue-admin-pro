@@ -289,7 +289,8 @@ SWAGGER_SETTINGS = {
     # 方法列表字母排序
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'conf.swagger.CustomSwaggerAutoSchema',
+    'AUTO_SCHEMA_TYPE': 1, # 分组根据url层级分，0、1 或 2 层
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'dvadmin.utils.swagger.CustomSwaggerAutoSchema',
 }
 
 # ================================================= #
@@ -314,6 +315,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge' # 加减乘除验证�
 # ================================================= #
 # ******************** 其他配置 ******************** #
 # ================================================= #
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 API_LOG_ENABLE = True
 # API_LOG_METHODS = 'ALL' # ['POST', 'DELETE']
 API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
