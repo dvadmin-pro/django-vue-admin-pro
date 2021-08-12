@@ -56,14 +56,18 @@
                     <i slot="prepend" class="fa fa-keyboard-o"></i>
                   </el-input>
                 </el-form-item>
-                <el-form-item prop="code">
+                <el-form-item prop="captcha">
                   <el-input
                     type="text"
-                    v-model="formLogin.code"
+                    v-model="formLogin.captcha"
                     placeholder="验证码"
                   >
                     <template slot="append">
-                      <img class="login-code" src="./image/login-code.png" />
+                      <img
+                        class="login-code"
+                        :src="image_base"
+                        @click="getCaptcha"
+                      />
                     </template>
                   </el-input>
                 </el-form-item>
@@ -136,6 +140,7 @@
 import dayjs from "dayjs";
 import { mapActions } from "vuex";
 import localeMixin from "@/locales/mixin.js";
+import * as api from "./api";
 export default {
   mixins: [localeMixin],
   data() {
@@ -165,7 +170,7 @@ export default {
       formLogin: {
         username: "",
         password: "",
-        code: "v9am",
+        captcha: "",
       },
       // 表单校验
       rules: {
@@ -183,7 +188,7 @@ export default {
             trigger: "blur",
           },
         ],
-        code: [
+        captcha: [
           {
             required: true,
             message: "请输入验证码",
@@ -191,6 +196,8 @@ export default {
           },
         ],
       },
+      captcha_key: null,
+      img_base: null,
     };
   },
   mounted() {
@@ -229,19 +236,36 @@ export default {
           this.login({
             username: that.formLogin.username,
             password: that.$md5(that.formLogin.password),
-          }).then(() => {
-            // 重定向对象不存在则返回顶层路径
-            this.$router.replace(this.$route.query.redirect || "/");
-          });
+            captcha: that.formLogin.captcha,
+            captcha_key: that.captcha_key,
+          })
+            .then(() => {
+              // 重定向对象不存在则返回顶层路径
+              this.$router.replace(this.$route.query.redirect || "/");
+            })
+            .catch((error) => {
+              this.getCaptcha();
+            });
         } else {
           // 登录表单校验失败
           this.$message.error("表单校验失败，请检查");
         }
       });
     },
+    /**
+     * 获取验证码
+     */
+    getCaptcha() {
+      api.getCaptcha().then((ret) => {
+        this.formLogin.captcha = null;
+        this.captcha_key = ret.data.data.key;
+        this.image_base = ret.data.data.image_base;
+      });
+    },
   },
   created() {
     this.$store.dispatch("d2admin/db/databaseClear");
+    this.getCaptcha();
   },
 };
 </script>
