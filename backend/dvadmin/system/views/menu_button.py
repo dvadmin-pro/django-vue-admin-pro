@@ -24,7 +24,12 @@ class MenuButtonSerializer(CustomModelSerializer):
 
 class MenuButtonViewSet(CustomModelViewSet):
     """
-    菜单按钮接口:
+    菜单按钮接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     queryset = MenuButton.objects.all()
     serializer_class = MenuButtonSerializer

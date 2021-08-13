@@ -289,7 +289,7 @@ SWAGGER_SETTINGS = {
     # 方法列表字母排序
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
-    'AUTO_SCHEMA_TYPE': 1, # 分组根据url层级分，0、1 或 2 层
+    'AUTO_SCHEMA_TYPE': 2, # 分组根据url层级分，0、1 或 2 层
     'DEFAULT_AUTO_SCHEMA_CLASS': 'dvadmin.utils.swagger.CustomSwaggerAutoSchema',
 }
 

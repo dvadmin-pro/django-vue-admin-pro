@@ -22,6 +22,14 @@ class ImgSerializer(CustomModelSerializer):
 
 
 class ImgViewSet(CustomModelViewSet):
+    """
+    图片管理接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
+    """
     queryset = ImgList.objects.all()
     serializer_class = ImgSerializer
     filter_fields = ['name',]
