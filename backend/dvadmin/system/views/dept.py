@@ -57,7 +57,12 @@ class DeptTreeSerializer(CustomModelSerializer):
 
 class DeptViewSet(CustomModelViewSet):
     """
-    部门管理接口:
+    部门管理接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     queryset = Dept.objects.all()
     serializer_class = DeptSerializer

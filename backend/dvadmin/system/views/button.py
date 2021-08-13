@@ -24,7 +24,7 @@ class ButtonSerializer(CustomModelSerializer):
 
 class ButtonViewSet(CustomModelViewSet):
     """
-    tag:按钮权限接口
+    按钮权限接口
     list:查询
     create:新增
     update:修改
