@@ -104,6 +104,9 @@ if object.{key}:
              "component": "system/rolePermission", "component_name": "rolePermission"},
             {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 2, "web_path": "", "icon": "clock-o",
              "parent_id": None},
+            {"id": "97b8fd88-0510-4db7-8d53-983a04843c4c", "name": "字典管理", "sort": 1, "web_path": "/dictionary", 
+             "icon": "clock-o", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/dictionary",
+             "component_name": "dictionary"},
         ]
         self.save(Menu, self.menu_data, "菜单表")
 
@@ -184,6 +187,16 @@ if object.{key}:
              "name": "单例", "value": "Retrieve", "api": "/api/system/menu_button/{id}/", "method": 0},
             {"id": "4fe4b7f5-0bc8-4375-9f39-747e06ec285a", "menu_id": "e0f53902-e901-490c-83f3-331e60b97fcf",
              "name": "删除", "value": "Delete", "api": "/api/system/menu_button/{id}/", "method": 3},
+            {"id": "bc6104a0-f487-4dfd-a368-fb587d6d57d8", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
+             "name": "编辑", "value": "Update", "api": "/api/system/dictionary/{id}/", "method": 2},
+            {"id": "5aac29b0-5a32-45fb-81c5-437b48f4a5df", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
+             "name": "查询", "value": "Search", "api": "/api/system/dictionary/", "method": 0},
+            {"id": "fc71b446-fde1-439f-ab41-c38f30230caa", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
+             "name": "新增", "value": "Create", "api": "/api/system/dictionary/", "method": 1},
+            {"id": "fe96f32c-6124-4b24-b809-4964186f5163", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
+             "name": "单例", "value": "Retrieve", "api": "/api/system/dictionary/{id}/", "method": 0},
+            {"id": "4fe4b7f5-0bc8-4375-9f39-747e06ec285a", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
+             "name": "删除", "value": "Delete", "api": "/api/system/dictionary/{id}/", "method": 3},
         ]
         self.save(MenuButton, self.menu_button_data, "菜单权限表")
 
