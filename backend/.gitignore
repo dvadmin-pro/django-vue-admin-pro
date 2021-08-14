@@ -94,3 +94,4 @@ __pycache__
 conf/
 !conf/env.example.py
 db.sqlite3
+media/
