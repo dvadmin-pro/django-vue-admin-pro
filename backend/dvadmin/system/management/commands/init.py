@@ -20,19 +20,19 @@ class Command(BaseCommand):
         parser.add_argument('-N', nargs='*')
 
     def handle(self, *args, **options):
-        is_delete = False
+        reset = False
         if isinstance(options.get('y'), list) or isinstance(options.get('Y'), list):
-            is_delete = True
+            reset = True
         if isinstance(options.get('n'), list) or isinstance(options.get('N'), list):
-            is_delete = False
-        print(f"正在准备初始化数据，{'如有初始化数据，将会不做操作跳过' if not is_delete else '初始数据将会先删除后新增'}...")
+            reset = False
+        print(f"正在准备初始化数据，{'如有初始化数据，将会不做操作跳过' if not reset else '初始数据将会先删除后新增'}...")
 
         for app in settings.INSTALLED_APPS:
 
             try:
                 exec(f"""
 from {app}.initialize import main
-main(is_delete={is_delete})
+main(reset={reset})
                 """)
             except ModuleNotFoundError:
                 pass

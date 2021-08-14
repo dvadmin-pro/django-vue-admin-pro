@@ -3,46 +3,16 @@ import os
 
 import django
 
-# 在environ字典里设置默认Django环境，'xxxx.settings'指Django项目的配置文件
+from dvadmin.utils.core_initialize import CoreInitialize
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings')
 django.setup()
 
 from dvadmin.system.models import Dept, Button, Menu, MenuButton, Role, Users
 
 
-class Initialize:
-    def __init__(self, delete=False):
-        """
-        delete 是否删除已初始化数据
-        """
-        self.delete = delete
-        self.creator_id = "456b688c-8ad5-46de-bc2e-d41d8047bd42"
-
-    def save(self, obj, data: list, name):
-        print(f"正在初始化【{name}】")
-        if self.delete:
-            try:
-                obj.objects.filter(id__in=[ele.get('id') for ele in data]).delete()
-            except Exception:
-                pass
-        for ele in data:
-            m2m_dict = {}
-            new_data = {}
-            for key, value in ele.items():
-                # 判断传的 value 为 list 的多对多进行抽离，使用set 进行更新
-                if isinstance(value, list):
-                    m2m_dict[key] = value
-                else:
-                    new_data[key] = value
-            object, _ = obj.objects.get_or_create(id=ele.get("id"), defaults=new_data)
-            for key, m2m in m2m_dict.items():
-                m2m = list(set(m2m))
-                if m2m and len(m2m) > 0 and m2m[0]:
-                    exec(f"""
-if object.{key}:
-    object.{key}.set({m2m})
-""")
-        print(f"初始化完成【{name}】")
+class Initialize(CoreInitialize):
+    creator_id = "456b688c-8ad5-46de-bc2e-d41d8047bd42"
 
     def init_dept(self):
         """
@@ -104,7 +74,7 @@ if object.{key}:
              "component": "system/rolePermission", "component_name": "rolePermission"},
             {"id": "c236fb6b-ddaa-4deb-b79b-16e42d9f347f", "name": "日志管理", "sort": 2, "web_path": "", "icon": "clock-o",
              "parent_id": None},
-            {"id": "97b8fd88-0510-4db7-8d53-983a04843c4c", "name": "字典管理", "sort": 1, "web_path": "/dictionary", 
+            {"id": "97b8fd88-0510-4db7-8d53-983a04843c4c", "name": "字典管理", "sort": 1, "web_path": "/dictionary",
              "icon": "clock-o", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/dictionary",
              "component_name": "dictionary"},
         ]
@@ -266,8 +236,9 @@ if object.{key}:
         self.init_users()
 
 
-def main(is_delete=False):
-    Initialize(is_delete).run()
+# 项目init 初始化，默认会执行 main 方法进行初始化
+def main(reset=False):
+    Initialize(reset).run()
     pass
 
 
