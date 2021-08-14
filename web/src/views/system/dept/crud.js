@@ -86,7 +86,7 @@ export const crudOptions = (vm) => {
       }
     },
     {
-      title: '父级菜单',
+      title: '父级部门',
       key: 'parent',
       show: false,
       search: {
@@ -105,7 +105,6 @@ export const crudOptions = (vm) => {
             return [{ id: null, name: '根节点', children: ret.data.data }]
           })
         }
-
       },
       form: {
         component: {

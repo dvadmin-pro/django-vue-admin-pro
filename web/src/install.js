@@ -2,20 +2,29 @@ import Vue from 'vue'
 // import d2Crud from '@d2-project/d2-crud'
 import d2CrudX from 'd2-crud-x'
 import { d2CrudPlus } from 'd2-crud-plus'
-import { D2pAreaSelector, D2pFileUploader, D2pIconSelector, D2pTreeSelector, D2pFullEditor, D2pUploader, D2pDemoExtend } from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
+import {
+  D2pAreaSelector,
+  D2pDemoExtend,
+  D2pFileUploader,
+  D2pFullEditor,
+  D2pIconSelector,
+  D2pTreeSelector,
+  D2pUploader
+} from 'd2p-extends' // 源码方式引入，上传组件支持懒加载
 // http请求
 import { request } from '@/api/service'
 import ECharts from 'vue-echarts'
 import util from '@/libs/util'
 import XEUtils from 'xe-utils'
+import { urlPrefix as deptPrefix } from '@/views/system/dept/api'
 
 /**
  // vxe0
-import 'xe-utils'
-import VXETable from 'vxe-table'
-import 'vxe-table/lib/index.css'
-Vue.use(VXETable)
-**/
+ import 'xe-utils'
+ import VXETable from 'vxe-table'
+ import 'vxe-table/lib/index.css'
+ Vue.use(VXETable)
+ **/
 
 // 按如下重命名引入可与官方版共存，index.vue中标签用<d2-crud-x />使用加强版
 // 不传name，则d2CrudX的标签仍为<d2-crud>,不可与官方版共存
@@ -160,3 +169,110 @@ const selectType = d2CrudPlus.util.columnResolve.getType('select')
 selectType.component.props.color = 'auto' // 修改官方的字段类型，设置为支持自动染色
 
 Vue.component('v-chart', ECharts)
+// 默认Columns 结尾
+Vue.prototype.commonEndColumns = function (value) {
+  return [
+    {
+      title: '备注',
+      key: 'description',
+      show: value.show_description || false,
+      search: {
+        disabled: true
+      },
+      type: 'textarea',
+      form: {
+        component: {
+          span: 12,
+          placeholder: '请输入内容',
+          showWordLimit: true,
+          maxlength: '200',
+          props: {
+            type: 'textarea'
+          }
+        }
+      }
+    }, {
+      title: '创建人',
+      show: value.show_modifier_name || false,
+      width: 100,
+      key: 'modifier_name',
+      form: {
+        disabled: true
+      }
+    }, {
+      title: '数据归属部门',
+      key: 'dept_belong_id',
+      show: value.show_dept_belong_id || false,
+      search: {
+        disabled: true
+      },
+      type: 'cascader',
+      dict: {
+        cache: true,
+        url: '/api/system/dept/?limit=999&status=1',
+        isTree: true,
+        value: 'id', // 数据字典中value字段的属性名
+        label: 'name', // 数据字典中label字段的属性名
+        children: 'children', // 数据字典中children字段的属性名
+        getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+          return request({ url: url }).then(ret => {
+            return [{ id: null, name: '根节点', children: ret.data.data }]
+          })
+        }
+      },
+      form: {
+        component: {
+          span: 12,
+          props: {
+            elProps: {
+              clearable: true,
+              props: {
+                showAllLevels: false, // 仅显示最后一级
+                checkStrictly: true, // 可以不需要选到最后一级
+                emitPath: false,
+                clearable: true
+              }
+            }
+          }
+        }
+      },
+      component: {
+        dict: {
+          cache: true,
+          url: deptPrefix + '?limit=999&status=1',
+          isTree: true,
+          value: 'id', // 数据字典中value字段的属性名
+          label: 'name', // 数据字典中label字段的属性名
+          children: 'children', // 数据字典中children字段的属性名
+          getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+            return request({ url: url }).then(ret => {
+              return [{ id: null, name: '根节点', children: ret.data.data }]
+            })
+          }
+        }
+      }
+    },
+    {
+      title: '更新时间',
+      key: 'update_datetime',
+      width: 160,
+      show: value.show_datetime || true,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
+      }
+    },
+    {
+      title: '创建时间',
+      key: 'create_datetime',
+      width: 160,
+      show: value.show_create_datetime || true,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
+      }
+    }
+  ]
+}

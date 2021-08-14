@@ -68,10 +68,4 @@ class DictionaryViewSet(CustomModelViewSet):
     serializer_class = DictionarySerializer
     extra_filter_backends = []
     permission_classes = []
-    filter_fields = ['status']
     search_fields = ['label']
-
-    def dictionary_tree(self, request):
-        queryset = Dictionary.objects.exclude(status=0).filter(parent=None)
-        serializer = DictionaryTreeSerializer(queryset, many=True)
-        return SuccessResponse(data=serializer.data, msg="获取成功")

@@ -15,14 +15,13 @@ export const urlPrefix = '/api/system/dept/'
  */
 export function GetList (query) {
   query.limit = 999
-  query.status = 1
   return request({
     url: urlPrefix,
     method: 'get',
     params: query
   }).then(res => {
     // 将列表数据转换为树形数据
-    res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent', strict: true })
+    res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent', strict: false })
     return res
   })
 }

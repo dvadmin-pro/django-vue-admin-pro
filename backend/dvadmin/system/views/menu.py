@@ -9,7 +9,6 @@
 from rest_framework import serializers
 
 from dvadmin.system.models import Menu, MenuButton, Button
-from dvadmin.system.views.menu_button import MenuButtonSerializer
 from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.viewset import CustomModelViewSet
@@ -39,35 +38,6 @@ class MenuCreateSerializer(CustomModelSerializer):
     菜单表的创建序列化器
     """
     name = serializers.CharField(required=False)
-
-    class Meta:
-        model = Menu
-        fields = "__all__"
-        read_only_fields = ["id"]
-
-
-class MenuTreeSerializer(CustomModelSerializer):
-    """
-    菜单表的树形序列化器
-    """
-    children = serializers.SerializerMethodField(read_only=True)
-    menuPermission_name = serializers.SerializerMethodField(read_only=True)
-    menuPermission = MenuButtonSerializer(read_only=True,many=True)
-
-    def get_children(self, instance):
-        queryset = Menu.objects.filter(parent=instance.id).filter(status=1)
-        if queryset:
-            serializer = MenuTreeSerializer(queryset, many=True)
-            return serializer.data
-        else:
-            return None
-
-    def get_menuPermission_name(self, instance):
-        queryset = MenuButton.objects.filter(menu=instance.id).values_list('name', flat=True)
-        if queryset:
-            return queryset
-        else:
-            return None
 
     class Meta:
         model = Menu
@@ -118,18 +88,12 @@ class MenuViewSet(CustomModelViewSet):
     search_fields = ['name', 'status']
     permission_classes = []
 
-    def menu_tree(self, request):
-        """用于菜单添加修改中获取父级菜单"""
-        queryset = Menu.objects.filter(parent=None)
-        serializer = MenuTreeSerializer(queryset, many=True)
-        return SuccessResponse(data=serializer.data, msg="获取成功")
-
     def web_router(self, request):
         """用于前端获取当前角色的路由"""
         user = request.user
-        queryset = self.queryset.filter(status=1,visible=1)
+        queryset = self.queryset.filter(status=1, visible=1)
         if not user.is_superuser:
             menuIds = user.role.values_list('menu__id', flat=True)
-            queryset = Menu.objects.filter(id__in=menuIds,status=1,visible=1)
+            queryset = Menu.objects.filter(id__in=menuIds, status=1, visible=1)
         serializer = WebRouterSerializer(queryset, many=True, request=request)
         return SuccessResponse(data=serializer.data, msg="获取成功")

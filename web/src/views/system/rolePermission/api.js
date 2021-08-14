@@ -55,14 +55,3 @@ export function GetMenuData (obj) {
     return res.data.data
   })
 }
-
-// 获取部门数据,用于角色授权
-export function getDeptData () {
-  return request({
-    url: '/api/system/dept/dept_tree/',
-    method: 'get',
-    params: {}
-  }).then(res => {
-    return res.data.data
-  })
-}

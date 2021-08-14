@@ -359,7 +359,7 @@ export const crudOptions = (vm) => {
         search: {
           disabled: false
         },
-        width: 80,
+        width: 70,
         type: 'radio',
         dict: {
           data: BUTTON_STATUS_NUMBER
