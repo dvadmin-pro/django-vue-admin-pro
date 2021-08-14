@@ -19,7 +19,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from dvadmin.system.models import Users
-from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.validator import CustomValidationError
 
 

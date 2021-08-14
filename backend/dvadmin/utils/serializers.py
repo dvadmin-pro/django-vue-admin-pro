@@ -24,7 +24,7 @@ class CustomModelSerializer(ModelSerializer):
     modifier_name = serializers.SerializerMethodField(read_only=True)
 
     def get_modifier_name(self, instance):
-        if not hasattr(instance,'modifier'):
+        if not hasattr(instance, 'modifier'):
             return None
         queryset = Users.objects.filter(id=instance.modifier).values_list('name', flat=True).first()
         if queryset:
@@ -50,7 +50,7 @@ class CustomModelSerializer(ModelSerializer):
     def create(self, validated_data):
         if self.request:
             if self.modifier_field_id in self.fields.fields:
-                validated_data[self.modifier_field_id] = self.get_request_userId()
+                validated_data[self.modifier_field_id] = self.get_request_user_id()
             if self.creator_field_id in self.fields.fields:
                 validated_data[self.creator_field_id] = self.request.user
             if self.dept_belong_id_field_name in self.fields.fields:
@@ -73,7 +73,7 @@ class CustomModelSerializer(ModelSerializer):
             return getattr(self.request.user, 'name', None)
         return None
 
-    def get_request_userId(self):
+    def get_request_user_id(self):
         if getattr(self.request, 'user', None):
             return getattr(self.request.user, 'id', None)
         return None

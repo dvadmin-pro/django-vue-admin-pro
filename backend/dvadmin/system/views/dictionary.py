@@ -9,7 +9,7 @@
 from rest_framework import serializers
 
 from dvadmin.system.models import Dictionary
-from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.viewset import CustomModelViewSet
 

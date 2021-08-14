@@ -9,7 +9,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from dvadmin.utils.filters import DataLevelPermissionsFilter
-from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.permission import CustomPermission
 
 
@@ -25,7 +25,6 @@ class CustomModelViewSet(ModelViewSet):
     ordering_fields = '__all__'
     create_serializer_class = None
     update_serializer_class = None
-    # permission_classes  = [CustomPermission]
     filter_fields = '__all__'
     search_fields = ()
     extra_filter_backends = [DataLevelPermissionsFilter]
@@ -52,7 +51,6 @@ class CustomModelViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data, request=request)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
         return SuccessResponse(data=serializer.data, msg="新增成功")
 
     def list(self, request, *args, **kwargs):
@@ -61,9 +59,6 @@ class CustomModelViewSet(ModelViewSet):
         if page is not None:
             serializer = self.get_serializer(page, many=True, request=request)
             return self.get_paginated_response(serializer.data)
-            # result = self.get_paginated_response(serializer.data)
-            # print(51,result.data)
-            # return JsonResponse(code=2000,msg="获取成功", data=result.data)
         serializer = self.get_serializer(queryset, many=True, request=request)
         return SuccessResponse(data=serializer.data, msg="获取成功")
 
@@ -75,7 +70,7 @@ class CustomModelViewSet(ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, request=request)
+        serializer = self.get_serializer(instance, data=request.data, request=request, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
@@ -83,7 +78,6 @@ class CustomModelViewSet(ModelViewSet):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
-
         return SuccessResponse(data=serializer.data, msg="更新成功")
 
     def destroy(self, request, *args, **kwargs):

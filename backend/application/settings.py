@@ -237,7 +237,8 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",  # 日期时间格式配置
     'DATE_FORMAT': "%Y-%m-%d",
     'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
+        # 'django_filters.rest_framework.DjangoFilterBackend',
+        'dvadmin.utils.filters.CustomDjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
 
@@ -257,7 +258,7 @@ from datetime import timedelta
 
 SIMPLE_JWT = {
     # token有效时长
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     # token刷新后的有效时间
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     # 设置前缀

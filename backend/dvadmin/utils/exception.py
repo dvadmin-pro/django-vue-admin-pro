@@ -14,7 +14,7 @@ from rest_framework import exceptions
 from rest_framework.exceptions import APIException as DRFAPIException, AuthenticationFailed
 from rest_framework.views import set_rollback
 
-from dvadmin.utils.jsonResponse import ErrorResponse
+from dvadmin.utils.json_response import ErrorResponse
 
 logger = logging.getLogger(__name__)
 
