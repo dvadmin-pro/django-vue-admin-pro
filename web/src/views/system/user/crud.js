@@ -15,21 +15,21 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -92,7 +92,7 @@ export const crudOptions = (vm) => {
             class: { yxtInput: true }
           },
           helper: {
-            render (h) {
+            render(h) {
               return (< el-alert title="密码默认为:admin123456" type="warning" />
               )
             }
@@ -138,11 +138,10 @@ export const crudOptions = (vm) => {
               props: { color: 'auto' },
               elProps: {
                 clearable: true,
+                showAllLevels: false, // 仅显示最后一级
                 props: {
-                  showAllLevels: false, // 仅显示最后一级
                   checkStrictly: true, // 可以不需要选到最后一级
-                  emitPath: false,
-                  clearable: true
+                  emitPath: false
                 }
               },
               dict: {
@@ -194,7 +193,7 @@ export const crudOptions = (vm) => {
           data: [{ label: '男', value: 1 }, { label: '女', value: 0 }]
         },
         form: {
-          value: 0,
+          value: 1,
           component: {
             span: 12
           }

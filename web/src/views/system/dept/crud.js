@@ -8,36 +8,37 @@ export const crudOptions = (vm) => {
       compact: true
     },
     options: {
-      tableType: 'vxe-table',
-      rowKey: true, // 必须设置，true or false
+      // tableType: 'vxe-table',
+      // rowKey: true, // 必须设置，true or false
       rowId: 'id',
       height: '100%', // 表格高度100%, 使用toolbar必须设置
       highlightCurrentRow: false,
-      treeConfig: { // 树形数据配置
-        children: 'children',
-        hasChild: 'hasChildren'
-      }
+      defaultExpandAll: true,
+      // treeConfig: { // 树形数据配置
+      //   expandAll: true,
+      //   children: 'children',
+      // }
     },
     rowHandle: {
       width: 140,
       view: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       }
