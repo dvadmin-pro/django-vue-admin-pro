@@ -13,7 +13,7 @@ export const crudOptions = (vm) => {
       rowId: 'id',
       height: '100%', // 表格高度100%, 使用toolbar必须设置
       highlightCurrentRow: false,
-      defaultExpandAll: true,
+      defaultExpandAll: true
       // treeConfig: { // 树形数据配置
       //   expandAll: true,
       //   children: 'children',
@@ -24,21 +24,21 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }

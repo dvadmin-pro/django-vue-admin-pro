@@ -282,7 +282,9 @@ SWAGGER_SETTINGS = {
         }
     },
     # 如果需要登录才能够查看接口文档, 登录的链接使用restframework自带的.
-    'LOGIN_URL': 'rest_framework:login',
+
+    'LOGIN_URL': 'apiLogin/',
+    # 'LOGIN_URL': 'rest_framework:login',
     'LOGOUT_URL': 'rest_framework:logout',
     # 'DOC_EXPANSION': None,
     # 'SHOW_REQUEST_HEADERS':True,

@@ -1,7 +1,3 @@
-import { request } from '@/api/service'
-import { BUTTON_STATUS_BOOL } from '@/config/button'
-
-
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -15,21 +11,21 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -80,7 +76,7 @@ export const crudOptions = (vm) => {
           disabled: false
         },
         width: 160,
-        type: 'input',
+        type: 'input'
 
       },
       {
@@ -90,7 +86,7 @@ export const crudOptions = (vm) => {
           disabled: true
         },
         width: 160,
-        type: 'input',
+        type: 'input'
 
       },
       {
@@ -104,7 +100,7 @@ export const crudOptions = (vm) => {
         form: {
           disabled: true
         },
-        valueResolve(row, col) {
+        valueResolve (row, col) {
           const value = row[col.key]
           if (value != null && value instanceof Array) {
             if (value.length >= 0) {
@@ -113,7 +109,7 @@ export const crudOptions = (vm) => {
               row[col.key] = null
             }
           }
-        },
+        }
 
       },
       {

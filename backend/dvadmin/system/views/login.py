@@ -7,9 +7,12 @@
 @Remark:登录视图
 """
 import base64
+import hashlib
 from datetime import datetime, timedelta
 
 from captcha.views import CaptchaStore, captcha_image
+from django.contrib import auth
+from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -19,7 +22,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from dvadmin.system.models import Users
-from dvadmin.utils.json_response import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse, ErrorResponse
+from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomValidationError
 
 
@@ -106,3 +110,26 @@ class LoginView(TokenObtainPairView):
     """
     serializer_class = LoginSerializer
     permission_classes = []
+
+
+class ApiLoginSerializer(CustomModelSerializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    class Meta:
+        model = Users
+        fields = ['username','password']
+
+class ApiLogin(APIView):
+    """接口文档的登录接口"""
+    serializer_class = ApiLoginSerializer
+
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user_obj = auth.authenticate(request, username=username, password=hashlib.md5(password.encode(encoding='UTF-8')).hexdigest())
+        print(user_obj)
+        if user_obj:
+            return redirect('/')
+        else:
+            return ErrorResponse(msg="账号/密码错误")

@@ -24,33 +24,33 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       },
       width: 230,
       custom: [{
-        show(index, row) {
+        show (index, row) {
           if (row.web_path) {
             return true
           }
           return false
         },
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         },
         text: ' 按钮配置',
@@ -125,7 +125,7 @@ export const crudOptions = (vm) => {
           children: 'children', // 数据字典中children字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              let result = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
+              const result = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
               return [{ id: null, name: '根节点', children: result }]
             })
           }
@@ -228,7 +228,7 @@ export const crudOptions = (vm) => {
             placeholder: '请输入路由地址'
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="浏览器中url的地址,请以/开头" type="warning" />
               )
             }
@@ -247,7 +247,7 @@ export const crudOptions = (vm) => {
             placeholder: '请输入组件名称'
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="xx.vue文件中的name" type="warning" />
               )
             }
@@ -270,7 +270,7 @@ export const crudOptions = (vm) => {
             placeholder: '请输入组件地址'
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="src/views下的文件夹地址" type="warning" />
               )
             }
@@ -322,7 +322,7 @@ export const crudOptions = (vm) => {
             placeholder: '请选择是否缓存'
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="是否开启页面缓存,需要组件名称和xx.vue页面的name一致" type="warning" />
               )
             }
@@ -346,7 +346,7 @@ export const crudOptions = (vm) => {
             placeholder: '请选择侧边可见'
           },
           helper: {
-            render(h) {
+            render (h) {
               return (< el-alert title="是否显示在侧边菜单中" type="warning" />
               )
             }

@@ -1,6 +1,6 @@
 import { request } from '@/api/service'
-const uploadUrl = process.env.VUE_APP_API + "/api/system/img/"
 import util from '@/libs/util'
+const uploadUrl = process.env.VUE_APP_API + '/api/system/img/'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -89,10 +89,10 @@ export const crudOptions = (vm) => {
                 action: uploadUrl,
                 name: 'url',
                 headers: {
-                  Authorization: 'JWT ' + util.cookies.get('token'),
+                  Authorization: 'JWT ' + util.cookies.get('token')
                 },
                 type: 'form',
-                successHandle(ret, option) {
+                successHandle (ret, option) {
                   if (ret.data == null || ret.data === '') {
                     throw new Error('上传失败')
                   }
@@ -107,9 +107,9 @@ export const crudOptions = (vm) => {
             },
             span: 24
           },
-          helper: '限制文件大小不能超过50k',
+          helper: '限制文件大小不能超过50k'
         },
-        valueResolve(row, col) {
+        valueResolve (row, col) {
           const value = row[col.key]
           if (value != null && value instanceof Array) {
             if (value.length >= 0) {
@@ -121,7 +121,7 @@ export const crudOptions = (vm) => {
         },
         component: {
           props: {
-            buildUrl(value, item) {
+            buildUrl (value, item) {
               if (value && value.indexOf('http') !== 0) {
                 return '/api/upload/form/download?key=' + value
               }
@@ -143,10 +143,10 @@ export const crudOptions = (vm) => {
                 action: uploadUrl,
                 name: 'url',
                 headers: {
-                  Authorization: 'JWT ' + util.cookies.get('token'),
+                  Authorization: 'JWT ' + util.cookies.get('token')
                 },
                 type: 'form',
-                successHandle(ret, option) {
+                successHandle (ret, option) {
                   if (ret.data == null || ret.data === '') {
                     throw new Error('上传失败')
                   }
@@ -161,9 +161,9 @@ export const crudOptions = (vm) => {
             },
             span: 24
           },
-          helper: '限制文件大小不能超过50k',
+          helper: '限制文件大小不能超过50k'
         },
-        valueResolve(row, col) {
+        valueResolve (row, col) {
           const value = row[col.key]
           if (value != null && value instanceof Array) {
             if (value.length >= 0) {
@@ -175,7 +175,7 @@ export const crudOptions = (vm) => {
         },
         component: {
           props: {
-            buildUrl(value, item) {
+            buildUrl (value, item) {
               if (value && value.indexOf('http') !== 0) {
                 return '/api/upload/form/download?key=' + value
               }
