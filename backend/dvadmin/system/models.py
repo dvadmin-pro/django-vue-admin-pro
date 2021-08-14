@@ -212,10 +212,23 @@ class OperationLog(CoreModel):
 
 class ImgList(CoreModel):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name="名称", help_text="名称")
-    url = models.ImageField(upload_to='media')
+    url = models.ImageField(upload_to='media/imgs/%Y%m%d/')
 
     class Meta:
         db_table = table_prefix + 'img_list'
         verbose_name = '图片管理'
         verbose_name_plural = verbose_name
         ordering = ('-create_datetime',)
+
+
+class FileList(CoreModel):
+    name = models.CharField(max_length=50, null=True, blank=True, verbose_name="名称", help_text="名称")
+    url = models.FileField(upload_to='media/files/%Y%m%d/')
+
+    class Meta:
+        db_table = table_prefix + 'file_list'
+        verbose_name = '文件管理'
+        verbose_name_plural = verbose_name
+        ordering = ('-create_datetime',)
+
+

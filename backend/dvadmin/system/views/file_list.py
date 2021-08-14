@@ -8,35 +8,35 @@
 """
 from rest_framework import serializers
 
-from dvadmin.system.models import ImgList
+from dvadmin.system.models import FileList
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.viewset import CustomModelViewSet
 
 
-class ImgSerializer(CustomModelSerializer):
+class FileSerializer(CustomModelSerializer):
     img = serializers.SerializerMethodField(read_only=True)
 
     def get_img(self,instance):
         return str(instance.url)
 
     class Meta:
-        model = ImgList
+        model = FileList
         fields = "__all__"
 
     def create(self,validated_data):
         validated_data['name'] = str(validated_data.get('url'))
-        return ImgList.objects.create(**validated_data)
+        return FileList.objects.create(**validated_data)
 
 
-class ImgViewSet(CustomModelViewSet):
+class FileViewSet(CustomModelViewSet):
     """
-    图片管理接口
+    文件管理接口
     list:查询
     create:新增
     update:修改
     retrieve:单例
     destroy:删除
     """
-    queryset = ImgList.objects.all()
-    serializer_class = ImgSerializer
+    queryset = FileList.objects.all()
+    serializer_class = FileSerializer
     filter_fields = ['name',]
