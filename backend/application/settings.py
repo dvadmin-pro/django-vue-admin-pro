@@ -137,6 +137,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+
+MEDIA_ROOT = 'media'  # 项目下的目录
+MEDIA_URL = "/media/"  # 跟STATIC_URL类似，指定用户可以通过这个url找到文件
+
 # 收集静态文件，必须将 MEDIA_ROOT,STATICFILES_DIRS先注释
 # python manage.py collectstatic
 # STATIC_ROOT=os.path.join(BASE_DIR,'static')
@@ -237,7 +242,8 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",  # 日期时间格式配置
     'DATE_FORMAT': "%Y-%m-%d",
     'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
+        # 'django_filters.rest_framework.DjangoFilterBackend',
+        'dvadmin.utils.filters.CustomDjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
 
@@ -257,7 +263,7 @@ from datetime import timedelta
 
 SIMPLE_JWT = {
     # token有效时长
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     # token刷新后的有效时间
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     # 设置前缀
@@ -276,7 +282,9 @@ SWAGGER_SETTINGS = {
         }
     },
     # 如果需要登录才能够查看接口文档, 登录的链接使用restframework自带的.
-    'LOGIN_URL': 'rest_framework:login',
+
+    'LOGIN_URL': 'apiLogin/',
+    # 'LOGIN_URL': 'rest_framework:login',
     'LOGOUT_URL': 'rest_framework:logout',
     # 'DOC_EXPANSION': None,
     # 'SHOW_REQUEST_HEADERS':True,
@@ -289,7 +297,7 @@ SWAGGER_SETTINGS = {
     # 方法列表字母排序
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
-    'AUTO_SCHEMA_TYPE': 1, # 分组根据url层级分，0、1 或 2 层
+    'AUTO_SCHEMA_TYPE': 2, # 分组根据url层级分，0、1 或 2 层
     'DEFAULT_AUTO_SCHEMA_CLASS': 'dvadmin.utils.swagger.CustomSwaggerAutoSchema',
 }
 

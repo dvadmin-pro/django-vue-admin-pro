@@ -1,7 +1,8 @@
 import { request } from '@/api/service'
 import { BUTTON_STATUS_BOOL } from '@/config/button'
 import { urlPrefix as deptPrefix } from '../dept/api'
-
+import util from '@/libs/util'
+const uploadUrl = process.env.VUE_APP_API + '/api/system/img/'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -112,9 +113,7 @@ export const crudOptions = (vm) => {
           ],
           component: {
             span: 12,
-            component: {
-              placeholder: '请输入姓名'
-            }
+            placeholder: '请输入姓名'
           },
           itemProps: {
             class: { yxtInput: true }
@@ -138,11 +137,10 @@ export const crudOptions = (vm) => {
               props: { color: 'auto' },
               elProps: {
                 clearable: true,
+                showAllLevels: false, // 仅显示最后一级
                 props: {
-                  showAllLevels: false, // 仅显示最后一级
                   checkStrictly: true, // 可以不需要选到最后一级
-                  emitPath: false,
-                  clearable: true
+                  emitPath: false
                 }
               },
               dict: {
@@ -183,7 +181,10 @@ export const crudOptions = (vm) => {
         form: {
           rules: [
             { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-          ]
+          ],
+          component: {
+            placeholder: '请输入邮箱'
+          }
         }
       },
       {
@@ -194,7 +195,7 @@ export const crudOptions = (vm) => {
           data: [{ label: '男', value: 1 }, { label: '女', value: 0 }]
         },
         form: {
-          value: 0,
+          value: 1,
           component: {
             span: 12
           }
@@ -216,6 +217,61 @@ export const crudOptions = (vm) => {
           value: true,
           component: {
             span: 12
+          }
+        }
+      },
+      {
+        title: '头像',
+        key: 'avatar',
+        type: 'avatar-uploader',
+        width: 150,
+        align: 'left',
+        form: {
+          component: {
+            props: {
+              uploader: {
+                action: uploadUrl,
+                name: 'url',
+                headers: {
+                  Authorization: 'JWT ' + util.cookies.get('token')
+                },
+                type: 'form',
+                successHandle (ret, option) {
+                  if (ret.data == null || ret.data === '') {
+                    throw new Error('上传失败')
+                  }
+                  return { url: ret.data.data.url, key: option.data.key }
+                }
+              },
+              elProps: { // 与el-uploader 配置一致
+                multiple: true,
+                limit: 5 // 限制5个文件
+              },
+              sizeLimit: 100 * 1024 // 不能超过限制
+            },
+            span: 24
+          },
+          helper: '限制文件大小不能超过50k'
+        },
+        valueResolve (row, col) {
+          const value = row[col.key]
+          if (value != null && value instanceof Array) {
+            if (value.length >= 0) {
+              row[col.key] = value[0]
+            } else {
+              row[col.key] = null
+            }
+          }
+        },
+        component: {
+          props: {
+            buildUrl (value, item) {
+              console.log(11, value)
+              if (value && value.indexOf('http') !== 0) {
+                return '/api/upload/form/download?key=' + value
+              }
+              return value
+            }
           }
         }
       },
@@ -262,51 +318,7 @@ export const crudOptions = (vm) => {
             }
           }
         } // 自动染色
-      }, {
-        title: '备注',
-        key: 'description',
-        show: false,
-        search: {
-          disabled: true
-        },
-        type: 'textarea',
-        form: {
-          component: {
-            placeholder: '请输入内容',
-            showWordLimit: true,
-            maxlength: '200',
-            props: {
-              type: 'textarea'
-            }
-          }
-        }
-      }, {
-        title: '创建人',
-        show: false,
-        width: 100,
-        key: 'modifier_name',
-        form: {
-          disabled: true
-        }
-      },
-      {
-        title: '更新时间',
-        key: 'update_datetime',
-        width: 160,
-        type: 'datetime',
-        form: {
-          disabled: true
-        }
-      },
-      {
-        title: '创建时间',
-        key: 'create_datetime',
-        width: 160,
-        type: 'datetime',
-        form: {
-          disabled: true
-        }
       }
-    ]
+    ].concat(vm.commonEndColumns())
   }
 }

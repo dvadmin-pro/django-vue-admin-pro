@@ -8,13 +8,15 @@
  */
 import { request } from '@/api/service'
 import XEUtils from 'xe-utils'
+export const urlPrefix = '/api/system/dictionary/'
+
 /**
  * 列表查询
  */
 export function GetList (query) {
   query.limit = 999
   return request({
-    url: '/api/system/dictionary/',
+    url: urlPrefix,
     method: 'get',
     params: query
   }).then(res => {
@@ -28,7 +30,7 @@ export function GetList (query) {
  */
 export function createObj (obj) {
   return request({
-    url: '/api/system/dictionary/',
+    url: urlPrefix,
     method: 'post',
     data: obj
   })
@@ -39,7 +41,7 @@ export function createObj (obj) {
  */
 export function UpdateObj (obj) {
   return request({
-    url: '/api/system/dictionary/' + obj.id + '/',
+    url: urlPrefix + obj.id + '/',
     method: 'put',
     data: obj
   })
@@ -49,7 +51,7 @@ export function UpdateObj (obj) {
  */
 export function DelObj (id) {
   return request({
-    url: '/api/system/dictionary/' + id + '/',
+    url: urlPrefix + id + '/',
     method: 'delete',
     data: { id }
   })

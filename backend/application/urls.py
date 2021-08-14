@@ -16,6 +16,7 @@ Including another URLconf
 import json
 import os
 
+from django.conf.urls.static import static
 from django.urls import path, include, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -24,8 +25,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from application import settings
 from application.settings import BASE_DIR
-from dvadmin.system.views.login import LoginView, CaptchaView
+from dvadmin.system.views.login import LoginView, CaptchaView, ApiLogin
 from dvadmin.utils.swagger import CustomOpenAPISchemaGenerator
 
 yamlPath = os.path.join(BASE_DIR, "plugins", "config.json")
@@ -53,7 +55,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/captcha/', CaptchaView.as_view()),
-]
+    path('apiLogin/', ApiLogin.as_view()),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_URL)
 
 
 # ================================================= #

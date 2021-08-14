@@ -8,15 +8,16 @@ export const crudOptions = (vm) => {
       compact: true
     },
     options: {
-      tableType: 'vxe-table',
-      rowKey: true, // 必须设置，true or false
+      // tableType: 'vxe-table',
+      // rowKey: true, // 必须设置，true or false
       rowId: 'id',
       height: '100%', // 表格高度100%, 使用toolbar必须设置
       highlightCurrentRow: false,
-      treeConfig: { // 树形数据配置
-        children: 'children',
-        hasChild: 'hasChildren'
-      }
+      defaultExpandAll: true
+      // treeConfig: { // 树形数据配置
+      //   expandAll: true,
+      //   children: 'children',
+      // }
     },
     rowHandle: {
       width: 140,
@@ -52,7 +53,7 @@ export const crudOptions = (vm) => {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 12 // 默认的表单 span
     },
     columns: [{
       title: '关键词',
@@ -86,7 +87,7 @@ export const crudOptions = (vm) => {
       }
     },
     {
-      title: '父级菜单',
+      title: '父级部门',
       key: 'parent',
       show: false,
       search: {
@@ -105,7 +106,6 @@ export const crudOptions = (vm) => {
             return [{ id: null, name: '根节点', children: ret.data.data }]
           })
         }
-
       },
       form: {
         component: {
@@ -113,8 +113,8 @@ export const crudOptions = (vm) => {
           props: {
             elProps: {
               clearable: true,
+              showAllLevels: false, // 仅显示最后一级
               props: {
-                showAllLevels: false, // 仅显示最后一级
                 checkStrictly: true, // 可以不需要选到最后一级
                 emitPath: false,
                 clearable: true
@@ -232,54 +232,7 @@ export const crudOptions = (vm) => {
           placeholder: '请选择状态'
         }
       }
-    }, {
-      title: '备注',
-      key: 'description',
-      show: false,
-      search: {
-        disabled: true
-      },
-      type: 'textarea',
-      form: {
-        component: {
-          span: 12,
-          placeholder: '请输入内容',
-          showWordLimit: true,
-          maxlength: '200',
-          props: {
-            type: 'textarea'
-          }
-        }
-      }
-    }, {
-      title: '创建人',
-      show: false,
-      width: 100,
-      key: 'modifier_name',
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '更新时间',
-      key: 'update_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '创建时间',
-      key: 'create_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
     }
-    ]
+    ].concat(vm.commonEndColumns())
   }
 }

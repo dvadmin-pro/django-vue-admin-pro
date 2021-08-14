@@ -1,5 +1,7 @@
 import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER } from '@/config/button'
+import { urlPrefix as dictionaryPrefix } from './api'
+
 export const crudOptions = (vm) => {
   return {
 
@@ -12,7 +14,6 @@ export const crudOptions = (vm) => {
       rowId: 'id',
       height: '100%', // 表格高度100%, 使用toolbar必须设置
       highlightCurrentRow: false,
-
       treeConfig: { // 树形数据配置
         children: 'children',
         hasChild: 'hasChildren',
@@ -20,21 +21,24 @@ export const crudOptions = (vm) => {
       }
     },
     rowHandle: {
+      width: 140,
       view: {
+        thin: true,
+        text: '',
         disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
-        text: '编辑',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
-        text: '删除',
+        text: '',
         disabled () {
           return !vm.hasPermissions('Delete')
         }
@@ -45,12 +49,12 @@ export const crudOptions = (vm) => {
       align: 'center',
       width: 100
     },
-
     viewOptions: {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 24, // 默认的表单 span
+      width: '35%'
     },
     columns: [{
       title: '关键词',
@@ -65,7 +69,8 @@ export const crudOptions = (vm) => {
         component: {
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入关键词'
         }
       },
       view: { // 查看对话框组件的单独配置
@@ -92,7 +97,8 @@ export const crudOptions = (vm) => {
       type: 'cascader',
       dict: {
         cache: false,
-        url: '/api/system/dictionary/dictionary_tree/?limit=999',
+        url: dictionaryPrefix + '?status=1&limit=999',
+        isTree: true,
         value: 'id', // 数据字典中value字段的属性名
         label: 'label', // 数据字典中label字段的属性名
         children: 'children', // 数据字典中children字段的属性名
@@ -105,7 +111,6 @@ export const crudOptions = (vm) => {
       },
       form: {
         component: {
-          span: 12,
           props: {
             elProps: {
               clearable: true,
@@ -137,13 +142,13 @@ export const crudOptions = (vm) => {
       form: {
         editDisabled: true,
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '编码必填项' }
         ],
         component: {
-          span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入编码'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -167,13 +172,13 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '显示值必填项' }
         ],
         component: {
-          span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入显示值'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -197,13 +202,13 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '实际值必填项' }
         ],
         component: {
-          span: 12,
           props: {
             clearable: true
-          }
+          },
+          placeholder: '请输入实际值'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -226,7 +231,6 @@ export const crudOptions = (vm) => {
       form: {
         value: 1,
         component: {
-          span: 12
         }
       }
     },
@@ -239,10 +243,9 @@ export const crudOptions = (vm) => {
       form: {
         value: 1,
         component: {
-          span: 12
         }
       }
     }
-    ]
+    ].concat(vm.commonEndColumns())
   }
 }

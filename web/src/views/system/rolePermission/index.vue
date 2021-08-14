@@ -148,6 +148,7 @@
 
 <script>
 import * as api from './api'
+import * as deptApi from '../dept/api'
 import XEUtils from 'xe-utils'
 import Vue from 'vue'
 import SplitPane from 'vue-splitpane'
@@ -242,7 +243,7 @@ export default {
     },
     // 获取部门数据
     getDeptData () {
-      api.getDeptData().then((ret) => {
+      deptApi.GetList({ status: 1 }).then((ret) => {
         this.deptOptions = ret
       })
     },

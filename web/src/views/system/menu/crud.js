@@ -2,7 +2,7 @@ import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER, BUTTON_WHETHER_NUMBER, BUTTON_VALUE_TO_COLOR_MAPPING } from '@/config/button'
 import { urlPrefix as menuPrefix } from './api'
 import { urlPrefix as buttonPrefix } from '../button/api'
-
+import XEUtils from 'xe-utils'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -125,7 +125,8 @@ export const crudOptions = (vm) => {
           children: 'children', // 数据字典中children字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              return [{ id: null, name: '根节点', children: ret.data.data }]
+              const result = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
+              return [{ id: null, name: '根节点', children: result }]
             })
           }
 
@@ -135,8 +136,8 @@ export const crudOptions = (vm) => {
             props: {
               elProps: {
                 clearable: true,
+                showAllLevels: false, // 仅显示最后一级
                 props: {
-                  showAllLevels: false, // 仅显示最后一级
                   checkStrictly: true, // 可以不需要选到最后一级
                   emitPath: false,
                   clearable: true
@@ -359,7 +360,7 @@ export const crudOptions = (vm) => {
         search: {
           disabled: false
         },
-        width: 80,
+        width: 70,
         type: 'radio',
         dict: {
           data: BUTTON_STATUS_NUMBER
@@ -370,55 +371,7 @@ export const crudOptions = (vm) => {
             placeholder: '请选择状态'
           }
         }
-      }, {
-        title: '备注',
-        key: 'description',
-        show: false,
-        search: {
-          disabled: true
-        },
-        type: 'textarea',
-        form: {
-          component: {
-            placeholder: '请输入内容',
-            showWordLimit: true,
-            maxlength: '200',
-            props: {
-              type: 'textarea'
-            }
-          }
-        }
-      }, {
-        title: '创建人',
-        show: false,
-        width: 100,
-        key: 'modifier_name',
-        form: {
-          disabled: true
-        }
-      },
-      {
-        title: '更新时间',
-        key: 'update_datetime',
-        show: false,
-        width: 160,
-        type: 'datetime',
-        sortable: true,
-        form: {
-          disabled: true
-        }
-      },
-      {
-        title: '创建时间',
-        key: 'create_datetime',
-        show: false,
-        width: 160,
-        type: 'datetime',
-        sortable: true,
-        form: {
-          disabled: true
-        }
       }
-    ]
+    ].concat(vm.commonEndColumns({ show_create_datetime: false, show_datetime: false }))
   }
 }

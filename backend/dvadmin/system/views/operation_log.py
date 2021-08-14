@@ -14,7 +14,7 @@ from dvadmin.utils.viewset import CustomModelViewSet
 
 class OperationLogSerializer(CustomModelSerializer):
     """
-    部门-序列化器
+    日志-序列化器
     """
 
     class Meta:
@@ -35,7 +35,12 @@ class OperationLogCreateUpdateSerializer(CustomModelSerializer):
 
 class OperationLogViewSet(CustomModelViewSet):
     """
-    操作日志 接口:
+    操作日志接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     queryset = OperationLog.objects.order_by('-create_datetime')
     serializer_class = OperationLogSerializer

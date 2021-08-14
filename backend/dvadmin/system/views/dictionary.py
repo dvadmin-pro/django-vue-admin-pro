@@ -9,7 +9,7 @@
 from rest_framework import serializers
 
 from dvadmin.system.models import Dictionary
-from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.viewset import CustomModelViewSet
 
@@ -57,16 +57,15 @@ class DictionaryTreeSerializer(CustomModelSerializer):
 
 class DictionaryViewSet(CustomModelViewSet):
     """
-    字典管理接口:
+    字典管理接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     queryset = Dictionary.objects.all()
     serializer_class = DictionarySerializer
     extra_filter_backends = []
     permission_classes = []
-    filter_fields = ['status']
     search_fields = ['label']
-
-    def dictionary_tree(self, request):
-        queryset = Dictionary.objects.exclude(status=0).filter(parent=None)
-        serializer = DictionaryTreeSerializer(queryset, many=True)
-        return SuccessResponse(data=serializer.data, msg="获取成功")

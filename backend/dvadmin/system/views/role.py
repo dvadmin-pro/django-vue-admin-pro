@@ -13,7 +13,7 @@ from dvadmin.system.models import Role, Menu
 from dvadmin.system.views.dept import DeptSerializer
 from dvadmin.system.views.menu import MenuSerializer
 from dvadmin.system.views.menu_button import MenuButtonSerializer
-from dvadmin.utils.jsonResponse import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomUniqueValidator
 from dvadmin.utils.viewset import CustomModelViewSet
@@ -69,14 +69,18 @@ class MenuPermissonSerializer(CustomModelSerializer):
 
 class RoleViewSet(CustomModelViewSet):
     """
-    角色管理接口:
+    角色管理接口
+    list:查询
+    create:新增
+    update:修改
+    retrieve:单例
+    destroy:删除
     """
     permission_classes = [IsAuthenticated]
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
     create_serializer_class = RoleCreateUpdateSerializer
     update_serializer_class = RoleCreateUpdateSerializer
-    extra_filter_backends = []
 
     def roleId_to_menu(self, request, *args, **kwargs):
         """通过角色id获取该角色用于的菜单"""
