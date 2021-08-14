@@ -1,4 +1,6 @@
 import { request } from '@/api/service'
+const uploadUrl = process.env.VUE_APP_API + "/api/system/img/"
+import util from '@/libs/util'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -39,7 +41,7 @@ export const crudOptions = (vm) => {
               component._elProps.page = ret.data.page
               component._elProps.limit = ret.data.limit
               component._elProps.total = ret.data.total
-              console.log(11, ret.data)
+
               return ret.data.data
             })
           }
@@ -69,6 +71,115 @@ export const crudOptions = (vm) => {
                 }
 
               ]
+            }
+          }
+        }
+      },
+      {
+        title: '头像',
+        key: 'image',
+        // type: 'image-uploader',
+        type: 'avatar-uploader',
+        width: 150,
+        align: 'left',
+        form: {
+          component: {
+            props: {
+              uploader: {
+                action: uploadUrl,
+                name: 'url',
+                headers: {
+                  Authorization: 'JWT ' + util.cookies.get('token'),
+                },
+                type: 'form',
+                successHandle(ret, option) {
+                  if (ret.data == null || ret.data === '') {
+                    throw new Error('上传失败')
+                  }
+                  return { url: ret.data.data.url, key: option.data.key }
+                }
+              },
+              elProps: { // 与el-uploader 配置一致
+                multiple: false,
+                limit: 5 // 限制5个文件
+              },
+              sizeLimit: 50 * 1024 // 不能超过限制
+            },
+            span: 24
+          },
+          helper: '限制文件大小不能超过50k',
+        },
+        valueResolve(row, col) {
+          const value = row[col.key]
+          if (value != null && value instanceof Array) {
+            if (value.length >= 0) {
+              row[col.key] = value[0]
+            } else {
+              row[col.key] = null
+            }
+          }
+        },
+        component: {
+          props: {
+            buildUrl(value, item) {
+              if (value && value.indexOf('http') !== 0) {
+                return '/api/upload/form/download?key=' + value
+              }
+              return value
+            }
+          }
+        }
+      },
+      {
+        title: '图片',
+        key: 'files',
+        type: 'image-uploader',
+        width: 150,
+        align: 'left',
+        form: {
+          component: {
+            props: {
+              uploader: {
+                action: uploadUrl,
+                name: 'url',
+                headers: {
+                  Authorization: 'JWT ' + util.cookies.get('token'),
+                },
+                type: 'form',
+                successHandle(ret, option) {
+                  if (ret.data == null || ret.data === '') {
+                    throw new Error('上传失败')
+                  }
+                  return { url: ret.data.data.url, key: option.data.key }
+                }
+              },
+              elProps: { // 与el-uploader 配置一致
+                multiple: false,
+                limit: 5 // 限制5个文件
+              },
+              sizeLimit: 50 * 1024 // 不能超过限制
+            },
+            span: 24
+          },
+          helper: '限制文件大小不能超过50k',
+        },
+        valueResolve(row, col) {
+          const value = row[col.key]
+          if (value != null && value instanceof Array) {
+            if (value.length >= 0) {
+              row[col.key] = value[0]
+            } else {
+              row[col.key] = null
+            }
+          }
+        },
+        component: {
+          props: {
+            buildUrl(value, item) {
+              if (value && value.indexOf('http') !== 0) {
+                return '/api/upload/form/download?key=' + value
+              }
+              return value
             }
           }
         }

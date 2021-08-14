@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-08-14 17:37:36
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-14 19:52:15
+ * @最后修改时间: 2021-08-14 21:27:12
  * 联系Qq:1638245306
  * @文件介绍: 图片管理
 -->
@@ -47,7 +47,7 @@ import { crudOptions } from "./crud";
 import { d2CrudPlus } from "d2-crud-plus";
 
 export default {
-  name: "img",
+  name: "file",
 
   mixins: [d2CrudPlus.crud],
   data() {

@@ -87,7 +87,7 @@ export const crudOptions = (vm) => {
         title: '图片地址',
         key: 'img',
         search: {
-          disabled: false
+          disabled: true
         },
         width: 160,
         type: 'input',
@@ -98,7 +98,9 @@ export const crudOptions = (vm) => {
         key: 'url',
         type: 'image-uploader',
         width: 150,
-        align: 'left',
+        search: {
+          disabled: true
+        },
         form: {
           disabled: true
         },
