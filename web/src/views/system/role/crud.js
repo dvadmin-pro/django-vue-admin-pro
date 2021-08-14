@@ -189,53 +189,7 @@ export const crudOptions = (vm) => {
         }
       },
       component: { props: { color: 'auto' } }
-    }, {
-      title: '备注',
-      key: 'description',
-      show: false,
-      search: {
-        disabled: true
-      },
-      type: 'textarea',
-      form: {
-        component: {
-          placeholder: '请输入内容',
-          showWordLimit: true,
-          maxlength: '200',
-          props: {
-            type: 'textarea'
-          }
-        }
-      }
-    }, {
-      title: '创建人',
-      show: false,
-      width: 100,
-      key: 'modifier_name',
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '更新时间',
-      key: 'update_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '创建时间',
-      key: 'create_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
     }
-    ]
+    ].concat(vm.commonEndColumns())
   }
 }

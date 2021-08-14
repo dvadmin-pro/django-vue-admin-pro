@@ -43,7 +43,8 @@ export const crudOptions = (vm) => {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 24, // 默认的表单 span
+      width: '35%'
     },
     columns: [{
       title: '关键词',
@@ -54,7 +55,10 @@ export const crudOptions = (vm) => {
         disabled: false
       },
       form: {
-        disabled: true
+        disabled: true,
+        component: {
+          placeholder: '请输入关键字'
+        }
       },
       view: { // 查看对话框组件的单独配置
         disabled: true
@@ -80,10 +84,10 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: '名称必填项' }
         ],
         component: {
-          span: 12
+          placeholder: '请输入名称'
         },
         itemProps: {
           class: { yxtInput: true }
@@ -101,14 +105,61 @@ export const crudOptions = (vm) => {
       type: 'input',
       form: {
         rules: [ // 表单校验规则
-          { required: true, message: '必填项' }
+          { required: true, message: 'key值必填项' }
         ],
         component: {
-          span: 12
+          placeholder: '请输入key值'
         },
         itemProps: {
           class: { yxtInput: true }
         }
+      }
+    },
+    {
+      title: '备注',
+      key: 'description',
+      show: false,
+      search: {
+        disabled: true
+      },
+      type: 'textarea',
+      form: {
+        component: {
+          placeholder: '请输入内容',
+          showWordLimit: true,
+          maxlength: '200',
+          props: {
+            type: 'textarea'
+          }
+        }
+      }
+    }, {
+      title: '创建人',
+      show: false,
+      width: 100,
+      key: 'modifier_name',
+      form: {
+        disabled: true
+      }
+    },
+    {
+      title: '更新时间',
+      key: 'update_datetime',
+      width: 160,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
+      }
+    },
+    {
+      title: '创建时间',
+      key: 'create_datetime',
+      width: 160,
+      type: 'datetime',
+      sortable: true,
+      form: {
+        disabled: true
       }
     }
     ]
