@@ -53,7 +53,7 @@ export const crudOptions = (vm) => {
       componentType: 'form'
     },
     formOptions: {
-      defaultSpan: 24 // 默认的表单 span
+      defaultSpan: 12 // 默认的表单 span
     },
     columns: [{
       title: '关键词',
@@ -113,8 +113,8 @@ export const crudOptions = (vm) => {
           props: {
             elProps: {
               clearable: true,
+              showAllLevels: false, // 仅显示最后一级
               props: {
-                showAllLevels: false, // 仅显示最后一级
                 checkStrictly: true, // 可以不需要选到最后一级
                 emitPath: false,
                 clearable: true
@@ -232,54 +232,7 @@ export const crudOptions = (vm) => {
           placeholder: '请选择状态'
         }
       }
-    }, {
-      title: '备注',
-      key: 'description',
-      show: false,
-      search: {
-        disabled: true
-      },
-      type: 'textarea',
-      form: {
-        component: {
-          span: 12,
-          placeholder: '请输入内容',
-          showWordLimit: true,
-          maxlength: '200',
-          props: {
-            type: 'textarea'
-          }
-        }
-      }
-    }, {
-      title: '创建人',
-      show: false,
-      width: 100,
-      key: 'modifier_name',
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '更新时间',
-      key: 'update_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
-    },
-    {
-      title: '创建时间',
-      key: 'create_datetime',
-      width: 160,
-      type: 'datetime',
-      sortable: true,
-      form: {
-        disabled: true
-      }
     }
-    ]
+    ].concat(vm.commonEndColumns())
   }
 }

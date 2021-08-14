@@ -206,7 +206,7 @@ export const crudOptions = (vm) => {
       }, {
         title: '操作人',
         width: 100,
-        key: 'modifier_name',
+        key: 'creator_name',
         form: {
           disabled: true
         }

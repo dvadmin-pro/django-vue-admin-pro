@@ -170,7 +170,8 @@ selectType.component.props.color = 'auto' // 修改官方的字段类型，设�
 
 Vue.component('v-chart', ECharts)
 // 默认Columns 结尾
-Vue.prototype.commonEndColumns = function (value) {
+Vue.prototype.commonEndColumns = function (kwargs) {
+  var value = kwargs || {}
   return [
     {
       title: '备注',
@@ -182,7 +183,6 @@ Vue.prototype.commonEndColumns = function (value) {
       type: 'textarea',
       form: {
         component: {
-          span: 12,
           placeholder: '请输入内容',
           showWordLimit: true,
           maxlength: '200',
@@ -193,7 +193,7 @@ Vue.prototype.commonEndColumns = function (value) {
       }
     }, {
       title: '创建人',
-      show: value.show_modifier_name || false,
+      show: value.show_modifier_name === false,
       width: 100,
       key: 'modifier_name',
       form: {
@@ -202,7 +202,7 @@ Vue.prototype.commonEndColumns = function (value) {
     }, {
       title: '数据归属部门',
       key: 'dept_belong_id',
-      show: value.show_dept_belong_id || false,
+      show: value.show_dept_belong_id === false,
       search: {
         disabled: true
       },
@@ -222,17 +222,22 @@ Vue.prototype.commonEndColumns = function (value) {
       },
       form: {
         component: {
-          span: 12,
           props: {
             elProps: {
               clearable: true,
+              showAllLevels: false, // 仅显示最后一级
               props: {
-                showAllLevels: false, // 仅显示最后一级
                 checkStrictly: true, // 可以不需要选到最后一级
                 emitPath: false,
                 clearable: true
               }
             }
+          }
+        },
+        helper: {
+          render (h) {
+            return (< el-alert title="默认不填则为当前创建用户的部门ID" type="info" />
+            )
           }
         }
       },
@@ -256,7 +261,7 @@ Vue.prototype.commonEndColumns = function (value) {
       title: '更新时间',
       key: 'update_datetime',
       width: 160,
-      show: value.show_datetime || true,
+      show: value.show_datetime !== false,
       type: 'datetime',
       sortable: true,
       form: {
@@ -267,7 +272,7 @@ Vue.prototype.commonEndColumns = function (value) {
       title: '创建时间',
       key: 'create_datetime',
       width: 160,
-      show: value.show_create_datetime || true,
+      show: value.show_create_datetime !== false,
       type: 'datetime',
       sortable: true,
       form: {
