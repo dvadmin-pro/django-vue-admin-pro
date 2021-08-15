@@ -216,7 +216,7 @@ Vue.prototype.commonEndColumns = function (kwargs) {
         children: 'children', // 数据字典中children字段的属性名
         getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
           return request({ url: url }).then(ret => {
-            return [{ id: null, name: '根节点', children: ret.data.data }]
+            return [{ id: null, name: '根节点', children: XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true }) }]
           })
         }
       },
@@ -251,7 +251,7 @@ Vue.prototype.commonEndColumns = function (kwargs) {
           children: 'children', // 数据字典中children字段的属性名
           getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              return [{ id: null, name: '根节点', children: ret.data.data }]
+              return [{ id: null, name: '根节点', children: XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true }) }]
             })
           }
         }

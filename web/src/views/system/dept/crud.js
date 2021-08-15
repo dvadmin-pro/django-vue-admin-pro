@@ -1,6 +1,7 @@
 import { request } from '@/api/service'
 import { BUTTON_STATUS_NUMBER } from '@/config/button'
 import { urlPrefix as deptPrefix } from './api'
+import XEUtils from 'xe-utils'
 export const crudOptions = (vm) => {
   return {
     pagination: false,
@@ -103,7 +104,7 @@ export const crudOptions = (vm) => {
         children: 'children', // 数据字典中children字段的属性名
         getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
           return request({ url: url }).then(ret => {
-            return [{ id: null, name: '根节点', children: ret.data.data }]
+            return [{ id: null, name: '根节点', children: XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true }) }]
           })
         }
       },
