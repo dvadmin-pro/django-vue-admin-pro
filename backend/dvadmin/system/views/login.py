@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 
 from captcha.views import CaptchaStore, captcha_image
 from django.contrib import auth
+from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from drf_yasg import openapi
@@ -25,7 +26,6 @@ from dvadmin.system.models import Users
 from dvadmin.utils.json_response import SuccessResponse, ErrorResponse
 from dvadmin.utils.serializers import CustomModelSerializer
 from dvadmin.utils.validator import CustomValidationError
-
 
 class CaptchaView(APIView):
     authentication_classes = []
@@ -120,6 +120,8 @@ class ApiLoginSerializer(CustomModelSerializer):
         model = Users
         fields = ['username','password']
 
+
+
 class ApiLogin(APIView):
     """接口文档的登录接口"""
     serializer_class = ApiLoginSerializer
@@ -128,8 +130,8 @@ class ApiLogin(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user_obj = auth.authenticate(request, username=username, password=hashlib.md5(password.encode(encoding='UTF-8')).hexdigest())
-        print(user_obj)
         if user_obj:
+            login(request,user_obj)
             return redirect('/')
         else:
             return ErrorResponse(msg="账号/密码错误")
