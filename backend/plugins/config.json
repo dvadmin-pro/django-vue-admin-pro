@@ -3,6 +3,16 @@
     "name": "租户插件",
     "enable": false,
     "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
-    "priority": 1
+    "priority": 1,
+    "tags": "0.0.1",
+    "type": "backend"
+  },
+  "plugins_market_backend": {
+    "name": "插件市场后台",
+    "enable": true,
+    "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
+    "priority": 1,
+    "tags": "0.0.1",
+    "type": "backend"
   }
 }
