@@ -3,7 +3,7 @@
     "name": "租户插件前端",
     "type": "web",
     "enable": false,
-    "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
+    "git": "https://gitee.com/dvadmin/dvadmin_tenant_web.git",
     "priority": 1
   }
 }
