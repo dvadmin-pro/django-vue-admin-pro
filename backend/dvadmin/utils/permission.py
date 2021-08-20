@@ -41,8 +41,11 @@ class CustomPermission(BasePermission):
             method = request.method  # 当前请求方法
             methodList = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
             method = methodList.index(method)
+            if not hasattr(request.user, "role"):
+                return False
             userApiList = request.user.role.values('permission__api', 'permission__method')  # 获取当前用户的角色拥有的所有接口
             for item in userApiList:
                 valid = ValidationApi(api, item.get('permission__api'))
-                return valid and (method == item.get('permission__method'))
+                if valid and (method == item.get('permission__method')):
+                    return True
         return True

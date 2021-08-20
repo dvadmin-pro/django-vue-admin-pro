@@ -2,7 +2,7 @@ import { request } from '@/api/service'
 import { BUTTON_STATUS_BOOL } from '@/config/button'
 import { urlPrefix as deptPrefix } from '../dept/api'
 import util from '@/libs/util'
-const uploadUrl = process.env.VUE_APP_API + '/api/system/img/'
+const uploadUrl = util.baseURL() + 'api/system/img/'
 export const crudOptions = (vm) => {
   return {
     pageOptions: {
@@ -123,7 +123,7 @@ export const crudOptions = (vm) => {
       {
         title: '部门',
         key: 'dept',
-        width: 180,
+        width: 160,
         type: 'cascader',
         search: {
           disabled: false
@@ -176,6 +176,25 @@ export const crudOptions = (vm) => {
           }
         }
       }, {
+        title: '手机号码',
+        key: 'mobile',
+        search: {
+          disabled: true
+        },
+        type: 'input',
+        form: {
+          rules: [
+            { max: 20, message: '请输入正确的手机号码', trigger: 'blur' },
+            { pattern: /^1[3|4|5|7|8]\d{9}$/, message: '请输入正确的手机号码' }
+          ],
+          itemProps: {
+            class: { yxtInput: true }
+          },
+          component: {
+            placeholder: '请输入手机号码'
+          }
+        }
+      }, {
         title: '邮箱',
         key: 'email',
         form: {
@@ -224,7 +243,7 @@ export const crudOptions = (vm) => {
         title: '头像',
         key: 'avatar',
         type: 'avatar-uploader',
-        width: 150,
+        width: 100,
         align: 'left',
         form: {
           component: {
@@ -319,6 +338,6 @@ export const crudOptions = (vm) => {
           }
         } // 自动染色
       }
-    ].concat(vm.commonEndColumns())
+    ].concat(vm.commonEndColumns({ show_create_datetime: false }))
   }
 }
