@@ -36,7 +36,7 @@ Vue.use(d2CrudX, { name: 'd2-crud-x' })
 // 引入d2CrudPlus
 Vue.use(d2CrudPlus, {
   starTip: false,
-  getRemoteDictFunc(url, dict) {
+  getRemoteDictFunc (url, dict) {
     // 此处配置你的字典http请求方法
     // 实际使用请改成request
     return request({
@@ -51,7 +51,7 @@ Vue.use(d2CrudPlus, {
       }
     })
   },
-  commonOption() { // 公共配置
+  commonOption () { // 公共配置
     return {
       format: {
         page: { // page接口返回的数据结构配置，
@@ -112,7 +112,7 @@ Vue.use(D2pUploader, {
     region: 'ap-guangzhou',
     secretId: '', //
     secretKey: '', // 传了secretKey 和secretId 代表使用本地签名模式（不安全，生产环境不推荐）
-    getAuthorization(custom) { // 不传secretKey代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
+    getAuthorization (custom) { // 不传secretKey代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
       return request({
         url: '/upload/cos/getAuthorization',
         method: 'get'
@@ -134,7 +134,7 @@ Vue.use(D2pUploader, {
     region: 'oss-cn-shenzhen',
     accessKeyId: '',
     accessKeySecret: '',
-    getAuthorization(custom, context) { // 不传accessKeySecret代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
+    getAuthorization (custom, context) { // 不传accessKeySecret代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
       return request({
         url: '/upload/alioss/getAuthorization',
         method: 'get'
@@ -148,7 +148,7 @@ Vue.use(D2pUploader, {
   },
   qiniu: {
     bucket: 'd2p-demo',
-    getToken(custom) {
+    getToken (custom) {
       return request({
         url: '/upload/qiniu/getToken',
         method: 'get'
@@ -235,7 +235,7 @@ Vue.prototype.commonEndColumns = function (kwargs) {
           }
         },
         helper: {
-          render(h) {
+          render (h) {
             return (< el-alert title="默认不填则为当前创建用户的部门ID" type="info" />
             )
           }
