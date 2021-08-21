@@ -22,7 +22,7 @@ class CoreInitialize:
         print(f"正在初始化[{obj._meta.label} => {name}]")
         if self.reset and obj not in INITIALIZE_RESET_LIST:
             try:
-                obj.objects.filter(id__in=[ele.get('id') for ele in data]).delete()
+                obj.objects.all().delete()
                 INITIALIZE_RESET_LIST.append(obj)
             except Exception:
                 pass
