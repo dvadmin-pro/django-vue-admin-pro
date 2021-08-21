@@ -9,7 +9,11 @@
         class="el-input el-input--default el-input--suffix"
         :class="{ 'is-disabled': disabled }"
       >
-        <el-input ref="reference" :disabled="disabled" />
+        <el-input
+          ref="reference"
+          :disabled="disabled"
+          :placeholder="selected.length === 0 ? placeholder : ''"
+        />
         <span class="el-input__suffix">
           <span class="el-input__suffix-inner">
             <i class="el-input__icon el-icon-arrow-down" @click="openDialog" />
@@ -112,6 +116,10 @@ export default {
       type: String,
       default: '输入关键字进行过滤'
     },
+    placeholder: {
+      type: String,
+      default: '请选择'
+    },
     dialogTitle: {
       type: String,
       default: '选择'
@@ -146,8 +154,8 @@ export default {
       type: Object
     },
     /**
-     * 是否可以清除
-     */
+       * 是否可以清除
+       */
     clearable: {
       type: Boolean,
       default: true
@@ -247,7 +255,7 @@ export default {
         return
       }
       let arrValue = value
-      if (value == null) {
+      if (value === null) {
         this.selected = []
       }
 
@@ -261,7 +269,7 @@ export default {
         })
       } else {
         const nodes = []
-        if (this._options == null || this._options.length === 0) {
+        if (this._options === null || this._options.length === 0) {
           return
         }
         for (const item of arrValue) {
@@ -383,7 +391,7 @@ export default {
       //   );
       // } else {
       //   const node = this.$refs.elTree.getCurrentNode();
-      //   if (node == null) {
+      //   if (node === null) {
       //     nodes = [];
       //   } else {
       //     nodes = [node];
@@ -394,7 +402,7 @@ export default {
         nodes = this.$refs.elTree.getCheckboxRecords()
       } else {
         const node = this.$refs.elTree.getRadioRecord()
-        if (node == null) {
+        if (node === null) {
           nodes = []
         } else {
           nodes = [node]
@@ -423,14 +431,14 @@ export default {
         const tags = this.$refs.tags
         const sizeInMap = this.initialInputHeight || 40
         const height =
-          this.selected.length === 0
-            ? sizeInMap + 'px'
-            : Math.max(
-              tags
-                ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
-                : 0,
-              sizeInMap
-            ) + 'px'
+            this.selected.length === 0
+              ? sizeInMap + 'px'
+              : Math.max(
+                tags
+                  ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
+                  : 0,
+                sizeInMap
+              ) + 'px'
         input.style.height = height
         if (this.visible && this.emptyText !== false) {
           this.broadcast('ElSelectDropdown', 'updatePopper')
@@ -511,32 +519,32 @@ export default {
 }
 </script>
 <style lang="scss">
-.d2p-tree-selector {
-  width: 100%;
-  .el-cascader {
+  .d2p-tree-selector {
     width: 100%;
-  }
-  .is-disabled .el-tag__close.el-icon-close {
-    display: none;
-  }
-}
-.d2p-tree-selector-dialog {
-  &.el-dialog {
-    max-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    .el-dialog__body {
-      flex: 1;
-      overflow-y: auto;
+    .el-cascader {
+      width: 100%;
     }
-    .el-dialog__header {
-      padding: 20px 20px 20px;
-      border-bottom: 1px solid #eee;
-    }
-    .el-dialog__footer {
-      padding: 10px 20px 10px;
-      border-top: 1px solid #eee;
+    .is-disabled .el-tag__close.el-icon-close {
+      display: none;
     }
   }
-}
+  .d2p-tree-selector-dialog {
+    &.el-dialog {
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      .el-dialog__body {
+        flex: 1;
+        overflow-y: auto;
+      }
+      .el-dialog__header {
+        padding: 20px 20px 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .el-dialog__footer {
+        padding: 10px 20px 10px;
+        border-top: 1px solid #eee;
+      }
+    }
+  }
 </style>

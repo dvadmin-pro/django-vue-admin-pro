@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-12 16:29:26
+ * @最后修改时间: 2021-08-15 16:10:57
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -99,7 +99,9 @@ export const handleRouter = function (menuData) {
       }
       result.push(obj)
     } else {
-      delete item.path
+      if (item.is_link === 0) {
+        delete item.path
+      }
     }
   }
   frameInRoutes[0].children = [...result]

@@ -21,7 +21,8 @@ class Users(AbstractUser, CoreModel):
         (0, "女"),
         (1, "男"),
     )
-    gender = models.IntegerField(choices=GENDER_CHOICES, verbose_name="性别", null=True, blank=True, help_text="性别")
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=1, verbose_name="性别", null=True, blank=True,
+                                 help_text="性别")
     post = models.ManyToManyField(to='Post', verbose_name='关联岗位', db_constraint=False, help_text="关联岗位")
     role = models.ManyToManyField(to='Role', verbose_name='关联角色', db_constraint=False, help_text="关联角色")
     dept = models.ForeignKey(to='Dept', verbose_name='所属部门', on_delete=models.CASCADE, db_constraint=False, null=True,
@@ -93,7 +94,7 @@ class Dept(CoreModel):
     email = models.EmailField(max_length=32, verbose_name="邮箱", null=True, blank=True, help_text="邮箱")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name="部门状态", null=True, blank=True,
                                  help_text="部门状态")
-    parent = models.ForeignKey(to='Dept', on_delete=models.CASCADE, default=False, verbose_name="上级部门",
+    parent = models.ForeignKey(to='Dept', on_delete=models.CASCADE, default=None, verbose_name="上级部门",
                                db_constraint=False, null=True, blank=True, help_text="上级部门")
 
     class Meta:
