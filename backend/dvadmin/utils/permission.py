@@ -33,6 +33,17 @@ class CustomPermission(BasePermission):
     """自定义权限"""
 
     def has_permission(self, request, view):
+
+        # 对ViewSet下的def方法进行权限判断
+        # 当权限为空时,则可以访问
+        is_head = getattr(view, 'head', None)
+        if is_head:
+            head_kwargs = getattr(view.head, 'kwargs', None)
+            if head_kwargs:
+                _permission_classes = getattr(head_kwargs, 'permission_classes', None)
+                if _permission_classes is None:
+                    return True
+
         # 判断是否是超级管理员
         if request.user.is_superuser:
             return True
