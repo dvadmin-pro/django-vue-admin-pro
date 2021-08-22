@@ -25,21 +25,21 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled() {
+        disabled () {
           return !vm.hasPermissions('Delete')
         }
       }
@@ -104,8 +104,8 @@ export const crudOptions = (vm) => {
         children: 'children', // 数据字典中children字段的属性名
         getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
           return request({ url: url }).then(ret => {
-            let data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
-            return [{ id: "0", name: '根节点', children: data }]
+            const data = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
+            return [{ id: '0', name: '根节点', children: data }]
           })
         }
       },

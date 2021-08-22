@@ -220,6 +220,7 @@ export const crudOptions = (vm) => {
         title: '路由地址',
         key: 'web_path',
         width: 150,
+        show: false,
         form: {
           component: {
             props: {
@@ -238,7 +239,6 @@ export const crudOptions = (vm) => {
       {
         title: '组件名称',
         key: 'component_name',
-        width: 130,
         form: {
           component: {
             props: {
@@ -258,6 +258,7 @@ export const crudOptions = (vm) => {
         title: '组件地址',
         key: 'component',
         type: 'select',
+        show: false,
         dict: {
           data: vm.searchFiles()
         },
@@ -280,7 +281,6 @@ export const crudOptions = (vm) => {
       {
         title: '拥有权限',
         key: 'menuPermission',
-        width: 165,
         type: 'select',
         form: {
           disabled: true,

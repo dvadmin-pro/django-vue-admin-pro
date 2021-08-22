@@ -16,7 +16,7 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
  * @description https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementPath(menu) {
+function supplementPath (menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
