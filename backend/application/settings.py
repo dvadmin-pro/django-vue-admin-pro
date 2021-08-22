@@ -323,6 +323,10 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge' # 加减乘除验证�
 # ================================================= #
 # ******************** 其他配置 ******************** #
 # ================================================= #
+# 插件yaml地址
+PLUGINS_WEB_YAML_PATH = os.path.join(BASE_DIR, os.path.pardir, "web", "src", "views", "dvadmin_plugins", "config.json")
+PLUGINS_BACKEND_YAML_PATH = os.path.join(BASE_DIR, "plugins", "config.json")
+
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 API_LOG_ENABLE = True
 # API_LOG_METHODS = 'ALL' # ['POST', 'DELETE']
@@ -330,6 +334,7 @@ API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
 API_MODEL_MAP = {
     "/token/": "登录模块",
     "/api/login/": "登录模块",
+    "/api/plugins_market/plugins/": "插件市场",
 }
 # 表前缀
 TABLE_PREFIX = "dvadmin_"

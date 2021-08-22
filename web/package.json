@@ -24,7 +24,7 @@
     "dayjs": "^1.8.17",
     "echarts": "^5.1.2",
     "el-phone-number-input": "^1.1.5",
-    "element-ui": "^2.13.1",
+    "element-ui": "^2.15.5",
     "faker": "^4.1.0",
     "flex.css": "^1.1.7",
     "fuse.js": "^5.2.3",

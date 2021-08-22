@@ -15,3 +15,4 @@ user-agents==2.2.0
 drf-yasg==1.20.0
 daphne==3.0.2
 django-simple-captcha==0.5.14
+gitpython==3.1.20

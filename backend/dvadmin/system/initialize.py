@@ -48,7 +48,7 @@ class Initialize(CoreInitialize):
         self.menu_data = [
             {"id": "151035da-77a3-4a62-b474-fce6824571fb", "name": "按钮管理", "sort": 6, "web_path": "/button",
              "icon": "support", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/button",
-             "component_name": "button", "visible": 0},
+             "component_name": "buttons", "visible": 0},
             {"id": "15c9ebc5-d12f-470a-a560-938a7dc57570", "name": "角色管理", "sort": 3, "web_path": "/role",
              "icon": "users", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/role",
              "component_name": "role"},
@@ -77,6 +77,14 @@ class Initialize(CoreInitialize):
             {"id": "97b8fd88-0510-4db7-8d53-983a04843c4c", "name": "字典管理", "sort": 1, "web_path": "/dictionary",
              "icon": "clock-o", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/dictionary",
              "component_name": "dictionary"},
+            {"id": "805390f3-a6e6-411e-9798-eebd34b76204", "name": "附件管理", "sort": 7, "web_path": "",
+             "icon": "envelope", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", },
+            {"id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1", "name": "图片管理", "sort": 1, "web_path": "/img",
+             "icon": "file-image-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204", "component": "system/fileList/img/index",
+             "component_name": "imgs"},
+            {"id": "28723f68-e470-493a-bbe7-7b759fe26674", "name": "文件管理", "sort": 2, "web_path": "/file",
+             "icon": "file-excel-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204", "component": "system/fileList/file/index",
+             "component_name": "file"},
         ]
         self.save(Menu, self.menu_data, "菜单表")
 
@@ -167,6 +175,26 @@ class Initialize(CoreInitialize):
              "name": "单例", "value": "Retrieve", "api": "/api/system/dictionary/{id}/", "method": 0},
             {"id": "dcfb48c5-a168-4306-acd5-f1277337a504", "menu_id": "97b8fd88-0510-4db7-8d53-983a04843c4c",
              "name": "删除", "value": "Delete", "api": "/api/system/dictionary/{id}/", "method": 3},
+            {"id": "6fecacf0-39af-4838-afcc-20af8dad6f97", "menu_id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1",
+             "name": "编辑", "value": "Update", "api": "/api/system/file/{id}/", "method": 2},
+            {"id": "6fecacf0-39af-4838-afcc-20af8dad6f98", "menu_id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1",
+             "name": "查询", "value": "Search", "api": "/api/system/file/", "method": 0},
+            {"id": "6fecacf0-39af-4838-afcc-20af8dad6f99", "menu_id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1",
+             "name": "新增", "value": "Create", "api": "/api/system/file/", "method": 1},
+            {"id": "6fecacf0-39af-4838-afcc-20af8dad6f9a", "menu_id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1",
+             "name": "单例", "value": "Retrieve", "api": "/api/system/file/{id}/", "method": 0},
+            {"id": "6fecacf0-39af-4838-afcc-20af8dad6f9b", "menu_id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1",
+             "name": "删除", "value": "Delete", "api": "/api/system/file/{id}/", "method": 3},
+            {"id": "0e4e34d0-02bb-40f4-a9fd-621490ccb041", "menu_id": "28723f68-e470-493a-bbe7-7b759fe26674",
+             "name": "编辑", "value": "Update", "api": "/api/system/img/{id}/", "method": 2},
+            {"id": "0e4e34d0-02bb-40f4-a9fd-621490ccb042", "menu_id": "28723f68-e470-493a-bbe7-7b759fe26674",
+             "name": "查询", "value": "Search", "api": "/api/system/img/", "method": 0},
+            {"id": "0e4e34d0-02bb-40f4-a9fd-621490ccb043", "menu_id": "28723f68-e470-493a-bbe7-7b759fe26674",
+             "name": "新增", "value": "Create", "api": "/api/system/img/", "method": 1},
+            {"id": "0e4e34d0-02bb-40f4-a9fd-621490ccb044", "menu_id": "28723f68-e470-493a-bbe7-7b759fe26674",
+             "name": "单例", "value": "Retrieve", "api": "/api/system/img/{id}/", "method": 0},
+            {"id": "0e4e34d0-02bb-40f4-a9fd-621490ccb045", "menu_id": "28723f68-e470-493a-bbe7-7b759fe26674",
+             "name": "删除", "value": "Delete", "api": "/api/system/img/{id}/", "method": 3},
         ]
         self.save(MenuButton, self.menu_button_data, "菜单权限表")
 
