@@ -91,6 +91,7 @@ else:
     url_prefix = getattr(getattr(apps, app_config), "url_prefix")
     if url_prefix:
         url_prefix = url_prefix[0] + '/'
+        
 # 注册路由
 try:
     url = [
@@ -99,5 +100,7 @@ try:
     urlpatterns += url
     print(f"【{plugins_values.get('name', None)}】路由导入成功")
 except Exception as e:
+    print(f"【{plugins_values.get('name', None)}】路由导入失败:")
+    print(e)
     pass
 """)

@@ -4,5 +4,11 @@
     "enable": false,
     "git": "https://gitee.com/dvadmin/dvadmin_tenant_backend.git",
     "priority": 1
+  },
+   "dvadmin_apscheduler_backend": {
+    "name": "定时任务插件",
+    "enable": true,
+    "git": "https://gitee.com/dvadmin/dvadmin_apscheduler_backend.git",
+    "priority": 1
   }
 }

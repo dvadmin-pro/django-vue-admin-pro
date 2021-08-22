@@ -141,7 +141,7 @@ export default {
     // 是否多选，传入false为单选
     multiple: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     // 是否忽略选中节点的子节点
     ignoreFullCheckedChildren: { type: Boolean, default: true },
