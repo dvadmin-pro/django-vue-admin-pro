@@ -33,17 +33,12 @@ def get_request_ip(request):
     :param request:
     :return:
     """
-    ip = getattr(request, 'request_ip', None)
-    if ip:
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
         return ip
-    ip = request.META.get('REMOTE_ADDR', '')
-    if not ip:
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[-1].strip()
-        else:
-            ip = 'unknown'
-    return ip
+    ip = request.META.get('REMOTE_ADDR', '') or getattr(request, 'request_ip', None)
+    return ip or 'unknown'
 
 
 def get_request_data(request):
