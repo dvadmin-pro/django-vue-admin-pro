@@ -1,5 +1,5 @@
 # 初始化基类
-INITIALIZE_RESET_LIST = []
+from application import settings
 
 
 class CoreInitialize:
@@ -20,10 +20,10 @@ class CoreInitialize:
     def save(self, obj, data: list, name=None):
         name = name or obj._meta.verbose_name
         print(f"正在初始化[{obj._meta.label} => {name}]")
-        if self.reset and obj not in INITIALIZE_RESET_LIST:
+        if self.reset and obj not in settings.INITIALIZE_RESET_LIST:
             try:
                 obj.objects.all().delete()
-                INITIALIZE_RESET_LIST.append(obj)
+                settings.INITIALIZE_RESET_LIST.append(obj)
             except Exception:
                 pass
         for ele in data:

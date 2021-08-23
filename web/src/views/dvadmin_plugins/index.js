@@ -10,4 +10,4 @@ export function getPlugins () {
   return plugins
 }
 
-export default getPlugins()
+export const plugins = getPlugins()
