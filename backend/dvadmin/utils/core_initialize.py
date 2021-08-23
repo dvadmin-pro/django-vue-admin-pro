@@ -41,7 +41,9 @@ class CoreInitialize:
                 if m2m and len(m2m) > 0 and m2m[0]:
                     exec(f"""
 if object.{key}:
-    object.{key}.set({m2m})
+    values_list = object.{key}.all().values_list('id', flat=True)
+    values_list = list(set(list(values_list) + {m2m}))
+    object.{key}.set(values_list)
 """)
         print(f"初始化完成[{obj._meta.label} => {name}]")
 
