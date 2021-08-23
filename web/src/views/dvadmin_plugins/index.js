@@ -1,8 +1,6 @@
 import PluginsConfig from './config.json'
 
-import cronSelector from '@/views/dvadmin_plugins/dvadmin_apscheduler_web/component/index'
-
-export const plugins = function getPlugins () {
+export function getPlugins () {
   const plugins = {}
   for (var key in PluginsConfig) {
     if (PluginsConfig[key].enable) {
@@ -11,7 +9,19 @@ export const plugins = function getPlugins () {
   }
   return plugins
 }
-export const dvadminPlugins = function install (Vue, options) {
-  // 注册组件
-  Vue.use(cronSelector)
+
+export const plugins = getPlugins()
+
+export const dvadminPlugins = async function install (Vue, options) {
+  for (var key in plugins) {
+    try {
+      const Module = await import('@/views/dvadmin_plugins/' + key + '/component/index')
+      // 注册组件
+      if (Module.default) {
+        Vue.use(Module.default)
+      }
+    } catch (exception) {
+
+    }
+  }
 }
