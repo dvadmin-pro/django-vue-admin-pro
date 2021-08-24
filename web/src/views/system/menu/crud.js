@@ -222,6 +222,9 @@ export const crudOptions = (vm) => {
         width: 150,
         show: false,
         form: {
+          rules: [
+            { pattern: /^\/.*?/, message: '请输入正确的路由地址' }
+          ],
           component: {
             props: {
               clearable: true
