@@ -21,7 +21,7 @@ export function GetList (query) {
     params: query
   }).then(res => {
     // 将列表数据转换为树形数据
-    res = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent', strict: false })
+    res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent', strict: false })
     return res
   })
 }

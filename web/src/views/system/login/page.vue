@@ -197,7 +197,7 @@ export default {
         ]
       },
       captchaKey: null,
-      img_base: null
+      image_base: null
     }
   },
   mounted () {
