@@ -105,7 +105,9 @@ export const crudOptions = (vm) => {
         show: false,
         width: 60,
         form: {
-          disabled: true
+          component: {
+            show: false
+          }
         }
       },
       {
@@ -123,13 +125,22 @@ export const crudOptions = (vm) => {
           value: 'id', // 数据字典中value字段的属性名
           label: 'name', // 数据字典中label字段的属性名
           children: 'children', // 数据字典中children字段的属性名
-          getData: (url, dict) => { // 配置此参数会覆盖全局的getRemoteDictFunc
+          getData: (url, dict, { form, component }) => { // 配置此参数会覆盖全局的getRemoteDictFunc
             return request({ url: url }).then(ret => {
-              const result = XEUtils.toArrayTree(ret.data.data, { parentKey: 'parent', strict: true })
+              const responseData = ret.data.data
+              if (form.id) {
+                let idIndex
+                responseData.forEach((item, index) => {
+                  if (item.id === form.id) {
+                    idIndex = index
+                  }
+                })
+                responseData.splice(idIndex, 1)
+              }
+              const result = XEUtils.toArrayTree(responseData, { parentKey: 'parent', strict: true })
               return [{ id: null, name: '根节点', children: result }]
             })
           }
-
         },
         form: {
           component: {
@@ -202,10 +213,14 @@ export const crudOptions = (vm) => {
         }
       },
       {
-        title: '外链接',
-        key: 'is_link',
+        title: '是否目录',
+        key: 'is_catalog',
         width: 70,
-        type: 'radio',
+        type: 'dict-switch',
+        search: {
+          disabled: true
+        },
+
         dict: {
           data: BUTTON_WHETHER_NUMBER
         },
@@ -217,15 +232,39 @@ export const crudOptions = (vm) => {
         }
       },
       {
+        title: '外链接',
+        key: 'is_link',
+        width: 70,
+        type: 'radio',
+        dict: {
+          data: BUTTON_WHETHER_NUMBER
+        },
+        form: {
+          value: 0,
+          component: {
+            show (context) {
+              const { form } = context
+              return !form.is_catalog
+            },
+            placeholder: '请选择是否外链接'
+          }
+        }
+      },
+      {
         title: '路由地址',
         key: 'web_path',
         width: 150,
         show: false,
         form: {
           rules: [
+            { required: true, message: '请输入正确的路由地址' },
             { pattern: /^\/.*?/, message: '请输入正确的路由地址' }
           ],
           component: {
+            show (context) {
+              const { form } = context
+              return !form.is_catalog
+            },
             props: {
               clearable: true
             },
@@ -239,24 +278,7 @@ export const crudOptions = (vm) => {
           }
         }
       },
-      {
-        title: '组件名称',
-        key: 'component_name',
-        form: {
-          component: {
-            props: {
-              clearable: true
-            },
-            placeholder: '请输入组件名称'
-          },
-          helper: {
-            render (h) {
-              return (< el-alert title="xx.vue文件中的name" type="warning" />
-              )
-            }
-          }
-        }
-      },
+
       {
         title: '组件地址',
         key: 'component',
@@ -266,7 +288,14 @@ export const crudOptions = (vm) => {
           data: vm.searchFiles()
         },
         form: {
+          rules: [
+            { required: true, message: '请选择组件地址' }
+          ],
           component: {
+            show (context) {
+              const { form } = context
+              return !form.is_catalog
+            },
             props: {
               clearable: true,
               filterable: true // 可过滤选择项
@@ -276,6 +305,31 @@ export const crudOptions = (vm) => {
           helper: {
             render (h) {
               return (< el-alert title="src/views下的文件夹地址" type="warning" />
+              )
+            }
+          }
+        }
+      },
+      {
+        title: '组件名称',
+        key: 'component_name',
+        form: {
+          rules: [
+            { required: true, message: '请输入组件名称' }
+          ],
+          component: {
+            show (context) {
+              const { form } = context
+              return !form.is_catalog
+            },
+            props: {
+              clearable: true
+            },
+            placeholder: '请输入组件名称'
+          },
+          helper: {
+            render (h) {
+              return (< el-alert title="xx.vue文件中的name" type="warning" />
               )
             }
           }
@@ -322,6 +376,10 @@ export const crudOptions = (vm) => {
         form: {
           value: 0,
           component: {
+            show (context) {
+              const { form } = context
+              return !form.is_catalog
+            },
             placeholder: '请选择是否缓存'
           },
           helper: {

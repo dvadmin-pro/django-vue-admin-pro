@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-15 16:10:57
+ * @最后修改时间: 2021-09-10 15:03:06
  * 联系Qq:1638245306
  * @文件介绍: 菜单获取
  */
@@ -86,7 +86,7 @@ export const getMenu = function (self) {
 export const handleRouter = function (menuData) {
   const result = []
   for (const item of menuData) {
-    if (item.path !== '' && item.parent !== null && item.component) {
+    if (item.path !== '' && item.component) {
       const obj = {
         path: item.path,
         name: item.component_name,
