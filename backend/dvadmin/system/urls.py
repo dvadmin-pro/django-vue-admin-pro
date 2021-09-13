@@ -8,7 +8,6 @@
 """
 from django.urls import path, re_path
 from rest_framework import routers
-from rest_framework_bulk.routes import BulkRouter
 
 from dvadmin.system.views.button import ButtonViewSet
 from dvadmin.system.views.dept import DeptViewSet

@@ -6,6 +6,10 @@
 @Created on: 2021/6/1 001 22:57
 @Remark: 自定义视图集
 """
+import uuid
+
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
@@ -85,14 +89,20 @@ class CustomModelViewSet(ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return SuccessResponse(data=[], msg="删除成功")
-    
+
+
+    keys = openapi.Schema(description='主键列表',type=openapi.TYPE_ARRAY,items=openapi.TYPE_STRING)
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['keys'],
+        properties={'keys': keys}
+    ), operation_summary='批量删除')
     @action(methods=['delete'],detail=False)
     def multiple_delete(self,request,*args,**kwargs):
         print(request.data)
         request_data = request.data
-        keys = request_data.get('keys')
+        keys = request_data.get('keys',None)
         if keys:
-            keys = keys.split(',')
             self.get_queryset().filter(id__in=keys).delete()
             return SuccessResponse(data=[], msg="删除成功")
         else:
