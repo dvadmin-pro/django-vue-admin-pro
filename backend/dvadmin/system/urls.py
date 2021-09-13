@@ -8,6 +8,7 @@
 """
 from django.urls import path, re_path
 from rest_framework import routers
+from rest_framework_bulk.routes import BulkRouter
 
 from dvadmin.system.views.button import ButtonViewSet
 from dvadmin.system.views.dept import DeptViewSet
@@ -33,12 +34,11 @@ system_url.register(r'img',ImgViewSet)
 system_url.register(r'file',FileViewSet)
 
 
+
 urlpatterns = [
     re_path('role/role_id_to_menu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
-    re_path('menu/web_router/', MenuViewSet.as_view({'get': 'web_router'})),
+    path('menu/web_router/', MenuViewSet.as_view({'get': 'web_router'})),
     path('user/user_info/',UserViewSet.as_view({'get':'user_info','put':'update_user_info'})),
     re_path('user/change_password/(?P<pk>.*?)/',UserViewSet.as_view({'put':'change_password'})),
-
-
 ]
 urlpatterns += system_url.urls

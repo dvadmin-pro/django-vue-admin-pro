@@ -6,10 +6,11 @@
 @Created on: 2021/6/1 001 22:57
 @Remark: 自定义视图集
 """
+from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
 from dvadmin.utils.filters import DataLevelPermissionsFilter
-from dvadmin.utils.json_response import SuccessResponse
+from dvadmin.utils.json_response import SuccessResponse, ErrorResponse
 from dvadmin.utils.permission import CustomPermission
 
 
@@ -84,3 +85,15 @@ class CustomModelViewSet(ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return SuccessResponse(data=[], msg="删除成功")
+    
+    @action(methods=['delete'],detail=False)
+    def multiple_delete(self,request,*args,**kwargs):
+        print(request.data)
+        request_data = request.data
+        keys = request_data.get('keys')
+        if keys:
+            keys = keys.split(',')
+            self.get_queryset().filter(id__in=keys).delete()
+            return SuccessResponse(data=[], msg="删除成功")
+        else:
+            return ErrorResponse(msg="未获取到keys字段")
