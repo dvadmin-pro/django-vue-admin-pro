@@ -56,7 +56,12 @@
         </div>
 
         <div class="tree-body">
-          <vxe-grid v-bind="_elProps" :data="_options" ref="elTree">
+          <vxe-grid
+            v-bind="_elProps"
+            :data="_options"
+            ref="elTree"
+            :auto-resize="true"
+          >
             <template #pager>
               <vxe-pager
                 v-if="pagination"
@@ -69,7 +74,7 @@
                   'NextPage',
                   'NextJump',
                   'FullJump',
-                  'Total',
+                  'Total'
                 ]"
                 :current-page.sync="_elProps.page"
                 :page-size.sync="_elProps.limit"
@@ -95,7 +100,6 @@
 <script>
 import lodash from 'lodash'
 import { d2CrudPlus } from 'd2-crud-plus'
-import log from '@/libs/util.log'
 import { request } from '@/api/service'
 // 表格选择组件
 export default {
@@ -154,8 +158,8 @@ export default {
       type: Object
     },
     /**
-       * 是否可以清除
-       */
+     * 是否可以清除
+     */
     clearable: {
       type: Boolean,
       default: true
@@ -246,16 +250,16 @@ export default {
     //   })
     // },
     onDictLoaded () {
-      log.danger('onDictLoaded', this.dict, this.value)
+      // log.danger("onDictLoaded", this.dict, this.value);
       this.setValue(this.value)
     },
     setValue (value) {
-      log.danger('setValue:', this.currentValue, this.value, this._options)
+      // log.danger("setValue:", this.currentValue, this.value, this._options);
       if (this.currentValue === this.value) {
         return
       }
       let arrValue = value
-      if (value === null) {
+      if (value == null) {
         this.selected = []
       }
 
@@ -263,13 +267,13 @@ export default {
         arrValue = [arrValue]
       }
       if (this.dict && this.dict.getNodes) {
-        log.danger('getNodes:', arrValue)
-        this.dict.getNodes(arrValue).then((nodes) => {
+        // log.danger("getNodes:", arrValue);
+        this.dict.getNodes(arrValue).then(nodes => {
           this.selectedNodes(nodes, value)
         })
       } else {
         const nodes = []
-        if (this._options === null || this._options.length === 0) {
+        if (this._options == null || this._options.length === 0) {
           return
         }
         for (const item of arrValue) {
@@ -288,7 +292,7 @@ export default {
         node.id = node[this.dict.value]
         selected.push(node)
       }
-      log.danger('selected:', selected)
+      // log.danger("selected:", selected);
       this.$set(this, 'selected', selected)
       this.resetInputHeight()
     },
@@ -306,9 +310,9 @@ export default {
       setTimeout(() => {
         if (this.selected != null) {
           const ids = this.selected.map(
-            (item) => item[this._elProps.props.value]
+            item => item[this._elProps.props.value]
           )
-          ids.forEach((id) => {
+          ids.forEach(id => {
             const current = this.$refs.elTree.store.nodesMap[id]
             if (current != null) {
               this.doExpandParent(current)
@@ -377,7 +381,7 @@ export default {
     },
     itemClosed (item) {
       const newNodes = lodash.without(this.selected, item)
-      console.log('new value', item, newNodes)
+      // console.log("new value", item, newNodes);
       this.$set(this, 'selected', newNodes)
       this.doValueInputChanged(newNodes)
     },
@@ -391,7 +395,7 @@ export default {
       //   );
       // } else {
       //   const node = this.$refs.elTree.getCurrentNode();
-      //   if (node === null) {
+      //   if (node == null) {
       //     nodes = [];
       //   } else {
       //     nodes = [node];
@@ -402,7 +406,7 @@ export default {
         nodes = this.$refs.elTree.getCheckboxRecords()
       } else {
         const node = this.$refs.elTree.getRadioRecord()
-        if (node === null) {
+        if (node == null) {
           nodes = []
         } else {
           nodes = [node]
@@ -415,7 +419,7 @@ export default {
       if (this.filter != null) {
         nodes = this.filter(nodes)
       }
-      log.danger('selected', this.selected)
+      // log.danger("selected", this.selected);
       this.$set(this, 'selected', nodes)
       return nodes
     },
@@ -426,19 +430,19 @@ export default {
         const inputChildNodes = this.$refs.reference.$el.childNodes
         const input = [].filter.call(
           inputChildNodes,
-          (item) => item.tagName === 'INPUT'
+          item => item.tagName === 'INPUT'
         )[0]
         const tags = this.$refs.tags
         const sizeInMap = this.initialInputHeight || 40
         const height =
-            this.selected.length === 0
-              ? sizeInMap + 'px'
-              : Math.max(
-                tags
-                  ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
-                  : 0,
-                sizeInMap
-              ) + 'px'
+          this.selected.length === 0
+            ? sizeInMap + 'px'
+            : Math.max(
+              tags
+                ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
+                : 0,
+              sizeInMap
+            ) + 'px'
         input.style.height = height
         if (this.visible && this.emptyText !== false) {
           this.broadcast('ElSelectDropdown', 'updatePopper')
@@ -508,7 +512,7 @@ export default {
       request({
         url: that.dict.url,
         params: params
-      }).then((ret) => {
+      }).then(ret => {
         that._elProps.page = ret.data.page
         that._elProps.limit = ret.data.limit
         that._elProps.total = ret.data.total
@@ -519,32 +523,32 @@ export default {
 }
 </script>
 <style lang="scss">
-  .d2p-tree-selector {
+.d2p-tree-selector {
+  width: 100%;
+  .el-cascader {
     width: 100%;
-    .el-cascader {
-      width: 100%;
+  }
+  .is-disabled .el-tag__close.el-icon-close {
+    display: none;
+  }
+}
+.d2p-tree-selector-dialog {
+  &.el-dialog {
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    .el-dialog__body {
+      flex: 1;
+      overflow-y: auto;
     }
-    .is-disabled .el-tag__close.el-icon-close {
-      display: none;
+    .el-dialog__header {
+      padding: 20px 20px 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .el-dialog__footer {
+      padding: 10px 20px 10px;
+      border-top: 1px solid #eee;
     }
   }
-  .d2p-tree-selector-dialog {
-    &.el-dialog {
-      max-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      .el-dialog__body {
-        flex: 1;
-        overflow-y: auto;
-      }
-      .el-dialog__header {
-        padding: 20px 20px 20px;
-        border-bottom: 1px solid #eee;
-      }
-      .el-dialog__footer {
-        padding: 10px 20px 10px;
-        border-top: 1px solid #eee;
-      }
-    }
-  }
+}
 </style>

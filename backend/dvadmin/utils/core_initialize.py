@@ -17,10 +17,10 @@ class CoreInitialize:
         self.reset = reset or self.reset
         self.creator_id = creator_id or self.creator_id
 
-    def save(self, obj, data: list, name=None):
+    def save(self, obj, data: list, name=None, no_reset=False):
         name = name or obj._meta.verbose_name
         print(f"正在初始化[{obj._meta.label} => {name}]")
-        if self.reset and obj not in settings.INITIALIZE_RESET_LIST:
+        if not no_reset and self.reset and obj not in settings.INITIALIZE_RESET_LIST:
             try:
                 obj.objects.all().delete()
                 settings.INITIALIZE_RESET_LIST.append(obj)

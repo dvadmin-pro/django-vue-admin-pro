@@ -37,12 +37,12 @@ class ApiLoggingMiddleware(MiddlewareMixin):
             body['password'] = '*' * len(body['password'])
         if not hasattr(response, 'data') or not isinstance(response.data, dict):
             response.data = {}
-        if not response.data and response.content:
-            try:
+        try:
+            if not response.data and response.content:
                 content = json.loads(response.content.decode())
                 response.data = content if isinstance(content, dict) else {}
-            except:
-                pass
+        except Exception:
+            return
         user = get_request_user(request)
         info = {
             'request_ip': getattr(request, 'request_ip', 'unknown'),

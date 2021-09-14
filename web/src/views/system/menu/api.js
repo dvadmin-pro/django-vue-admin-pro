@@ -19,7 +19,7 @@ export function GetList (query) {
   return request({
     url: urlPrefix,
     method: 'get',
-    params: query
+    params: { ...query, limit: 999 }
   }).then(res => {
     // 将列表数据转换为树形数据
     res.data.data = XEUtils.toArrayTree(res.data.data, { parentKey: 'parent', strict: false })

@@ -16,16 +16,16 @@ from dvadmin.utils.viewset import CustomModelViewSet
 class ImgSerializer(CustomModelSerializer):
     img = serializers.SerializerMethodField(read_only=True)
 
-    def get_img(self,instance):
+    def get_img(self, instance):
         return str(instance.url)
 
     class Meta:
         model = ImgList
         fields = "__all__"
 
-    def create(self,validated_data):
+    def create(self, validated_data):
         validated_data['name'] = str(validated_data.get('url'))
-        return ImgList.objects.create(**validated_data)
+        return super().create(validated_data)
 
 
 class ImgViewSet(CustomModelViewSet):
@@ -39,4 +39,4 @@ class ImgViewSet(CustomModelViewSet):
     """
     queryset = ImgList.objects.all()
     serializer_class = ImgSerializer
-    filter_fields = ['name',]
+    filter_fields = ['name', ]

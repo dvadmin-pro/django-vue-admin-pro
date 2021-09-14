@@ -42,6 +42,9 @@ util.baseURL = function () {
     host = document.domain + ':' + prot
     baseURL = baseURL.split('/')[0] + '//' + baseURL.split('/')[1] + host + '/' + (baseURL.split('/')[3] || '')
   }
+  if (!baseURL.endsWith('/')) {
+    baseURL += '/'
+  }
   return baseURL
 }
 

@@ -14,18 +14,19 @@ from dvadmin.utils.viewset import CustomModelViewSet
 
 
 class FileSerializer(CustomModelSerializer):
-    img = serializers.SerializerMethodField(read_only=True)
+    url = serializers.SerializerMethodField(read_only=True)
 
-    def get_img(self,instance):
+    def get_url(self, instance):
         return str(instance.url)
 
     class Meta:
         model = FileList
         fields = "__all__"
 
-    def create(self,validated_data):
-        validated_data['name'] = str(validated_data.get('url'))
-        return FileList.objects.create(**validated_data)
+    def create(self, validated_data):
+        validated_data['name'] = str(self.initial_data.get('url'))
+        validated_data['url'] = self.initial_data.get('url')
+        return super().create(validated_data)
 
 
 class FileViewSet(CustomModelViewSet):
@@ -39,4 +40,4 @@ class FileViewSet(CustomModelViewSet):
     """
     queryset = FileList.objects.all()
     serializer_class = FileSerializer
-    filter_fields = ['name',]
+    filter_fields = ['name', ]
