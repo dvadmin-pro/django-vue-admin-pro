@@ -1,7 +1,7 @@
 import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
-import plugins from '@/views/dvadmin_plugins/index.js'
+import { plugins } from '@/views/dvadmin_plugins/index.js'
 const util = {
   cookies,
   db,
@@ -41,6 +41,9 @@ util.baseURL = function () {
     var prot = host.split(':')[1] || 80
     host = document.domain + ':' + prot
     baseURL = baseURL.split('/')[0] + '//' + baseURL.split('/')[1] + host + '/' + (baseURL.split('/')[3] || '')
+  }
+  if (!baseURL.endsWith('/')) {
+    baseURL += '/'
   }
   return baseURL
 }

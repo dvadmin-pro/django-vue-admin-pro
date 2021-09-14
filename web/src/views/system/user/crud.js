@@ -145,7 +145,7 @@ export const crudOptions = (vm) => {
               },
               dict: {
                 // cache: true, // 表单的dict可以禁用缓存
-                url: deptPrefix,
+                url: deptPrefix + '?limit=999&status=1',
                 body: {
                   status: 1
                 },
@@ -166,7 +166,7 @@ export const crudOptions = (vm) => {
             props: { color: 'auto' },
             dict: {
               // cache: true, // 表单的dict可以禁用缓存
-              url: deptPrefix,
+              url: deptPrefix + '?limit=999&status=1',
               isTree: true,
               value: 'id', // 数据字典中value字段的属性名
               label: 'name' // 数据字典中label字段的属性名

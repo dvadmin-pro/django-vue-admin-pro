@@ -28,7 +28,7 @@ export function getErrorMessage (msg) {
       router.push({ path: '/login' })
       return '用户无效，请重新登录！'
     }
-    return msg
+    return Object.values(msg)
   }
   if (Object.prototype.toString.call(msg).slice(8, -1) === 'Array') {
     return msg

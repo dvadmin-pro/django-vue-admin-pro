@@ -80,10 +80,12 @@ class Initialize(CoreInitialize):
             {"id": "805390f3-a6e6-411e-9798-eebd34b76204", "name": "附件管理", "sort": 7, "web_path": "",
              "icon": "envelope", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", },
             {"id": "ac956a17-87d3-4b61-8f72-44a97b9fbcd1", "name": "图片管理", "sort": 1, "web_path": "/img",
-             "icon": "file-image-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204", "component": "system/fileList/img/index",
+             "icon": "file-image-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204",
+             "component": "system/fileList/img/index",
              "component_name": "imgs"},
             {"id": "28723f68-e470-493a-bbe7-7b759fe26674", "name": "文件管理", "sort": 2, "web_path": "/file",
-             "icon": "file-excel-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204", "component": "system/fileList/file/index",
+             "icon": "file-excel-o", "parent_id": "805390f3-a6e6-411e-9798-eebd34b76204",
+             "component": "system/fileList/file/index",
              "component_name": "file"},
         ]
         self.save(Menu, self.menu_data, "菜单表")
@@ -253,7 +255,7 @@ class Initialize(CoreInitialize):
              "role": ["36001d1a-1b3e-4413-bdfe-b3bc04375f46"],
              },
         ]
-        self.save(Users, data, "用户表")
+        self.save(Users, data, "用户表", no_reset=True)
 
     def run(self):
         self.init_dept()

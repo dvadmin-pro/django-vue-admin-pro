@@ -255,7 +255,13 @@ REST_FRAMEWORK = {
     ),
     'EXCEPTION_HANDLER': 'dvadmin.utils.exception.CustomExceptionHandler',  # 自定义的异常处理
 }
+# ================================================= #
+# ******************** 登录方式配置 ******************** #
+# ================================================= #
 
+AUTHENTICATION_BACKENDS = [
+    'dvadmin.utils.backends.CustomBackend'
+]
 # ================================================= #
 # ****************** simplejwt配置 ***************** #
 # ================================================= #
@@ -334,10 +340,15 @@ API_LOG_METHODS = ['POST', 'UPDATE', 'DELETE', 'PUT']  # ['POST', 'DELETE']
 API_MODEL_MAP = {
     "/token/": "登录模块",
     "/api/login/": "登录模块",
+    "/api/plugins_market/plugins/": "插件市场",
 }
 # 表前缀
 TABLE_PREFIX = "dvadmin_"
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 初始化需要执行的列表，用来初始化后执行
+INITIALIZE_LIST = []
+INITIALIZE_RESET_LIST = []
 # 导入租户数据
+SHARED_APPS = []
 from plugins import *
