@@ -36,7 +36,7 @@ class Users(AbstractUser, CoreModel):
         db_table = table_prefix + "system_users"
         verbose_name = '用户表'
         verbose_name_plural = verbose_name
-        ordering = ('create_datetime',)
+        ordering = ('-create_datetime',)
 
 
 class Post(CoreModel):
