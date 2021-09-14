@@ -1,16 +1,8 @@
 {
   "plugins_market_backend": {
     "name": "插件市场后台",
-    "enable": false,
-    "git": "https://gitee.com/dvadmin/plugins_market_backend.git",
-    "priority": 1,
-    "tags": "v0.0.1",
-    "type": "backend"
-  },
-   "dvadmin_apscheduler_backend": {
-    "name": "定时任务后端",
     "enable": true,
-    "git": "https://gitee.com/dvadmin/dvadmin_apscheduler_backend.git",
+    "git": "https://gitee.com/dvadmin/plugins_market_backend.git",
     "priority": 1,
     "tags": "v0.0.1",
     "type": "backend"
