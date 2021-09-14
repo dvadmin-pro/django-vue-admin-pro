@@ -126,6 +126,7 @@ class ApiLoginSerializer(CustomModelSerializer):
 class ApiLogin(APIView):
     """接口文档的登录接口"""
     serializer_class = ApiLoginSerializer
+    authentication_classes = []
     permission_classes = []
 
     def post(self, request):
