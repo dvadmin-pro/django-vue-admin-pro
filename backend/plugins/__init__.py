@@ -2,6 +2,8 @@
 import json
 import os
 
+from git import GitCommandError
+
 from application import settings
 from application.settings import BASE_DIR, PLUGINS_WEB_YAML_PATH, PLUGINS_BACKEND_YAML_PATH
 # 拉取插件
@@ -133,8 +135,6 @@ def plugins_exists():
         if not os.path.exists(plugins_path):
             # 进行下载
             print(f"插件[{plugins_name}]({repo_url})插件未安装，正在安装中...")
-            # 从远程仓库将代码下载到上面创建的目录中
-            repo = GitRepository(repo_url=repo_url, local_path=plugins_path)
             # 插件初始化
             settings.INITIALIZE_LIST.append({
                 "function": plugins_initialize,
@@ -142,13 +142,23 @@ def plugins_exists():
                     "plugins_name": key
                 }
             })
+            # 从远程仓库将代码下载到上面创建的目录中
+            try:
+                repo = GitRepository(repo_url=repo_url, local_path=plugins_path)
+            except GitCommandError as e:
+                print(f"插件[{plugins_name}]git 初始化失败，请手动删除，否则无法进行更新！")
+                continue
             if not repo.tags_exists(tags):
                 print(f"插件[{plugins_name}]中无[{tags}]标签，请检查！")
                 continue
             repo.change_to_tag(tag=tags)
             print(f"插件[{plugins_name}][{tags}]插件安装完成！")
         else:
-            repo = GitRepository(repo_url=repo_url, local_path=plugins_path)
+            try:
+                repo = GitRepository(repo_url=repo_url, local_path=plugins_path)
+            except GitCommandError as e:
+                print(f"插件[{plugins_name}]git 初始化失败，请手动删除，否则无法进行更新！")
+                continue
             if not repo.tags_exists(tags):
                 print(f"插件[{plugins_name}]中无[{tags}]标签，请检查！")
                 continue
@@ -158,8 +168,7 @@ def plugins_exists():
 # 检查插件状态
 plugins_exists()
 
-yaml_path = os.path.join(BASE_DIR, "plugins", "config.json")
-with open(yaml_path, 'r', encoding='utf-8') as doc:
+with open(PLUGINS_BACKEND_YAML_PATH, 'r', encoding='utf-8') as doc:
     plugins_dict = json.load(doc)
     # 进行排序
     plugins_dict = dict(sorted(plugins_dict.items(), key=lambda x: x[1]['priority'], reverse=True))
