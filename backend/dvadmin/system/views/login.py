@@ -113,6 +113,7 @@ class LoginView(TokenObtainPairView):
 
 
 class ApiLoginSerializer(CustomModelSerializer):
+    """接口文档登录-序列化器"""
     username = serializers.CharField()
     password = serializers.CharField()
 
@@ -125,6 +126,7 @@ class ApiLoginSerializer(CustomModelSerializer):
 class ApiLogin(APIView):
     """接口文档的登录接口"""
     serializer_class = ApiLoginSerializer
+    permission_classes = []
 
     def post(self, request):
         username = request.data.get('username')
