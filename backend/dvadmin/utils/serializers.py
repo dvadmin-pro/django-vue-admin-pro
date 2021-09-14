@@ -109,7 +109,7 @@ class CustomModelSerializer(ModelSerializer):
             filter_fields = None
 
         try:
-            omit_fields = params.get('_omit', None).split(',')
+            omit_fields = params.get('_exclude', None).split(',')
         except AttributeError:
             omit_fields = []
 
