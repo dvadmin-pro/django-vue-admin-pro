@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-22 23:07:58
+ * @最后修改时间: 2021-09-26 21:17:30
  * 联系Qq:1638245306
  * @文件介绍: 部门管理接口
  */
@@ -13,7 +13,7 @@ export const urlPrefix = '/api/system/dept/'
 /**
  * 列表查询
  */
-export function GetList (query) {
+export function GetList(query) {
   query.limit = 999
   return request({
     url: urlPrefix,
@@ -28,7 +28,7 @@ export function GetList (query) {
 /**
  * 新增
  */
-export function createObj (obj) {
+export function createObj(obj) {
   return request({
     url: urlPrefix,
     method: 'post',
@@ -39,7 +39,7 @@ export function createObj (obj) {
 /**
  * 修改
  */
-export function UpdateObj (obj) {
+export function UpdateObj(obj) {
   return request({
     url: urlPrefix + obj.id + '/',
     method: 'put',
@@ -49,7 +49,7 @@ export function UpdateObj (obj) {
 /**
  * 删除
  */
-export function DelObj (id) {
+export function DelObj(id) {
   return request({
     url: urlPrefix + id + '/',
     method: 'delete',
