@@ -26,7 +26,7 @@
 
 ## 在线体验
 
-👩‍👧‍👦演示地址：[http://demo.pro.django-vue-admin.com](http://demo.pro.django-vue-admin.com) 账号：superadmin 密码：superadmin123456
+👩‍👧‍👦演示地址：[http://demo.pro.django-vue-admin.com](http://demo.pro.django-vue-admin.com) 账号：superadmin 密码：admin123456
 
 👩‍👦‍👦文档地址：未上线，部署可参考：[http://django-vue-admin.com](http://django-vue-admin.com)
 
