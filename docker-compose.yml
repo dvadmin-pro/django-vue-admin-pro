@@ -1,0 +1,109 @@
+version: "3"
+services:
+  dvadmin-pro-ui:
+    container_name: dvadmin-pro-ui
+    ports:
+      - "8080:8080"
+    build:
+      context: ./
+      dockerfile: ./docker_env/web/Dockerfile
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - "./web:/web"
+
+
+  dvadmin-redis:
+    image: redis:latest
+    container_name: dvadmin-redis
+    ports:
+      - "6380:6379"
+    expose:
+      - "6379"
+    volumes:
+      - ./docker_env/redis/data:/data
+      - ./docker_env/redis/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+    networks:
+      - dvadmin_net
+
+
+  dvadmin-mysql:
+    image: mysql:5.7
+    container_name: dvadmin-mysql
+    #使用该参数，container内的root拥有真正的root权限，否则，container内的root只是外部的一个普通用户权限
+    #设置为true，不然数据卷可能挂载不了，启动不起
+    privileged: true
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "q1w2e3r4T%Y^U&MYSQL"
+      MYSQL_DATABASE: "django-vue-admin"
+      TZ: Asia/Shanghai
+    command:
+      --wait_timeout=31536000
+      --interactive_timeout=31536000
+      --max_connections=1000
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      #映射mysql的数据目录到宿主机，保存数据
+      - "./docker_env/mysql/data:/var/lib/mysql"
+      #根据宿主机下的配置文件创建容器
+      - "./docker_env/mysql/conf.d:/etc/mysql/conf.d"
+      - "./docker_env/mysql/logs:/logs"
+    networks:
+      - dvadmin_net
+
+  dvadmin-django:
+    build:
+      context: .
+      dockerfile: ./docker_env/django/Dockerfile
+    # image: django:2.2
+    container_name: dvadmin-django
+    working_dir: /dvadmin-backend
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver"
+    # command: bash
+    depends_on:
+      - dvadmin-mysql
+      - dvadmin-redis
+    environment:
+      - REDIS_HOST=dvadmin-redis
+      - DATABASE_HOST=dvadmin-mysql
+    volumes:
+      - ./dvadmin-backend:/dvadmin-backend
+      - ./logs/log:/var/log
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    restart: always
+    networks:
+      - dvadmin_net
+
+
+  dvadmin-celery:
+    build:
+      context: .
+      dockerfile: ./docker_env/celery/Dockerfile
+    # image: django:2.2
+    container_name: dvadmin-celery
+    working_dir: /dvadmin-backend
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver"
+    # command: bash
+    depends_on:
+      - dvadmin-mysql
+      - dvadmin-redis
+    environment:
+      - REDIS_HOST=dvadmin-redis
+      - DATABASE_HOST=dvadmin-mysql
+    volumes:
+      - ./dvadmin-backend:/dvadmin-backend
+      - ./logs/log:/var/log
+    restart: always
+    networks:
+      - dvadmin_net
+
+networks:
+  dvadmin_net:
+    driver: bridge
