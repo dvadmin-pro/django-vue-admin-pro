@@ -5,7 +5,7 @@ import os
 from git import GitCommandError
 
 from application import settings
-from application.settings import BASE_DIR, PLUGINS_WEB_YAML_PATH, PLUGINS_BACKEND_YAML_PATH
+from application.settings import PLUGINS_WEB_YAML_PATH, PLUGINS_BACKEND_YAML_PATH
 # 拉取插件
 from dvadmin.utils.git_utils import GitRepository
 
@@ -15,13 +15,19 @@ def get_all_plugins():
     获取所有插件字典
     :return:
     """
-
-    with open(PLUGINS_WEB_YAML_PATH, 'r', encoding='utf-8') as doc:
-        # 进行排序
-        plugins_dict = dict(sorted(json.load(doc).items(), key=lambda x: x[1]['priority'], reverse=True))
-    with open(PLUGINS_BACKEND_YAML_PATH, 'r', encoding='utf-8') as doc:
-        # 进行排序
-        plugins_dict.update(dict(sorted(json.load(doc).items(), key=lambda x: x[1]['priority'], reverse=True)))
+    plugins_dict = {}
+    if os.path.exists(PLUGINS_WEB_YAML_PATH):
+        with open(PLUGINS_WEB_YAML_PATH, 'r', encoding='utf-8') as doc:
+            # 进行排序
+            plugins_dict.update(dict(sorted(json.load(doc).items(), key=lambda x: x[1]['priority'], reverse=True)))
+    else:
+        print("未找到前端插件配置文件，请检查...")
+    if os.path.exists(PLUGINS_WEB_YAML_PATH):
+        with open(PLUGINS_BACKEND_YAML_PATH, 'r', encoding='utf-8') as doc:
+            # 进行排序
+            plugins_dict.update(dict(sorted(json.load(doc).items(), key=lambda x: x[1]['priority'], reverse=True)))
+    else:
+        print("未找到后端插件配置文件，请检查...")
     settings.PLUGINS_LIST = {plugins_name: plugins_values for plugins_name, plugins_values in plugins_dict.items() if
                              plugins_values.get('enable', None)}
     return plugins_dict
@@ -166,17 +172,19 @@ def plugins_exists():
 
 
 # 检查插件状态
-plugins_exists()
-
-with open(PLUGINS_BACKEND_YAML_PATH, 'r', encoding='utf-8') as doc:
-    plugins_dict = json.load(doc)
-    # 进行排序
-    plugins_dict = dict(sorted(plugins_dict.items(), key=lambda x: x[1]['priority'], reverse=True))
-    for plugins_name, plugins_values in plugins_dict.items():
-        # 校验插件是否
-        if plugins_values.get('enable', None):
-            exec(f"from plugins.{plugins_name}.settings import *")
-            print(f"【{plugins_values.get('name', None)}】导入成功")
+if not getattr(settings, 'ENABLE_PLUGINS', True):
+    print("插件功能未启用...")
+else:
+    plugins_exists()
+    with open(PLUGINS_BACKEND_YAML_PATH, 'r', encoding='utf-8') as doc:
+        plugins_dict = json.load(doc)
+        # 进行排序
+        plugins_dict = dict(sorted(plugins_dict.items(), key=lambda x: x[1]['priority'], reverse=True))
+        for plugins_name, plugins_values in plugins_dict.items():
+            # 校验插件是否
+            if plugins_values.get('enable', None):
+                exec(f"from plugins.{plugins_name}.settings import *")
+                print(f"【{plugins_values.get('name', None)}】导入成功")
 
 # 不是为租户模式下，新安装插件进行初始化菜单等数据，租户模式下，则在dvadmin_tenant_backend/apps 下进行初始化
 if not getattr(settings, 'PLUGINS_LIST', {}).get('dvadmin_tenant_backend', None):

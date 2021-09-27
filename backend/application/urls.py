@@ -72,15 +72,15 @@ def get_classes(arg):
             return name
     return ""
 
-
-with open(yamlPath, 'r', encoding='utf-8') as doc:
-    plugins_dict = json.load(doc)
-    # 进行排序
-    plugins_dict = dict(sorted(plugins_dict.items(), key=lambda x: x[1]['priority'], reverse=True))
-    for plugins_name, plugins_values in plugins_dict.items():
-        # 校验插件是否
-        if plugins_values.get('enable', None):
-            exec(f"""
+if getattr(settings, 'ENABLE_PLUGINS', True):
+    with open(yamlPath, 'r', encoding='utf-8') as doc:
+        plugins_dict = json.load(doc)
+        # 进行排序
+        plugins_dict = dict(sorted(plugins_dict.items(), key=lambda x: x[1]['priority'], reverse=True))
+        for plugins_name, plugins_values in plugins_dict.items():
+            # 校验插件是否
+            if plugins_values.get('enable', None):
+                exec(f"""
 # 获取 url_prefix 前缀
 from plugins.{plugins_name} import apps
 
