@@ -17,3 +17,4 @@ daphne==3.0.2
 django-simple-captcha==0.5.14
 gitpython==3.1.20
 pypinyin==0.42.0
+whitenoise==5.3.0
