@@ -81,6 +81,23 @@ export const getMenu = function (self) {
 }
 
 /**
+ * 校验路由是否有效
+ */
+export const checkRouter = function (menuData) {
+  const result = []
+  for (const item of menuData) {
+    try {
+      if (item.path !== '' && item.component) {
+        _import(item.component)
+      }
+      result.push(item)
+    } catch (err) {
+      console.log(`导入菜单错误，会导致页面无法访问，请检查文件是否存在：${item.component}`)
+    }
+  }
+  return result
+}
+/**
  * 将获取到的后端菜单数据,解析为前端路由
  */
 export const handleRouter = function (menuData) {

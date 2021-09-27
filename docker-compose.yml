@@ -1,0 +1,94 @@
+version: "3"
+services:
+  dvadmin-pro-web:
+    container_name: dvadmin-pro-web
+    ports:
+      - "8080:8080"
+    build:
+      context: ./
+      dockerfile: ./docker_env/web/Dockerfile
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./docker_env/nginx/my.conf:/etc/nginx/conf.d/my.conf
+    expose:
+      - "8080"
+    networks:
+      network:
+        ipv4_address: 177.7.0.11
+
+  dvadmin-pro-mysql:
+    image: mysql:5.7
+    container_name: dvadmin-pro-mysql
+    #使用该参数，container内的root拥有真正的root权限，否则，container内的root只是外部的一个普通用户权限
+    #设置为true，不然数据卷可能挂载不了，启动不起
+#    privileged: true
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "dvadmin_pro"
+      TZ: Asia/Shanghai
+    command:
+      --wait_timeout=31536000
+      --interactive_timeout=31536000
+      --max_connections=1000
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./docker_env/mysql/data:/var/lib/mysql"
+      - "./docker_env/mysql/conf.d:/etc/mysql/conf.d"
+      - "./docker_env/mysql/logs:/logs"
+    networks:
+      network:
+        ipv4_address: 177.7.0.13
+
+  dvadmin-pro-django:
+    build:
+      context: .
+      dockerfile: ./docker_env/django/Dockerfile
+    container_name: dvadmin-pro-django
+    working_dir: /backend
+    depends_on:
+      - dvadmin-pro-mysql
+    environment:
+      - DATABASE_HOST=dvadmin-pro-mysql
+    volumes:
+      - ./backend:/backend
+      - ./logs/log:/var/log
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    restart: always
+    networks:
+      network:
+        ipv4_address: 177.7.0.12
+
+# 如果使用celery 插件，请自行打开此注释
+#  dvadmin-pro-celery:
+#    build:
+#      context: .
+#      dockerfile: ./docker_env/celery/Dockerfile
+#    # image: django:2.2
+#    container_name: dvadmin-pro-celery
+#    working_dir: /backend
+#    depends_on:
+#      - dvadmin-pro-mysql
+#    environment:
+#      - DATABASE_HOST=dvadmin-pro-mysql
+#    volumes:
+#      - ./backend:/backend
+#      - ./logs/log:/var/log
+#    restart: always
+#    networks:
+#      network:
+#        ipv4_address: 177.7.0.14
+
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '177.7.0.0/16'
+

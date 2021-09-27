@@ -17,4 +17,14 @@ daphne==3.0.2
 django-simple-captcha==0.5.14
 gitpython==3.1.20
 pypinyin==0.42.0
+python-dateutil==2.8.2
+demjson==2.2.4
+django-fernet-fields==0.6
+django-celery-beat==2.2.1
+tenant-schemas-celery==1.0.1
+django-redis==5.0.0
+django-celery-results==2.2.0
+django-apscheduler==0.6.0
+django-tenants==3.3.2
+psycopg2-binary==2.9.1
 whitenoise==5.3.0

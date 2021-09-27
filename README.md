@@ -115,7 +115,7 @@ npm run build:prod
 7. 启动项目
 	python3 manage.py runserver 127.0.0.1:8000
 或使用 daphne :
-  daphne -b 0.0.0.0 application.asgi:application
+  daphne -b 0.0.0.0 -8000 application.asgi:application
 初始账号：superadmin 密码：admin123456
 后端接口文档地址：http://127.0.0.1:8000/swagger
 ~~~
@@ -125,7 +125,26 @@ npm run build:prod
 ### docker-compose 运行
 
 ~~~shell
-待完善
+# 先安装docker-compose (自行百度安装),执行此命令等待安装，如有使用celery插件请打开docker-compose.yml中celery 部分注释
+docker-compose up -d
+# 初始化后端数据(第一次执行即可)
+docker exec -ti dvadmin-pro-django bash
+python manage.py makemigrations 
+python manage.py migrate
+python manage.py init -y
+exit
+
+前端地址：http://127.0.0.1:8080
+后端地址：http://127.0.0.1:8000
+# 在服务器上请把127.0.0.1 换成自己公网ip
+账号：superadmin 密码：admin123456
+
+# docker-compose 停止
+docker-compose down
+#  docker-compose 重启
+docker-compose restart
+#  docker-compose 启动时重新进行 build
+docker-compose up -d --build
 ~~~
 
 

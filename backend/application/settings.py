@@ -29,9 +29,8 @@ from conf.env import *
 SECRET_KEY = 'django-insecure--z8%exyzt7e_%i@1+#1mm=%lb5=^fx_57=1@a+_y7bg5-w%)sm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+DEBUG = locals().get('DEBUG', True)
+ALLOWED_HOSTS = locals().get('ALLOWED_HOSTS', ['*'])
 
 # Application definition
 
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # 跨域中间件
     'django.middleware.common.CommonMiddleware',
@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': DATABASE_NAME,
         'USER': DATABASE_USER,
         'PASSWORD': DATABASE_PASSWORD,
-        'HOST': DATABASE_HOST,
+        'HOST': os.getenv('DATABASE_HOST') or DATABASE_HOST,
         'PORT': DATABASE_PORT,
     }
 }
@@ -137,7 +137,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-
 
 MEDIA_ROOT = 'media'  # 项目下的目录
 MEDIA_URL = "/media/"  # 跟STATIC_URL类似，指定用户可以通过这个url找到文件
@@ -279,12 +278,12 @@ SIMPLE_JWT = {
 
 # ====================================#
 # ****************swagger************#
-#====================================#
+# ====================================#
 SWAGGER_SETTINGS = {
     # 基础样式
     'SECURITY_DEFINITIONS': {
-    "basic":{
-        'type': 'basic'
+        "basic": {
+            'type': 'basic'
         }
     },
     # 如果需要登录才能够查看接口文档, 登录的链接使用restframework自带的.
@@ -303,7 +302,7 @@ SWAGGER_SETTINGS = {
     # 方法列表字母排序
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
-    'AUTO_SCHEMA_TYPE': 2, # 分组根据url层级分，0、1 或 2 层
+    'AUTO_SCHEMA_TYPE': 2,  # 分组根据url层级分，0、1 或 2 层
     'DEFAULT_AUTO_SCHEMA_CLASS': 'dvadmin.utils.swagger.CustomSwaggerAutoSchema',
 }
 
@@ -319,12 +318,11 @@ CAPTCHA_FONT_SIZE = 40  # 字体大小
 CAPTCHA_FOREGROUND_COLOR = '#0033FF'  # 前景色
 CAPTCHA_BACKGROUND_COLOR = '#F5F7F4'  # 背景色
 CAPTCHA_NOISE_FUNCTIONS = (
-    'captcha.helpers.noise_arcs', # 线
-    'captcha.helpers.noise_dots', # 点
+    'captcha.helpers.noise_arcs',  # 线
+    'captcha.helpers.noise_dots',  # 点
 )
 # CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge' #字母验证码
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge' # 加减乘除验证码
-
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'  # 加减乘除验证码
 
 # ================================================= #
 # ******************** 其他配置 ******************** #
@@ -346,6 +344,8 @@ API_MODEL_MAP = {
 TABLE_PREFIX = "dvadmin_"
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 静态页面压缩
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # 初始化需要执行的列表，用来初始化后执行
 INITIALIZE_LIST = []
 INITIALIZE_RESET_LIST = []

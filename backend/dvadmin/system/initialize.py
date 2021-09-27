@@ -9,6 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'application.settings')
 django.setup()
 
 from dvadmin.system.models import Dept, Button, Menu, MenuButton, Role, Users
+from dvadmin.system.util import init_area
 
 
 class Initialize(CoreInitialize):
@@ -76,6 +77,9 @@ class Initialize(CoreInitialize):
              "parent_id": None},
             {"id": "97b8fd88-0510-4db7-8d53-983a04843c4c", "name": "字典管理", "sort": 1, "web_path": "/dictionary",
              "icon": "clock-o", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/dictionary",
+             "component_name": "dictionary"},
+            {"id": "97b8fd88-0510-4db7-8d53-983a04844c4c", "name": "地区管理", "sort": 6, "web_path": "/area",
+             "icon": "area-chart", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", "component": "system/area",
              "component_name": "dictionary"},
             {"id": "805390f3-a6e6-411e-9798-eebd34b76204", "name": "附件管理", "sort": 7, "web_path": "",
              "icon": "envelope", "parent_id": "54f769b0-3dff-416c-8102-e55ec44827cc", },
@@ -264,6 +268,7 @@ class Initialize(CoreInitialize):
         self.init_menu_button()
         self.init_role()
         self.init_users()
+        init_area.main()  # 初始化地区数据
 
 
 # 项目init 初始化，默认会执行 main 方法进行初始化

@@ -2,7 +2,7 @@
  * @创建文件时间: 2021-06-01 22:41:21
  * @Auther: 猿小天
  * @最后修改人: 猿小天
- * @最后修改时间: 2021-08-09 22:25:15
+ * @最后修改时间: 2021-09-26 21:18:29
  * 联系Qq:1638245306
  * @文件介绍:授权管理
 -->
@@ -210,7 +210,7 @@ export default {
       return crudOptions(this)
     },
     pageRequest (query) {
-      return api.GetList(query).then((res) => {
+      return api.GetList(query).then(res => {
         res.map((value, index) => {
           value.node_id = index
         })
@@ -222,7 +222,7 @@ export default {
     },
     initNode () {
       if (this.$route.params.id && this.$refs.tree) {
-        this.data.map((value) => {
+        this.data.map(value => {
           if (this.$route.params.id === value.id) {
             this.node_id = value.node_id
           }
@@ -243,16 +243,16 @@ export default {
     },
     // 获取部门数据
     getDeptData () {
-      deptApi.GetList({ status: 1 }).then((ret) => {
-        this.deptOptions = ret
+      deptApi.GetList({ status: 1 }).then(ret => {
+        this.deptOptions = ret.data.data
       })
     },
     // 获取菜单数据
     getMenuData (data) {
-      api.GetMenuData(data).then((res) => {
-        res.forEach((x) => {
+      api.GetMenuData(data).then(res => {
+        res.forEach(x => {
           // 根据当前角色的permission,对menuPermisson进行勾选处理
-          x.menuPermission.forEach((a) => {
+          x.menuPermission.forEach(a => {
             if (data.permission.indexOf(a.id) > -1) {
               this.$set(a, 'checked', true)
             } else {
@@ -261,7 +261,10 @@ export default {
           })
         })
         // 将菜单列表转换为树形列表
-        this.menuOptions = XEUtils.toArrayTree(res, { parentKey: 'parent', strict: true })
+        this.menuOptions = XEUtils.toArrayTree(res, {
+          parentKey: 'parent',
+          strict: true
+        })
       })
     },
     // 角色树被点击
@@ -296,8 +299,8 @@ export default {
       this.roleObj.dept = this.getDeptAllCheckedKeys() // 获取选中的部门
       const menuData = XEUtils.toTreeArray(this.menuOptions)
       const permissionData = []
-      menuData.forEach((x) => {
-        const checkedPermission = x.menuPermission.filter((f) => {
+      menuData.forEach(x => {
+        const checkedPermission = x.menuPermission.filter(f => {
           return f.checked
         })
 
@@ -308,7 +311,7 @@ export default {
         }
       })
       this.roleObj.permission = permissionData
-      return this.updateRequest(this.roleObj).then((res) => {
+      return this.updateRequest(this.roleObj).then(res => {
         this.$message.success('更新成功')
       })
     },

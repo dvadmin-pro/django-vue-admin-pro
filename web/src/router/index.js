@@ -16,7 +16,7 @@ import store from '@/store/index'
 import util from '@/libs/util.js'
 // 路由数据
 import routes from './routes'
-import { getMenu, handleAsideMenu, handleRouter } from '@/menu'
+import { getMenu, handleAsideMenu, handleRouter, checkRouter } from '@/menu'
 
 // fix vue-router NavigationDuplicated
 const VueRouterPush = VueRouter.prototype.push
@@ -58,6 +58,8 @@ router.beforeEach(async (to, from, next) => {
     if (!store.state.d2admin.menu || store.state.d2admin.menu.aside.length === 0) {
       // 动态添加路由
       getMenu().then(ret => {
+        // 校验路由是否有效
+        ret = checkRouter(ret)
         const routes = handleRouter(ret)
         // 处理路由 得到每一级的路由设置
         store.commit('d2admin/page/init', routes)
