@@ -128,7 +128,7 @@ npm run build:prod
 # 先安装docker-compose (自行百度安装),执行此命令等待安装，如有使用celery插件请打开docker-compose.yml中celery 部分注释
 docker-compose up -d
 # 初始化后端数据(第一次执行即可)
-docker exec -ti dvadmin-django bash
+docker exec -ti dvadmin-pro-django bash
 python manage.py makemigrations 
 python manage.py migrate
 python manage.py init -y
