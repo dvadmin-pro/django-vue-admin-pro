@@ -4,7 +4,7 @@
 # 数据库地址
 DATABASE_ENGINE = "django.db.backends.mysql"
 # 数据库地址 改为自己数据库地址
-DATABASE_HOST = "host.docker.internal"
+DATABASE_HOST = "127.0.0.1"
 # 数据库端口
 DATABASE_PORT = 3306
 # 数据库用户名
