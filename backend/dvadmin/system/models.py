@@ -127,7 +127,7 @@ class Menu(CoreModel):
         (1, "是"),
     )
     is_link = models.IntegerField(choices=ISLINK_CHOICES, default=0, verbose_name="是否外链", help_text="是否外链")
-    is_catalog = models.IntegerField(choices=ISLINK_CHOICES,default=0,verbose_name="是否目录",help_text="是否目录")
+    is_catalog = models.IntegerField(choices=ISLINK_CHOICES, default=0, verbose_name="是否目录", help_text="是否目录")
     web_path = models.CharField(max_length=128, verbose_name="路由地址", null=True, blank=True, help_text="路由地址")
     component = models.CharField(max_length=128, verbose_name="组件地址", null=True, blank=True, help_text="组件地址")
     component_name = models.CharField(max_length=50, verbose_name="组件名称", null=True, blank=True, help_text="组件名称")
@@ -263,3 +263,23 @@ class FileList(CoreModel):
         verbose_name = '文件管理'
         verbose_name_plural = verbose_name
         ordering = ('-create_datetime',)
+
+
+class Area(CoreModel):
+    name = models.CharField(max_length=100, verbose_name="名称", help_text="名称")
+    code = models.CharField(max_length=20, verbose_name="地区编码", help_text="地区编码", unique=True, db_index=True)
+    level = models.BigIntegerField(verbose_name="地区层级(1省份 2城市 3区县 4乡级)", help_text="地区层级(1省份 2城市 3区县 4乡级)")
+    pinyin = models.CharField(max_length=255, verbose_name="拼音", help_text="拼音")
+    initials = models.CharField(max_length=20, verbose_name="首字母", help_text="首字母")
+    enable = models.BooleanField(default=True, verbose_name="是否启用", help_text="是否启用")
+    pcode = models.ForeignKey(to='self', verbose_name='父地区编码', to_field="code", on_delete=models.CASCADE,
+                              db_constraint=False, null=True, blank=True, help_text="父地区编码")
+
+    class Meta:
+        db_table = table_prefix + "area"
+        verbose_name = '地区表'
+        verbose_name_plural = verbose_name
+        ordering = ('code',)
+
+    def __str__(self):
+        return f"{self.name}"

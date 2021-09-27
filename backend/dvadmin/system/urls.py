@@ -9,6 +9,7 @@
 from django.urls import path, re_path
 from rest_framework import routers
 
+from dvadmin.system.views.area import AreaViewSet
 from dvadmin.system.views.button import ButtonViewSet
 from dvadmin.system.views.dept import DeptViewSet
 from dvadmin.system.views.dictionary import DictionaryViewSet
@@ -28,16 +29,15 @@ system_url.register(r'role', RoleViewSet)
 system_url.register(r'dept', DeptViewSet)
 system_url.register(r'user', UserViewSet)
 system_url.register(r'operation_log', OperationLogViewSet)
-system_url.register(r'dictionary',DictionaryViewSet)
-system_url.register(r'img',ImgViewSet)
-system_url.register(r'file',FileViewSet)
-
-
+system_url.register(r'dictionary', DictionaryViewSet)
+system_url.register(r'area', AreaViewSet)
+system_url.register(r'img', ImgViewSet)
+system_url.register(r'file', FileViewSet)
 
 urlpatterns = [
     re_path('role/role_id_to_menu/(?P<pk>.*?)/', RoleViewSet.as_view({'get': 'roleId_to_menu'})),
     path('menu/web_router/', MenuViewSet.as_view({'get': 'web_router'})),
-    path('user/user_info/',UserViewSet.as_view({'get':'user_info','put':'update_user_info'})),
-    re_path('user/change_password/(?P<pk>.*?)/',UserViewSet.as_view({'put':'change_password'})),
+    path('user/user_info/', UserViewSet.as_view({'get': 'user_info', 'put': 'update_user_info'})),
+    re_path('user/change_password/(?P<pk>.*?)/', UserViewSet.as_view({'put': 'change_password'})),
 ]
 urlpatterns += system_url.urls

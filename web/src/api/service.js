@@ -177,6 +177,16 @@ function createRequestFunction (service) {
   // 校验是否为租户模式。租户模式把域名替换成 域名 加端口
   return function (config) {
     const token = util.cookies.get('token')
+    // 进行布尔值兼容
+    var params = get(config, 'params', {})
+    for (const key of Object.keys(params)) {
+      if (String(params[key]) === 'true') {
+        params[key] = 1
+      }
+      if (String(params[key]) === 'false') {
+        params[key] = 0
+      }
+    }
     const configDefault = {
       headers: {
         Authorization: 'JWT ' + token,
@@ -184,7 +194,8 @@ function createRequestFunction (service) {
       },
       timeout: 60000,
       baseURL: util.baseURL(),
-      data: {}
+      data: {},
+      params: params
     }
     return service(Object.assign(configDefault, config))
   }
