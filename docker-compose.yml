@@ -11,6 +11,7 @@ services:
       TZ: Asia/Shanghai
     volumes:
       - ./docker_env/nginx/my.conf:/etc/nginx/conf.d/my.conf
+      - ./web/dist:/usr/share/nginx/html
     expose:
       - "8080"
     networks:
@@ -25,7 +26,7 @@ services:
 #    privileged: true
     restart: always
     ports:
-      - "3307:3306"
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
       MYSQL_DATABASE: "dvadmin_pro"

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # 跨域中间件
     'django.middleware.common.CommonMiddleware',
@@ -343,6 +344,8 @@ API_MODEL_MAP = {
 TABLE_PREFIX = "dvadmin_"
 DJANGO_CELERY_BEAT_TZ_AWARE = False
 CELERY_TIMEZONE = 'Asia/Shanghai'  # celery 时区问题
+# 静态页面压缩
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # 初始化需要执行的列表，用来初始化后执行
 INITIALIZE_LIST = []
 INITIALIZE_RESET_LIST = []

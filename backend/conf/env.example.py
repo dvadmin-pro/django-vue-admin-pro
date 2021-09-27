@@ -18,5 +18,5 @@ DATABASE_NAME = "dvadmin_pro"
 # ================================================= #
 DEBUG = True  # 线上环境请设置为True
 # 是否启用插件，不需要可以设置为False
-ENABLE_PLUGINS = False
+ENABLE_PLUGINS = True
 ALLOWED_HOSTS = ["*"]
