@@ -11,6 +11,7 @@ services:
       TZ: Asia/Shanghai
     volumes:
       - ./docker_env/nginx/my.conf:/etc/nginx/conf.d/my.conf
+      - ./web/dist /usr/share/nginx/html
     expose:
       - "8080"
     networks:
