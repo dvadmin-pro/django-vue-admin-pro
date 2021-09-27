@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'dvadmin.utils.middleware.ApiLoggingMiddleware',
+    'dongtai_agent_python.middlewares.django_middleware.FireMiddleware',
 ]
 
 ROOT_URLCONF = 'application.urls'
