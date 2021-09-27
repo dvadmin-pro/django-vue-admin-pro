@@ -3,5 +3,4 @@ WORKDIR /backend
 COPY ./backend/ .
 COPY ./backend/conf/env.example.py /dvadmin-backend/conf/env.py
 RUN python3 -m pip install -i https://mirrors.aliyun.com/pypi/simple/ -r /requirements.txt
-CMD ["/backend/docker_start.sh"]
-# ENTRYPOINT [ "uwsgi --ini /backend/azcrm/uwsgi.ini" ]
+CMD ["daphne","-b","0.0.0.0","-p","8000","application.asgi:application"]

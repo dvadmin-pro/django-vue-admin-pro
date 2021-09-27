@@ -17,7 +17,7 @@ services:
     container_name: dvadmin-pro-mysql
     #使用该参数，container内的root拥有真正的root权限，否则，container内的root只是外部的一个普通用户权限
     #设置为true，不然数据卷可能挂载不了，启动不起
-    privileged: true
+#    privileged: true
     restart: always
     ports:
       - "3306:3306"
@@ -31,9 +31,7 @@ services:
       --max_connections=1000
       --default-authentication-plugin=mysql_native_password
     volumes:
-      #映射mysql的数据目录到宿主机，保存数据
       - "./docker_env/mysql/data:/var/lib/mysql"
-      #根据宿主机下的配置文件创建容器
       - "./docker_env/mysql/conf.d:/etc/mysql/conf.d"
       - "./docker_env/mysql/logs:/logs"
     networks:
